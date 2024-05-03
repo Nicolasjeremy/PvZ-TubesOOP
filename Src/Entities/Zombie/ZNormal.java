@@ -1,4 +1,4 @@
-package Src.Actors;
+package Src.Entities.Zombie;
 
 public class ZNormal extends Zombie {
     public ZNormal(String name, int[] position) {

@@ -1,6 +1,6 @@
-package Src.Actors;
+package Src.Entities;
 
-public class Actor {
+public class Entities {
     private String name;
     private int health;
     private int attackDmg;
@@ -8,7 +8,7 @@ public class Actor {
     private int[] position;
 
     // Constructor
-    public Actor(String name, int health, int attackDmg, int attackSpd, int[] position) {
+    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position) {
         this.name = name;
         this.health = health;
         this.attackDmg = attackDmg;

@@ -1,4 +1,4 @@
-package Src.Actors;
+package Src.Entities.Zombie;
 
 public class ZConeHead extends Zombie {
     public ZConeHead (String name, int[] position){

@@ -1,13 +1,14 @@
 package Src.GameMaps;
 
-import Src.Actors.*;
+import Src.Entities.*;
+
 import java.util.List;
 import java.util.ArrayList;
 
 public class Tile {
     private String area;
     private boolean canPlant;
-    private ArrayList<Actor> entity;
+    private ArrayList<Entities> entity;
 
     public Tile(String area, boolean canPlant) {
         this.area = area;
@@ -19,15 +20,15 @@ public class Tile {
         return this.area;
     }
 
-    public void addEntity(Actor actor) {
-        entity.add(actor);
+    public void addEntity(Entities entities) {
+        entity.add(entities);
     }
 
-    public void removeEntity(Actor actor) {
-        entity.add(actor);
+    public void removeEntity(Entities entities) {
+        entity.add(entities);
     }
 
-    public List<Actor> getEntities() {
+    public List<Entities> getEntities() {
         return this.entity;
     }
 

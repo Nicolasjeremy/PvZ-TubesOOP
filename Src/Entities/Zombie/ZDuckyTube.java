@@ -1,4 +1,4 @@
-package Src.Actors;
+package Src.Entities.Zombie;
 
 public class ZDuckyTube extends Zombie{
     public ZDuckyTube (String name, int[] position){

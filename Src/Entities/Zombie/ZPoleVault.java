@@ -1,4 +1,4 @@
-package Src.Actors;
+package Src.Entities.Zombie;
 
 public class ZPoleVault extends Zombie {
     public ZPoleVault(String name, int[] position){

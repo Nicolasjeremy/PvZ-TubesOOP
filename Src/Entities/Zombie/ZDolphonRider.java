@@ -1,4 +1,4 @@
-package Src.Actors;
+package Src.Entities.Zombie;
 
 public class ZDolphonRider extends Zombie{
     public ZDolphonRider (String name, int[] position){
