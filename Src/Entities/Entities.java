@@ -1,5 +1,8 @@
 package Src.Entities;
 
+import Src.GameMaps.GameMap;
+import Src.GameMaps.Tile;
+
 public class Entities {
     private String name;
     private int health;
@@ -56,4 +59,11 @@ public class Entities {
     public void setPosition(int[] position) {
         this.position = position;
     }
+
+    public void die(GameMap gameMap) {
+        Tile tile = gameMap.getTile(position[0], position[1]);
+        tile.removeEntity(this);
+    }
 }
+
+
