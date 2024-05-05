@@ -1,9 +1,13 @@
 package Src.GameMaps;
+import java.util.ArrayList;
+import Src.Entities.Entities;
+
+
 
 public class GameMap {
     private Tile[][] grid;
 
-    public GameMap(Tile[][] grid) {
+    public GameMap() {
         this.grid = new Tile[6][9];
 
         for (int row = 0; row < 6; row++) {
@@ -30,5 +34,30 @@ public class GameMap {
         }
         return this.grid[row][col];
     }
+
+    public void displayMap() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 9; col++) {
+                Tile tile = getTile(row, col);
+                ArrayList<Entities> entities = tile.getEntities();
+                
+                StringBuilder sb = new StringBuilder();
+                sb.append("[");
+                for (Entities entity : entities) {
+                    sb.append(entity.getName()).append(", ");
+                }
+
+                if (sb.length() > 1) { 
+                    sb.setLength(sb.length() - 2); 
+                }
+
+                sb.append("]");
+                System.out.print(sb.toString());
+            }
+            System.out.println();
+        }
+    }
+
+    
 }
  

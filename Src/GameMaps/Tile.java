@@ -2,7 +2,7 @@ package Src.GameMaps;
 
 import Src.Entities.*;
 
-import java.util.List;
+// import java.util.List;
 import java.util.ArrayList;
 
 public class Tile {
@@ -25,10 +25,10 @@ public class Tile {
     }
 
     public void removeEntity(Entities entities) {
-        entity.add(entities);
+        entity.remove(entities);
     }
 
-    public List<Entities> getEntities() {
+    public ArrayList<Entities> getEntities() {
         return this.entity;
     }
 
