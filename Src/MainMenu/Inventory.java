@@ -1,7 +1,5 @@
 package Src.MainMenu;
-
 import java.util.ArrayList;
-
 import Src.Entities.Plant.*;
 
 public class Inventory {
@@ -14,8 +12,6 @@ public class Inventory {
     }
 
     public void swapPlant(int index1, int index2){
-        
-
         Plant temPlant = Inventory.get(index1);
         Inventory.set(index1, Inventory.get(index2));
         Inventory.set(index2, temPlant);

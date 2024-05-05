@@ -14,7 +14,6 @@ public abstract class Zombie extends Entities {
     public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic) {
         super(name, health, attackDmg, attackSpd, position);
         this.isAquatic = isAquatic;
-        this.slow = slow;
     }
 
     public boolean getAquatic() {

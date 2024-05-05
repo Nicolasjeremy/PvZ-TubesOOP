@@ -1,6 +1,7 @@
 package Src.GameMaps;
 
 import Src.Entities.*;
+import Src.Entities.Plant.Plant;
 
 // import java.util.List;
 import java.util.ArrayList;
@@ -8,12 +9,14 @@ import java.util.ArrayList;
 public class Tile {
     private String area;
     private boolean canPlant;
+    private boolean hasPlant;
     private ArrayList<Entities> entity;
 
-    public Tile(String area, boolean canPlant) {
+    public Tile(String area, boolean canPlant, boolean hasPlant) {
         this.area = area;
         this.canPlant = canPlant;
         this.entity = new ArrayList<>();
+        this.hasPlant = hasPlant;
     }
 
     public String getType() {
@@ -32,8 +35,23 @@ public class Tile {
         return this.entity;
     }
 
+    public void isPlanted() {
+        for (Entities entities : entity) { 
+            if (entities instanceof Plant) {
+                hasPlant = true;
+            }
+        }
+        hasPlant = false;
+    }
+
+    public boolean hasPlanted() {
+        this.isPlanted();
+        return hasPlant;
+    }
+
     public boolean getCanPlant() {
         return canPlant;
     }
+    
 }
 

@@ -5,6 +5,7 @@ public abstract class Plant extends Entities {
     private Integer cost;
     private Integer range;
     private Integer cooldown;
+    private int[] position;
 
     public Plant (String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown) {
         super(name, health, attackDmg, attackSpd, position);
@@ -38,6 +39,10 @@ public abstract class Plant extends Entities {
      */
     public int getCooldown() {
         return cooldown;
+    }
+
+    public int[] getPosition() {
+        return position;
     }
 
     public abstract void action();
