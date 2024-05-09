@@ -10,10 +10,13 @@ import Src.Entities.Plant.Plant;;
 public abstract class Zombie extends Entities {
     private boolean isAquatic;
     private boolean slow;
+    private boolean special;
 
-    public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic) {
+    public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic,
+            boolean special) {
         super(name, health, attackDmg, attackSpd, position);
         this.isAquatic = isAquatic;
+        this.special = special;
     }
 
     public boolean getAquatic() {
@@ -32,6 +35,14 @@ public abstract class Zombie extends Entities {
         this.slow = slow;
     }
 
+    public boolean getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(boolean bool) {
+        special = bool;
+    }
+
     // ? ini action yang bakal dilakuin sesuai posisi zombienya
     public void action(GameMap gameMap) {
         boolean isplant = false;
@@ -43,6 +54,8 @@ public abstract class Zombie extends Entities {
         for (Entities entities : entity) { // ? Ngecek semua isi tile
             if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin
                 isplant = true;
+            } else {
+                isplant = false;
             }
         }
 
@@ -58,21 +71,32 @@ public abstract class Zombie extends Entities {
     // if there are no plant in the same tile the zombie walk, if there are plant it
     // attack
     public void attack(GameMap gameMap) {
+        boolean isplant = false;
         int[] position = getPosition(); // ? Buat posisi zombie
         Tile tile = gameMap.getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
 
         ArrayList<Entities> entity = tile.getEntities();
 
-        for (Entities entities : entity) {
-            if (entities instanceof Plant) {
-                Plant plant = (Plant) entities;
-                plant.setHealth(plant.getHealth() - this.getAttackDmg()); // ? kalo plant darahnya dikurangin sesuai
-                if (plant.getHealth() <= 0) {
-                    plant.die(gameMap);
-                }
-
+        for (Entities entities : entity) { // ? Ngecek semua isi tile
+            if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin
+                isplant = true;
+            } else {
+                isplant = false;
             }
         }
+
+        if (isplant == true && special == true) {
+            special(gameMap);
+        }
+
+        else if (isplant == true) {
+            attack(gameMap);
+        }
+
+        else {
+            walk(gameMap);
+        }
+
     }
 
     // the object decrease plant health in the same tile based on its atkdmg
@@ -104,4 +128,18 @@ public abstract class Zombie extends Entities {
 
     // the object advance in the game map from right to left
 
+    public void special(GameMap gameMap) {
+        int[] position = getPosition(); // ? Buat posisi zombie
+        Tile tile = gameMap.getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
+
+        ArrayList<Entities> entity = tile.getEntities();
+
+        for (Entities entities : entity) {
+            if (entities instanceof Plant) {
+                Plant plant = (Plant) entities;
+                plant.die(gameMap); // ? Kalo special ketemu plant, langsung dilompatin trus plantny mati
+                setSpecial(false);; // ? special nya ilang
+            }
+        }
+    }
 }
