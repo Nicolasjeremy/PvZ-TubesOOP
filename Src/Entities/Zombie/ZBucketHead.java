@@ -1,7 +1,9 @@
 package Src.Entities.Zombie;
 
+import Src.GameMaps.GameMap;
+
 public class ZBucketHead extends Zombie {
-    public ZBucketHead(String name, int[] position) {
-        super(name, 300, 100, 1, position, false, false);
+    public ZBucketHead(int[] position, GameMap gameMap) {
+        super("BucketHead", 300, 100, 1, position, false, false, gameMap);
     }
 }

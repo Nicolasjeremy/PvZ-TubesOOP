@@ -36,6 +36,7 @@ public class GameMap {
     }
 
     public void displayMap() {
+        System.out.println("--------------------------------------------------------------------------");
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 9; col++) {
                 Tile tile = getTile(row, col);
@@ -57,6 +58,8 @@ public class GameMap {
             System.out.println();
         }
     }
+
+    
 
     
 }

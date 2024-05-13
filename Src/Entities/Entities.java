@@ -9,14 +9,16 @@ public class Entities {
     private int attackDmg;
     private int attackSpd;
     private int[] position;
+    private GameMap gameMap;
 
     // Constructor
-    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position) {
+    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position, GameMap gameMap) {
         this.name = name;
         this.health = health;
         this.attackDmg = attackDmg;
         this.attackSpd = attackSpd;
         this.position = position;
+        this.gameMap = gameMap;
     }
 
     // Getters and setters
@@ -60,10 +62,16 @@ public class Entities {
         this.position = position;
     }
 
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
+    public void setgameMap(GameMap gameMap) {
+        this.gameMap = gameMap;
+    }
+
     public void die(GameMap gameMap) {
         Tile tile = gameMap.getTile(position[0], position[1]);
         tile.removeEntity(this);
     }
 }
-
-

@@ -3,8 +3,8 @@ package Src.Entities.Zombie;
 import Src.GameMaps.GameMap;
 
 public class ZAsep extends Zombie { // ! Zombie special dimana gabisa di freeze
-    public ZAsep(String name, int[] position) {
-        super(name, 125, 100, 1, position, false, false);
+    public ZAsep(String name, int[] position, GameMap gameMap) {
+        super(name, 125, 100, 1, position, false, false, gameMap);
     }
 
     @Override

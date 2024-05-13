@@ -1,22 +1,24 @@
 package Src.Entities.Zombie;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Src.Entities.Entities;
 import Src.GameMaps.GameMap;
 import Src.GameMaps.Tile;
 import Src.Entities.Plant.Plant;;
 
-public abstract class Zombie extends Entities {
+public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
     private boolean slow;
     private boolean special;
 
     public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic,
-            boolean special) {
-        super(name, health, attackDmg, attackSpd, position);
+            boolean special, GameMap gameMap) {
+        super(name, health, attackDmg, attackSpd, position, gameMap);
         this.isAquatic = isAquatic;
         this.special = special;
+
     }
 
     public boolean getAquatic() {
@@ -44,57 +46,46 @@ public abstract class Zombie extends Entities {
     }
 
     // ? ini action yang bakal dilakuin sesuai posisi zombienya
-    public void action(GameMap gameMap) {
+    public void action() {
+        Plant plantInTile = null;
         boolean isplant = false;
         int[] position = getPosition(); // ? Buat posisi zombie
-        Tile tile = gameMap.getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
+        Tile tile = getGameMap().getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
 
         ArrayList<Entities> entity = tile.getEntities();
 
         for (Entities entities : entity) { // ? Ngecek semua isi tile
             if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin
                 isplant = true;
+                Plant plant = (Plant) entities;
+                plantInTile = plant;
+                break;
             } else {
                 isplant = false;
             }
         }
 
         if (isplant == true) {
-            attack(gameMap);
+            if (getSpecial() == true) {
+                special(getGameMap(), plantInTile);
+                setSpecial(false);
+            } else {
+                attack(getGameMap(), plantInTile);
+            }
         }
 
         else {
-            walk(gameMap);
+            walk(getGameMap());
         }
     }
 
     // if there are no plant in the same tile the zombie walk, if there are plant it
     // attack
-    public void attack(GameMap gameMap) {
-        boolean isplant = false;
-        int[] position = getPosition(); // ? Buat posisi zombie
-        Tile tile = gameMap.getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
-
-        ArrayList<Entities> entity = tile.getEntities();
-
-        for (Entities entities : entity) { // ? Ngecek semua isi tile
-            if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin
-                isplant = true;
-            } else {
-                isplant = false;
-            }
-        }
-
-        if (isplant == true && special == true) {
-            special(gameMap);
-        }
-
-        else if (isplant == true) {
-            attack(gameMap);
-        }
-
-        else {
-            walk(gameMap);
+    public void attack(GameMap gameMap, Plant plant) {
+        int dmg = this.getAttackDmg();
+        plant.setHealth(plant.getHealth() - dmg); // ? kalo plant, darahnya dikurangin sesuai
+        if (plant.getHealth() <= 0) {
+            plant.die(gameMap);
         }
 
     }
@@ -128,18 +119,20 @@ public abstract class Zombie extends Entities {
 
     // the object advance in the game map from right to left
 
-    public void special(GameMap gameMap) {
-        int[] position = getPosition(); // ? Buat posisi zombie
-        Tile tile = gameMap.getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
+    public void special(GameMap gameMap, Plant plant) {
+        plant.die(gameMap);
+    }
 
-        ArrayList<Entities> entity = tile.getEntities();
+    public void run() {
+        int i = 0;
+        try {
+            while (i < 15) {
+                Thread.sleep(2000);
+                action();
+                i++;
 
-        for (Entities entities : entity) {
-            if (entities instanceof Plant) {
-                Plant plant = (Plant) entities;
-                plant.die(gameMap); // ? Kalo special ketemu plant, langsung dilompatin trus plantny mati
-                setSpecial(false);; // ? special nya ilang
             }
+        } catch (InterruptedException e) {
         }
     }
 }
