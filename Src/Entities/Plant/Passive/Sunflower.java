@@ -1,12 +1,13 @@
 package Src.Entities.Plant.Passive;
+import Src.GameMaps.*;
 
 public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
     private int lastSun;
     private int sun;
 
-    public Sunflower(String name, int[] position, int sunWaitingTime, int lastSun) {
-        super(name, 300, attackDmg, attackSpd, position, 50, range, 10);
+    public Sunflower(int[] position, int sunWaitingTime, int lastSun, GameMap gameMap) {
+        super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap);
         this.sunWaitingTime = 10;
         this.lastSun = lastSun;
         this.sun = 25;

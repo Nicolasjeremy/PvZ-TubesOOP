@@ -1,7 +1,8 @@
 package Src.Entities.Plant.Melee;
+import Src.GameMaps.*;
 
 public class Chomper extends MeleePlant{
-    public Chomper(String name, int[] position) {
-        super(name, 100, attackDmg, attackSpd, position, 50, range, 20);
+    public Chomper(int[] position, GameMap gameMap) {
+        super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap);
     }    
 }

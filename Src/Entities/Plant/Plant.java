@@ -1,4 +1,5 @@
 package Src.Entities.Plant;
+
 import Src.GameMaps.*;
 import Src.Entities.Entities;
 
@@ -10,7 +11,7 @@ public abstract class Plant extends Entities {
 
     public Plant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
             int cooldown, GameMap gameMap) {
-        super(name, health, attackDmg, attackSpd, position, null);
+        super(name, health, attackDmg, attackSpd, position, gameMap);
         this.cost = cost;
         this.range = range;
         this.cooldown = cooldown;
@@ -41,10 +42,6 @@ public abstract class Plant extends Entities {
      */
     public int getCooldown() {
         return cooldown;
-    }
-
-    public int[] getPosition() {
-        return position;
     }
 
     public abstract void action();

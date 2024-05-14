@@ -52,12 +52,25 @@ public class Main {
     public static boolean gameEnd = false;
 
     public static void main(String[] args) {
-        // Membuat GameMap dengan ukuran 6x9
-        GameMap gameMap = new GameMap(); // Inisiasi GameMap
-        int i = 0;
+        // Initialize GameMap
+        GameMap gameMap = new GameMap();
+
+        // Initialize plant position
+        int[] peaPosition = { 2, 2 };
+        Peashooter peashooter = new Peashooter(peaPosition, gameMap);
+        Thread plantThread = new Thread(peashooter);
+        plantThread.start();
+
+        // Add plant to the map
+        gameMap.getTile(peaPosition[0], peaPosition[1]).addEntity(peashooter);
+
+        // Initialize ZombieManager
         ZombieManager zombieManager = new ZombieManager(gameMap);
         Thread zombieManagerThread = new Thread(zombieManager);
         zombieManagerThread.start();
+
+        // Main game loop
+        int i = 0;
         while (i < 8) {
             try {
                 Thread.sleep(3000);
@@ -65,6 +78,7 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            i++;
         }
     }
 }
