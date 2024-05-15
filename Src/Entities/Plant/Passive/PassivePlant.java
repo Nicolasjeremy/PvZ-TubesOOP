@@ -11,5 +11,5 @@ public class PassivePlant extends Plant{
         super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap);
     }
 
-    public void action () {};
+    public void attack() {};
 }

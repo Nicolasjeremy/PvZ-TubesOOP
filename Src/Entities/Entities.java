@@ -7,7 +7,7 @@ public class Entities {
     private String name;
     private int health;
     private int attackDmg;
-    private int attackSpd;
+    protected int attackSpd;
     private int[] position;
     private GameMap gameMap;
 

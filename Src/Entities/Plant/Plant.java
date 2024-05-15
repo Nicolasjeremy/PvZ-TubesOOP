@@ -44,5 +44,5 @@ public abstract class Plant extends Entities {
         return cooldown;
     }
 
-    public abstract void action();
+    public abstract void attack();
 }

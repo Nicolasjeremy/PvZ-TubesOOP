@@ -1,4 +1,6 @@
 package Src.Entities.Plant.Melee;
+
+//import Src.Entities.Zombie.*;
 import Src.GameMaps.*;
 
 public class Squash extends MeleePlant {
