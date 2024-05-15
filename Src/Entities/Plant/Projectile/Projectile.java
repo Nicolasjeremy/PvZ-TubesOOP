@@ -1,4 +1,4 @@
-package Src.Entities.Plant;
+package Src.Entities.Plant.Projectile;
 
 import Src.GameMaps.*;
 

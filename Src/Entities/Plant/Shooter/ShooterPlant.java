@@ -2,6 +2,7 @@ package Src.Entities.Plant.Shooter;
 
 import Src.GameMaps.*;
 import Src.Entities.Plant.*;
+import Src.Entities.Plant.Projectile.*;
 
 public class ShooterPlant extends Plant implements Runnable {
     public static final int range = -1;

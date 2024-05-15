@@ -1,7 +1,7 @@
 package Src.Entities.Plant.Shooter;
 
 import Src.GameMaps.*;
-import Src.Entities.Plant.*;
+import Src.Entities.Plant.Projectile.Projectile;
 
 public class Repeater extends ShooterPlant{
     public Repeater (int[] position, GameMap gameMap) {
