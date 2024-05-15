@@ -35,7 +35,17 @@ public class Tile {
         return this.entity;
     }
 
-    public void isPlanted() {
+    public Plant getTilePlant() {
+        for (Entities entities : entity) {
+            if (entities instanceof Plant) {
+                Plant plant = (Plant) entities;
+                return plant;
+            }
+        }
+        return null;
+    }
+
+    public void setPlanted() {
         for (Entities entities : entity) { 
             if (entities instanceof Plant) {
                 hasPlant = true;
@@ -45,7 +55,7 @@ public class Tile {
     }
 
     public boolean hasPlanted() {
-        this.isPlanted();
+        this.setPlanted();
         return hasPlant;
     }
 
