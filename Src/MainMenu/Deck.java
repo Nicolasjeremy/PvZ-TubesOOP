@@ -11,8 +11,8 @@ public class Deck {
     private GameMap gameMap;
     private boolean full;
 
-    public Deck() {
-        // this.gameMap = gameMap;
+    public Deck(GameMap gameMap) {
+        this.gameMap = gameMap;
         this.deck = new ArrayList<>();
         this.full = false;
     }
@@ -21,16 +21,17 @@ public class Deck {
         return deck.size();
     }
 
-    public Plant get(int index) {
-        return deck.get(index);
-    }
-
-    public void set(int index, Plant plant) {
-        deck.set(index, plant);
-    }
-
     public ArrayList<Plant> getDeck() {
         return this.deck;
+    }
+
+    public Plant getPlantFromDeck(Deck deck, String plantName) {
+        for (Plant plant : deck.getDeck()) {
+            if (plant.getName().equalsIgnoreCase(plantName)) {
+                return plant;
+            }
+        }
+        return null;
     }
 
     public int indexOf(Plant plant) {
@@ -38,7 +39,7 @@ public class Deck {
     }
     //MASIH NGASAL
     public boolean isCooldownOver () {
-        return true;
+        return false;
     }
 
     public void setFull(boolean isFull) {
@@ -89,26 +90,35 @@ public class Deck {
     }
 
     public void planting(Plant plant, int[] position) {
-            Tile tile = gameMap.getTile(position[0], position[1]);
-            if (tile.hasPlanted()) {
-                System.out.println("This Tile Has Been Planted!");
-            }
-            else if (isCooldownOver()) {
+            Tile tile = this.gameMap.getTile(position[0], position[1]);
+            if (isCooldownOver()) {
                 System.out.println("This Plant is On Cooldown!");
             }
-            else {
-                tile.addEntity(plant);
+            else if (tile.hasPlanted()) {
+                System.out.println("This Tile Has Been Planted!");
             }
+            else {
+                plant.setPosition(position);
+                tile.addEntity(plant);
+                tile.setPlanted(true);
+                System.out.println("Plant Planted Successfully!");
+
+                Thread plantThread = new Thread(plant);
+                plantThread.start();
+            }
+            
     }
 
     public void unPlanting(int[] position) {
-        Tile tile = gameMap.getTile(position[0], position[1]);
+        Tile tile = this.gameMap.getTile(position[0], position[1]);
         if (tile.hasPlanted() == false) {
             System.out.println("This Tile Is Not Planted By Any Plant!");
         }
         else {
             Plant templant = tile.getTilePlant();
+            System.out.println("Plant name : " + templant.getName());
             tile.removeEntity(templant);
+            System.out.println("Plant Removed!");
         }
     }
 

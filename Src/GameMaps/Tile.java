@@ -12,11 +12,11 @@ public class Tile {
     private boolean hasPlant;
     private ArrayList<Entities> entity;
 
-    public Tile(String area, boolean canPlant, boolean hasPlant) {
+    public Tile(String area, boolean canPlant) {
         this.area = area;
         this.canPlant = canPlant;
         this.entity = new ArrayList<>();
-        this.hasPlant = hasPlant;
+        this.hasPlant = false;
     }
 
     public String getType() {
@@ -25,6 +25,7 @@ public class Tile {
 
     public void addEntity(Entities entities) {
         entity.add(entities);
+        this.hasPlant = true;
     }
 
     public void removeEntity(Entities entities) {
@@ -45,17 +46,11 @@ public class Tile {
         return null;
     }
 
-    public void setPlanted() {
-        for (Entities entities : entity) { 
-            if (entities instanceof Plant) {
-                hasPlant = true;
-            }
-        }
-        hasPlant = false;
+    public void setPlanted(boolean hasplant) {
+        this.hasPlant = hasplant;
     }
 
     public boolean hasPlanted() {
-        this.setPlanted();
         return hasPlant;
     }
 

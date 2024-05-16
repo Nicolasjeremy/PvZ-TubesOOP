@@ -4,7 +4,7 @@ public class Pool extends Tile {
     private boolean lilyPad_Plant;
 
     public Pool(boolean lilyPad_Plant) {
-        super("Pool", false, false);
+        super("Pool", false);
         this.lilyPad_Plant = lilyPad_Plant;
     }
 

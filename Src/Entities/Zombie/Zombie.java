@@ -127,7 +127,7 @@ public abstract class Zombie extends Entities implements Runnable {
         int i = 0;
         try {
             while (i < 15) {
-                Thread.sleep(2000);
+                Thread.sleep(10000);
                 action();
                 i++;
 

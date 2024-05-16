@@ -11,6 +11,7 @@ import Src.Entities.Plant.Passive.Wallnut;
 import Src.Entities.Plant.Shooter.Peashooter;
 import Src.Entities.Plant.Shooter.Repeater;
 import Src.Entities.Plant.Shooter.Snowpea;
+// import Src.Entities.Plant.Projectile.*;
 
 public class Inventory {
     public static final int MAXCAPACITYDECK = 6;
@@ -28,9 +29,13 @@ public class Inventory {
         // inventory.add(new Sunflower(null, MAXCAPACITYDECK, MAXCAPACITYDECK, null));
         inventory.add(new Tallnut(null, null));
         inventory.add(new Wallnut(null, null));
-        inventory.add(new Peashooter(null, null));
-        inventory.add(new Repeater(null, null));
-        inventory.add(new Snowpea(null, null));
+        // inventory.add(new Peashooter(null, null));
+        // inventory.add(new Repeater(null, null));
+        // inventory.add(new Snowpea(null, null));
+    }
+
+    public ArrayList<Plant> getInventory() {
+        return this.inventory;
     }
 
     // Objects.equals(this.getName(), otherPlant.getName());

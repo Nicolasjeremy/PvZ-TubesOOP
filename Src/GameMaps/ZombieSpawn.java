@@ -6,6 +6,6 @@ import Src.Entities.Zombie.*;
 
 public class ZombieSpawn extends Tile {
     public ZombieSpawn() {
-        super("ZombieSpawn", false, false);
+        super("ZombieSpawn", false);
     }
 }
