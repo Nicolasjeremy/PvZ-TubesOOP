@@ -4,7 +4,7 @@ import Src.GameMaps.*;
 public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
     private int sun;
-	private Sun sunInstance;
+    private Sun sunInstance;
 
     public Sunflower(int[] position, int sunWaitingTime, int lastSun, GameMap gameMap) {
         super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap);
