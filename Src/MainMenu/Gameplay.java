@@ -33,12 +33,17 @@ public class Gameplay implements Runnable {
     public void run() {
 
         try {
+
             ZombieManager zombieManager = new ZombieManager(gameMap);
             Thread zombieManagerThread = new Thread(zombieManager);
-            zombieManagerThread.start();
+            
 
             while (current_time > 0) {
-
+                if (current_time == 180000) {
+                    zombieManagerThread.start();
+                } else if (current_time == 40000) {
+                    zombieManagerThread.interrupt();
+                }
                 if (current_time == 100000) {
                     this.isDay = false;
                     System.out.println("\nNight has come");
