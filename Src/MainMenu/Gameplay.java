@@ -18,6 +18,7 @@ public class Gameplay implements Runnable{
     private Inventory inventory;
 
 
+
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
         this.current_time = 10;
@@ -37,19 +38,11 @@ public class Gameplay implements Runnable{
             Thread zombieManagerThread = new Thread(zombieManager);
             zombieManagerThread.start();
 
-<<<<<<< Updated upstream
             while (current_time> 0) {
                 
                 if (current_time == 5) {
                     this.isDay = false;
                     System.out.println("\nNight has come");
-=======
-                for (int i = 0; i < current_time; i++) {
-                    Thread.sleep(1000);
-                    this.current_time--;
-                    System.out.println(current_time); 
-                    gameMap.displayMap(); 
->>>>>>> Stashed changes
                 }
                 Thread.sleep(1000);
                 this.current_time--;
