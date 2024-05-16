@@ -45,6 +45,10 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                     GameMap.class);
             // Di loop buat semua Tile
             for (int i = 0; i <= 5; i++) {
+                if (ZombieCounter >= 9) {
+                    break;
+                }
+
                 int[] position = { i, 8 };
                 if (i == 2 || i == 3) { // Kalo tile 3 dan 4 yang ke spawn bakal Zombie di air
                     int randomspwn = random.nextInt(10);
@@ -78,17 +82,13 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
     public void run() {
         while (true) { // todo: Hanya boleh ada maksimal 10 zombie di game map dalam satu waktu.
             try {
-<<<<<<< Updated upstream
-                Thread.sleep(10000);
-                spawnZombie();
-                // gameMap.displayMap();
-=======
                 Thread.sleep(1000);
-                if (ZombieCounter <= 9) {
+                System.out.println(ZombieCounter);
+                if (ZombieCounter <= 10) {
                     spawnZombie();
+
                 } else {
                 }
->>>>>>> Stashed changes
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -1,4 +1,5 @@
 package Src.MainMenu;
+
 import java.util.ArrayList;
 
 import Src.Entities.Entities;
@@ -7,7 +8,7 @@ import Src.GameMaps.Sun;
 import Src.GameMaps.ZombieManager;
 import java.util.ArrayList;
 
-public class Gameplay implements Runnable{
+public class Gameplay implements Runnable {
     private ArrayList<Entities> entities;
     private int current_time;
     private boolean isDay;
@@ -17,11 +18,9 @@ public class Gameplay implements Runnable{
     private Deck deck;
     private Inventory inventory;
 
-
-
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 10;
+        this.current_time = 200000;
         this.isDay = true;
         this.isEnd = false;
         Gameplay.sun = new Sun();
@@ -32,15 +31,15 @@ public class Gameplay implements Runnable{
 
     @Override
     public void run() {
-        
+
         try {
             ZombieManager zombieManager = new ZombieManager(gameMap);
             Thread zombieManagerThread = new Thread(zombieManager);
             zombieManagerThread.start();
 
-            while (current_time> 0) {
-                
-                if (current_time == 5) {
+            while (current_time > 0) {
+
+                if (current_time == 100000) {
                     this.isDay = false;
                     System.out.println("\nNight has come");
                 }
@@ -52,32 +51,41 @@ public class Gameplay implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
     }
+
     public ArrayList<Entities> getEntities() {
         return this.entities;
     }
+
     public int getCurrentTime() {
         return this.current_time;
     }
+
     public boolean getIsDay() {
         return this.isDay;
     }
+
     public boolean getIsEnd() {
         return this.isEnd;
     }
+
     public Sun getSun() {
         return sun;
     }
+
     public GameMap getGameMap() {
         return gameMap;
     }
+
     public Deck getDeck() {
         return deck;
     }
+
     public Inventory getInventory() {
         return inventory;
     }
+
     public void setEntities(ArrayList<Entities> entities) {
         this.entities = entities;
     }
@@ -85,24 +93,31 @@ public class Gameplay implements Runnable{
     public void setCurrentTime(int current_time) {
         this.current_time = current_time;
     }
+
     public void setIsDay(boolean isDay) {
         this.isDay = isDay;
     }
+
     public void setIsEnd(boolean isEnd) {
         this.isEnd = isEnd;
     }
+
     public void setSun(Sun sun) {
         Gameplay.sun = sun;
     }
+
     public void setGameMap(GameMap gameMap) {
         this.gameMap = gameMap;
     }
+
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
+
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
+
     public void resetAttributes() {
         this.entities = new ArrayList<Entities>();
         this.current_time = 10;
