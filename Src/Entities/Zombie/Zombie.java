@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Src.Entities.Entities;
-import Src.GameMaps.GameMap;
-import Src.GameMaps.Tile;
-import Src.Entities.Plant.Plant;;
+import Src.Entities.Plant.Plant;
+import Src.GameMaps.*;
 
 public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
@@ -43,6 +42,14 @@ public abstract class Zombie extends Entities implements Runnable {
 
     public void setSpecial(boolean bool) {
         special = bool;
+    }
+
+    @Override
+    public void die(GameMap gameMap) {
+        int[] position = getPosition();
+        Tile tile = gameMap.getTile(position[0], position[1]);
+        tile.removeEntity(this);
+        ZombieManager.ZombieCounter--;
     }
 
     // ? ini action yang bakal dilakuin sesuai posisi zombienya
@@ -123,13 +130,16 @@ public abstract class Zombie extends Entities implements Runnable {
         plant.die(gameMap);
     }
 
-    public void run() {
-        int i = 0;
+    public void run() { // ? Methode RUN Zombie
         try {
-            while (i < 15) {
-                Thread.sleep(10000);
-                action();
-                i++;
+            while (true) { // todo: ni Blom diubah whilenya harusnya selama blom menang
+                if (this.isSlow() == true) { // ! Blom dites
+                    Thread.sleep(7500);// todo: jadi kalo udah 3 detik ga di slow, efek slownya ilang
+                    action();
+                } else {
+                    Thread.sleep(5000);
+                    action();
+                }
 
             }
         } catch (InterruptedException e) {
