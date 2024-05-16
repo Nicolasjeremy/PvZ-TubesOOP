@@ -14,41 +14,45 @@ public class Gameplay implements Runnable{
     private boolean isEnd;
     private static Sun sun;
     private GameMap gameMap;
+    private Deck deck;
+    private Inventory inventory;
 
 
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 200;
+        this.current_time = 10;
         this.isDay = true;
         this.isEnd = false;
         Gameplay.sun = new Sun();
         this.gameMap = new GameMap();
+        this.deck = new Deck(gameMap);
+        this.inventory = new Inventory(deck);
     }
 
     @Override
     public void run() {
-        while (true) {
-            try {
-                ZombieManager zombieManager = new ZombieManager(gameMap);
-                Thread zombieManagerThread = new Thread(zombieManager);
-                zombieManagerThread.start();
+        
+        try {
+            ZombieManager zombieManager = new ZombieManager(gameMap);
+            Thread zombieManagerThread = new Thread(zombieManager);
+            zombieManagerThread.start();
 
-                for (int i = 0; i < current_time; i++) {
-                    Thread.sleep(1000);
-                    this.current_time--;
-                    System.out.println(current_time);  
+            while (current_time> 0) {
+                
+                if (current_time == 5) {
+                    this.isDay = false;
+                    System.out.println("\nNight has come");
                 }
-                if (current_time == 100) {
-                    this.isDay = !this.isDay;
-                    System.out.println("Night has come");
-                }
-                System.out.println("Game end");
-                this.isEnd = true;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(1000);
+                this.current_time--;
+                // System.out.print(current_time);
             }
+            this.isEnd = true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        
     }
     public ArrayList<Entities> getEntities() {
         return this.entities;
@@ -68,6 +72,12 @@ public class Gameplay implements Runnable{
     public GameMap getGameMap() {
         return gameMap;
     }
+    public Deck getDeck() {
+        return deck;
+    }
+    public Inventory getInventory() {
+        return inventory;
+    }
     public void setEntities(ArrayList<Entities> entities) {
         this.entities = entities;
     }
@@ -86,6 +96,22 @@ public class Gameplay implements Runnable{
     }
     public void setGameMap(GameMap gameMap) {
         this.gameMap = gameMap;
+    }
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+    public void resetAttributes() {
+        this.entities = new ArrayList<Entities>();
+        this.current_time = 10;
+        this.isDay = true;
+        this.isEnd = false;
+        Gameplay.sun = new Sun();
+        this.gameMap = new GameMap();
+        this.deck = new Deck(gameMap);
+        this.inventory = new Inventory(deck);
     }
 
 }

@@ -58,6 +58,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
             try {
                 Thread.sleep(10000);
                 spawnZombie();
+                // gameMap.displayMap();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

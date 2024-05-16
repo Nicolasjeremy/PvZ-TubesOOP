@@ -3,12 +3,10 @@ package Src.MainMenu;
 public class Command {
     public void start() {
         System.out.println("Game Started");
-        Singleton singleton = Singleton.getInstance();
-        Gameplay gameplay = singleton.getGame();
-        Thread gameplayThread = new Thread(gameplay);
-        gameplayThread.start();
-        gameplayThread.getName();
+       
         
+        
+
 
     }
     public void help() {

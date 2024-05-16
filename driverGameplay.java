@@ -1,4 +1,7 @@
-package Src.MainMenu;
+
+
+import Src.MainMenu.Gameplay;
+import Src.MainMenu.Singleton;
 
 public class driverGameplay {
     public static void main(String[] args) {
@@ -14,7 +17,6 @@ public class driverGameplay {
         // Now you can use the 'game' object from the singleton
         Gameplay game = singleton1.getGame();
         Thread gameplayThread = new Thread(game);
-        gameplayThread.start(); // for example
         Gameplay game2 = singleton2.getGame();
         Thread gameplayThread2 = new Thread(game2);
         gameplayThread2.start();
