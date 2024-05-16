@@ -68,9 +68,10 @@ public class Gameplay implements Runnable{
     public GameMap getGameMap() {
         return gameMap;
     }
-    public void setEntities(Entities entities) {
+    public void setEntities(ArrayList<Entities> entities) {
         this.entities = entities;
     }
+
     public void setCurrentTime(int current_time) {
         this.current_time = current_time;
     }
