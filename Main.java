@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,61 +9,70 @@ import Src.MainMenu.Gameplay;
 import Src.MainMenu.Inventory;
 import Src.MainMenu.Singleton;
 
-public class Main {    public static void main(String[] args) {
+public class Main {
+    public static void main(String[] args) {
         System.out.println("Selamat datang di game pvz");
-        // Thread.sleep(1000);
-        Boolean Menu_status = true;
-        Boolean game_status = false;
+        Boolean menuStatus = true;
+        Boolean gameStatus = false;
 
         Scanner scanner = new Scanner(System.in);
-        while (Menu_status) {
+        while (menuStatus) {
             System.out.println("Masukan command anda:");
             String perintah = scanner.nextLine();
-            // StringBuilder sb = new StringBuilder(perintah);
-            // System.out.println(sb);
             Command command = new Command();
 
-            if (perintah.equals("Start")) {
-                if (game_status == false) {
-                    game_status = true;
+            if (perintah.equalsIgnoreCase("Start")) {
+                if (!gameStatus) {
+                    gameStatus = true;
                 } else {
                     System.out.println("Game sudah berjalan");
                 }
-            } else if (perintah.equals("Help")) {
+            } else if (perintah.equalsIgnoreCase("Help")) {
                 command.help();
-            } else if (perintah.equals("Zombie List")) {
+            } else if (perintah.equalsIgnoreCase("Zombie List")) {
                 command.zombielist();
-            } else if (perintah.equals("Plant List")) {
+            } else if (perintah.equalsIgnoreCase("Plant List")) {
                 command.plantlist();
-            } else if (perintah.equals("Exit")) {
+            } else if (perintah.equalsIgnoreCase("Exit")) {
                 command.exit();
-                Menu_status = false;
-                game_status = false;
-                
+                menuStatus = false;
+                gameStatus = false;
             } else {
                 System.out.println("Perintah tidak dikenali");
             }
-            while (game_status) {
+
+            while (gameStatus) {
                 command.start();
                 Singleton singleton = Singleton.getInstance();
                 Gameplay gameplay = singleton.getGame();
-                
+
                 GameMap gameMap = new GameMap();
 
                 // Initialize Inventory, Deck, And Filling Deck
                 Deck deck = new Deck(gameMap);
                 Inventory inventory = new Inventory(deck);
-                
+
                 System.out.print("Want Autofill? (Yes/No): ");
                 String inputuser = scanner.next();
-                if (inputuser.equals("Yes")) {
+                if (inputuser.equalsIgnoreCase("Yes")) {
                     ArrayList<Plant> inventoryCopy = new ArrayList<>(inventory.getInventory());
-                    for (Plant i : inventoryCopy) {
-                        inventory.addDeck(i);
+                    for (Plant plant : inventoryCopy) {
+                        inventory.addDeck(inventory.getInventory().indexOf(plant));
                     }
-                }
-                else {
-                    DriverInventory.InventoryDeck(deck, inventory);
+                } else {
+                    // Manual fill deck
+                    // boolean autofill = false;
+                    // while (!autofill) {
+                    //     inventory.displayInventory();
+                    //     System.out.print("Enter the index of the plant to add to the deck (0 to stop): ");
+                    //     int index = scanner.nextInt() - 1;
+                    //     if (index == -1) {
+                    //         autofill = true;
+                    //     } else {
+                    //         inventory.addDeck(index);
+                    //     }
+                    // }
+                    DriverInventory.InventoryDeck(deck, inventory, scanner);
                 }
 
                 // Playing the game
@@ -76,26 +83,27 @@ public class Main {    public static void main(String[] args) {
                         Thread.sleep(1000);
                         System.out.println(count);
                         count--;
-                    }
-                    catch (Exception e) {
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                     }
                 }
 
                 try {
                     Thread.sleep(1000);
-                    System.out.println("Game Start!"); 
+                    System.out.println("Game Start!");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
-                catch (Exception e) {
-                }
+
                 gameplay.setGameMap(gameMap);
                 gameplay.setDeck(deck);
                 gameplay.setInventory(inventory);
                 System.out.println("Data Game Map, Deck, dan Inventory Tersimpan");
                 Thread gameplayThread = new Thread(gameplay);
                 gameplayThread.start();
-                
+
                 // GamePlay
-                while (game_status && !gameplay.getIsEnd()) {
+                while (gameStatus && !gameplay.getIsEnd()) {
                     System.out.println("\n1. Plant");
                     System.out.println("2. Unplant");
                     System.out.println("3. Display Map");
@@ -114,9 +122,10 @@ public class Main {    public static void main(String[] args) {
 
                     switch (choice) {
                         case 1:
-                            System.out.print("Enter the name of the plant to plant: ");
-                            String plantNameToPlant = scanner.nextLine();
-                            Plant plantToPlant = deck.getPlantFromDeck(deck, plantNameToPlant);
+                            deck.displayDeck();
+                            System.out.print("Enter the index of the plant to plant: ");
+                            int plantIndexToPlant = scanner.nextInt() - 1;
+                            Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
                             if (plantToPlant != null) {
                                 System.out.print("Enter the row and column to plant (e.g., 2 3): ");
                                 int row = scanner.nextInt();
@@ -130,18 +139,18 @@ public class Main {    public static void main(String[] args) {
                             break;
                         case 2:
                             System.out.print("Enter the row and column to unplant (e.g., 2 3): ");
-                            int row = scanner.nextInt();
-                            int col = scanner.nextInt();
+                            int rowToUnplant = scanner.nextInt();
+                            int colToUnplant = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
-                            int[] position = { row, col };
-                            deck.unPlanting(position);
+                            int[] positionToUnplant = { rowToUnplant, colToUnplant };
+                            deck.unPlanting(positionToUnplant);
                             break;
                         case 3:
                             gameMap.displayMap();
                             break;
                         case 4:
                             System.out.println("Exiting...");
-                            game_status = false;
+                            gameStatus = false;
                             gameplayThread.interrupt();
                             System.out.println("Kembali ke Main Menu...");
                             break;
@@ -155,17 +164,15 @@ public class Main {    public static void main(String[] args) {
                             System.out.println("Invalid option!");
                             break;
                     }
-                    
                 }
+
                 if (gameplay.getIsEnd()) {
                     System.out.println("Game Over ;(");
-                    game_status = false;
+                    gameStatus = false;
                     gameplayThread.interrupt();
                     gameplay.resetAttributes();
                 }
-
             }
-            
         }
         scanner.close();
     }

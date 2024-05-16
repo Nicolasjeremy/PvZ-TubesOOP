@@ -4,7 +4,7 @@ import Src.GameMaps.*;
 import Src.Entities.Plant.*;
 import Src.Entities.Plant.Projectile.*;
 
-public class ShooterPlant extends Plant{
+public class ShooterPlant extends Plant {
     public static final int range = -1;
 
     public ShooterPlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, int bulletWaitingTime, GameMap gameMap) {
@@ -18,4 +18,16 @@ public class ShooterPlant extends Plant{
         Thread projectileThread = new Thread(projectile);
         projectileThread.start();
     };
+
+    public void run() {
+        int i = 0;
+        try {
+            while (i < 15) {
+                Thread.sleep(attackSpd * 1000);
+                attack();
+                i++;
+            }
+        } catch (InterruptedException e) {
+        }
+    }
 }

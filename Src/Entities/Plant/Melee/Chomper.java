@@ -11,13 +11,13 @@ public class Chomper extends MeleePlant{
 
     public Chomper(int[] position, GameMap gameMap) {
         super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap);
-        Thread chomperThread = new Thread(this);
-        chomperThread.start();
+        // Thread chomperThread = new Thread(this);
+        // chomperThread.start();
     }
 
     @Override
     public void attack() {
-        int[] position = getPosition(); 
+        int[] position = this.getPosition(); 
         Tile tile = getGameMap().getTile(position[0], position[1]); 
         ArrayList<Entities> entitiesInFront = tile.getEntities();
         for (Entities entity : entitiesInFront) {
@@ -31,7 +31,6 @@ public class Chomper extends MeleePlant{
                 return; 
             }
         }
-
         super.attack();
     }
 

@@ -1,12 +1,11 @@
 package Src.MainMenu;
 
 import java.util.ArrayList;
-
 import Src.Entities.Plant.*;
 import Src.GameMaps.*;
 
 public class Deck {
-    public static final int MAXCAPACITYDECK = 6; 
+    public static final int MAXCAPACITYDECK = 6;
     private ArrayList<Plant> deck;
     private GameMap gameMap;
     private boolean full;
@@ -25,11 +24,9 @@ public class Deck {
         return this.deck;
     }
 
-    public Plant getPlantFromDeck(Deck deck, String plantName) {
-        for (Plant plant : deck.getDeck()) {
-            if (plant.getName().equalsIgnoreCase(plantName)) {
-                return plant;
-            }
+    public Plant getPlantFromDeck(int index) {
+        if (index >= 0 && index < deck.size()) {
+            return deck.get(index);
         }
         return null;
     }
@@ -37,16 +34,16 @@ public class Deck {
     public int indexOf(Plant plant) {
         return deck.indexOf(plant);
     }
-    //MASIH NGASAL
-    public boolean isCooldownOver () {
+
+    public boolean isCooldownOver() {
         return false;
     }
 
     public void setFull(boolean isFull) {
         this.full = isFull;
     }
-    
-    public boolean getFull () {
+
+    public boolean getFull() {
         return this.full;
     }
 
@@ -55,71 +52,68 @@ public class Deck {
             System.out.println("This Deck Is Full!");
         } else {
             deck.add(plant);
+            System.out.println(plant.getName() + " added to the Deck");
         }
     }
-    
 
-    public void removePlantFromDeck(Plant plant) {
-        boolean found = false;
-        for (Plant p : deck) {
-            if (p.getName().equals(plant.getName())) {
-                found = true;
-                deck.remove(p);
-                System.out.println(plant.getName() + " Removed From The Deck");
-                System.out.println("Success!");
-                break;
-            }
+    public void removePlantFromDeck(int index) {
+        if (index >= 0 && index < deck.size()) {
+            Plant removedPlant = deck.remove(index);
+            System.out.println(removedPlant.getName() + " removed from the Deck");
+        } else {
+            System.out.println("Invalid index!");
         }
-        if (found == false) {
-            System.out.println("This Plant Is Not In The Deck!");
-        } 
+    }
+
+    public void swapPlantsInDeck(int index1, int index2) {
+        if (index1 >= 0 && index1 < deck.size() && index2 >= 0 && index2 < deck.size()) {
+            Plant temp = deck.get(index1);
+            deck.set(index1, deck.get(index2));
+            deck.set(index2, temp);
+            System.out.println("Plants swapped successfully!");
+        } else {
+            System.out.println("Invalid index(es)!");
+        }
     }
 
     public void displayDeck() {
         if (deck.isEmpty()) {
             System.out.println("This Deck is Empty!");
-        }
-        else {
-            System.out.print("Deck contents: [");
-            for (int i = 0; i < deck.size() - 1; i++) {
-                System.out.print(deck.get(i).getName() + ", ");
+        } else {
+            System.out.println("Deck contents:");
+            for (int i = 0; i < deck.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName());
             }
-            System.out.println(deck.get(deck.size()-1).getName() + "]");
         }
-        
     }
 
     public void planting(Plant plant, int[] position) {
-            Tile tile = this.gameMap.getTile(position[0], position[1]);
-            if (isCooldownOver()) {
-                System.out.println("This Plant is On Cooldown!");
-            }
-            else if (tile.hasPlanted()) {
-                System.out.println("This Tile Has Been Planted!");
-            }
-            else {
-                plant.setPosition(position);
-                tile.addEntity(plant);
-                tile.setPlanted(true);
-                System.out.println("Plant Planted Successfully!");
+        Tile tile = this.gameMap.getTile(position[0], position[1]);
+        if (isCooldownOver()) {
+            System.out.println("This Plant is On Cooldown!");
+        } else if (tile.hasPlanted()) {
+            System.out.println("This Tile Has Been Planted!");
+        } else {
+            plant.setPosition(position);
+            plant.setgameMap(gameMap);
+            tile.addEntity(plant);
+            tile.setPlanted(true);
+            System.out.println("Plant Planted Successfully!");
 
-                Thread plantThread = new Thread(plant);
-                plantThread.start();
-            }
-            
+            Thread plantThread = new Thread(plant);
+            plantThread.start();
+        }
     }
 
     public void unPlanting(int[] position) {
         Tile tile = this.gameMap.getTile(position[0], position[1]);
-        if (tile.hasPlanted() == false) {
+        if (!tile.hasPlanted()) {
             System.out.println("This Tile Is Not Planted By Any Plant!");
-        }
-        else {
+        } else {
             Plant templant = tile.getTilePlant();
             System.out.println("Plant name : " + templant.getName());
             tile.removeEntity(templant);
             System.out.println("Plant Removed!");
         }
     }
-
 }

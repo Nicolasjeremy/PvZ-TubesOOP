@@ -83,7 +83,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         while (true) { // todo: Hanya boleh ada maksimal 10 zombie di game map dalam satu waktu.
             try {
                 Thread.sleep(1000);
-                System.out.println(ZombieCounter);
+                // System.out.println(ZombieCounter);
                 if (ZombieCounter <= 10) {
                     spawnZombie();
 

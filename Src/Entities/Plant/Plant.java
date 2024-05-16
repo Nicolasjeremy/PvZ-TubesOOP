@@ -65,6 +65,10 @@ public abstract class Plant extends Entities implements Runnable{
         this.position = position;
     }
 
+    public int[] getPosition() {
+        return this.position;
+    }
+
 
     public abstract void attack();
 }
