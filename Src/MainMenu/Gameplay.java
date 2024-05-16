@@ -1,11 +1,14 @@
 package Src.MainMenu;
+import java.util.ArrayList;
+
 import Src.Entities.Entities;
 import Src.GameMaps.GameMap;
 import Src.GameMaps.Sun;
 import Src.GameMaps.ZombieManager;
+import java.util.ArrayList;
 
 public class Gameplay implements Runnable{
-    private Entities[] entities;
+    private ArrayList<Entities> entities;
     private int current_time;
     private boolean isDay;
     private boolean isEnd;
@@ -15,7 +18,7 @@ public class Gameplay implements Runnable{
 
 
     public Gameplay() {
-        this.entities = new Entities[0];
+        this.entities = new ArrayList<Entities>();
         this.current_time = 200;
         this.isDay = true;
         this.isEnd = false;
@@ -47,7 +50,7 @@ public class Gameplay implements Runnable{
             }
         }
     }
-    public Entities[] getEntities() {
+    public ArrayList<Entities> getEntities() {
         return this.entities;
     }
     public int getCurrentTime() {
