@@ -5,7 +5,7 @@ import Src.GameMaps.Tile;
 
 public class Entities {
     private String name;
-    private int health;
+    protected int health;
     private int attackDmg;
     protected int attackSpd;
     private int[] position;

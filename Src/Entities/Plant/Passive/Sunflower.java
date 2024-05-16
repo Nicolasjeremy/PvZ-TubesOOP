@@ -3,32 +3,23 @@ import Src.GameMaps.*;
 
 public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
-    private int lastSun;
     private int sun;
+	private Sun sunInstance;
 
     public Sunflower(int[] position, int sunWaitingTime, int lastSun, GameMap gameMap) {
         super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap);
         this.sunWaitingTime = 10;
-        this.lastSun = lastSun;
         this.sun = 25;
     }
 
-    public int generateSun() {
-		int currentCountDown = generateSunCountdown(lastSun);
-		if (currentCountDown == 0) {
-			lastSun = sunWaitingTime;
-			return sun;
-		}
-		else {
-			return 0;
-		}
-	}
-
-	private int generateSunCountdown(int start) {
-		if (start != 0) {
-			lastSun--;
-			start = lastSun;
-		}
-		return start;
-	}
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                Thread.sleep(sunWaitingTime * 1000);
+                sunInstance.addSun(sun);
+            }
+        } catch (InterruptedException e) {
+        }
+    }
 }

@@ -43,13 +43,15 @@ public abstract class Plant extends Entities implements Runnable{
         return cooldown;
     }
 
-    public void run() { 
+    public void run() {
+        int i = 0;
         try {
-            // Contoh implementasi sederhana
-            System.out.println(this.getName() + " is active at position " + position[0] + "," + position[1]);
-            Thread.sleep(1000); // Waktu tunda antar tindakan
+            while (i < 15) {
+                Thread.sleep(attackSpd * 1000);
+                attack();
+                i++;
+            }
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
