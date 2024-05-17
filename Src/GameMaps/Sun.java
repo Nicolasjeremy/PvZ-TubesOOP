@@ -11,15 +11,15 @@ public class Sun implements Runnable {
         Sun.sun = 25;
     }
     
-    public void addSun(int addsun){
-        synchronized (this){
+    public static void addSun(int addsun){
+        synchronized (Sun.class){
             sun += addsun;
             // System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
         }
     }
 
-    public boolean spendSun(int spendsun) {
-        synchronized (this){
+    public static boolean spendSun(int spendsun) {
+        synchronized (Sun.class){
             if (sun >= spendsun){
                 sun -= spendsun;
                 System.out.println("Sun yang digunakan: " + spendsun + ", Sisa sun: " + sun);
@@ -35,7 +35,7 @@ public class Sun implements Runnable {
         Sunrunning = false;
     }
 
-    public int getSun(){
+    public static int getSun(){
         return sun;
     }
 
@@ -47,7 +47,7 @@ public class Sun implements Runnable {
                 addSun(25);
             }
         } catch (InterruptedException e) {
-                System.out.println("Sun error");
+                System.out.println("Sun berhenti spawn");
         }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'run'");

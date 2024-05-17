@@ -49,7 +49,7 @@ public class Gameplay implements Runnable {
                 } else if (current_time == 40) {
                     zombieManagerThread.interrupt();
                 }
-                if (current_time == 100000) {
+                if (current_time == 100) {
                     this.isDay = false;
                     sunThread.interrupt();
                     System.out.println("\nNight has come");

@@ -3,6 +3,7 @@ package Src.MainMenu;
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
 import Src.GameMaps.*;
+import Src.GameMaps.Sun;
 
 public class Deck {
     public static final int MAXCAPACITYDECK = 6;
@@ -88,21 +89,28 @@ public class Deck {
     }
 
     public void planting(Plant plant, int[] position) {
-        Tile tile = this.gameMap.getTile(position[0], position[1]);
-        if (isCooldownOver()) {
-            System.out.println("This Plant is On Cooldown!");
-        } else if (tile.hasPlanted()) {
-            System.out.println("This Tile Has Been Planted!");
-        } else {
-            plant.setPosition(position);
-            plant.setgameMap(gameMap);
-            tile.addEntity(plant);
-            tile.setPlanted(true);
-            System.out.println("Plant Planted Successfully!");
-
-            Thread plantThread = new Thread(plant);
-            plantThread.start();
+        if(Sun.getSun() < plant.getCost()){
+            Sun.spendSun(plant.getCost());
         }
+        else {
+            Tile tile = this.gameMap.getTile(position[0], position[1]);
+            if (isCooldownOver()) {
+                System.out.println("This Plant is On Cooldown!");
+            } else if (tile.hasPlanted()) {
+                System.out.println("This Tile Has Been Planted!");
+            } else {
+                plant.setPosition(position);
+                plant.setgameMap(gameMap);
+                tile.addEntity(plant);
+                tile.setPlanted(true);
+                Sun.spendSun(plant.getCost());
+
+                System.out.println("Plant Planted Successfully!");
+
+                Thread plantThread = new Thread(plant);
+                plantThread.start();
+            }
+            }
     }
 
     public void unPlanting(int[] position) {
