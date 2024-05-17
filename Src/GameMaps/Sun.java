@@ -1,6 +1,6 @@
 package Src.GameMaps;
 
-public class Sun {
+public class Sun implements Runnable {
     // private long sunWaitingTime;
     private static int sun;
     // private int sunPerProduction = 25;
@@ -14,7 +14,7 @@ public class Sun {
     public void addSun(int addsun){
         synchronized (this){
             sun += addsun;
-            System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
+            // System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
         }
     }
 
@@ -31,7 +31,16 @@ public class Sun {
         }
     }
 
-    public void runSun(){
+    public void sunerror() {
+        Sunrunning = false;
+    }
+
+    public int getSun(){
+        return sun;
+    }
+
+    @Override
+    public void run() {
         try {
             while (Sunrunning) {
                 Thread.sleep((long) (Math.random() * (10000 - 5000) + 5000));
@@ -40,14 +49,8 @@ public class Sun {
         } catch (InterruptedException e) {
                 System.out.println("Sun error");
         }
-    }
-
-    public void sunerror() {
-        Sunrunning = false;
-    }
-
-    public int getSun(){
-        return sun;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 
 }

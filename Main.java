@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import Src.Entities.Plant.Plant;
 import Src.GameMaps.GameMap;
+import Src.GameMaps.Sun;
 import Src.MainMenu.Command;
 import Src.MainMenu.Deck;
 import Src.MainMenu.Gameplay;
@@ -47,6 +48,8 @@ public class Main {
                 Gameplay gameplay = singleton.getGame();
 
                 GameMap gameMap = new GameMap();
+
+                Sun sun = new Sun();
 
                 // Initialize Inventory, Deck, And Filling Deck
                 Deck deck = new Deck(gameMap);
@@ -110,6 +113,7 @@ public class Main {
                     System.out.println("4. Quit");
                     System.out.println("5. ShowDeck");
                     System.out.println("6. ShowTime");
+                    System.out.println("7. Display Sun");
                     System.out.print("Choose an option: ");
 
                     while (!scanner.hasNextInt()) {
@@ -159,6 +163,9 @@ public class Main {
                             break;
                         case 6:
                             System.out.println("Current time: " + gameplay.getCurrentTime());
+                            break;
+                        case 7: 
+                            System.out.println("Current Sun: " + sun.getSun());
                             break;
                         default:
                             System.out.println("Invalid option!");
