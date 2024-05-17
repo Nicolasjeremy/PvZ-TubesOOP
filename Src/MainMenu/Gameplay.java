@@ -6,7 +6,6 @@ import Src.Entities.Entities;
 import Src.GameMaps.GameMap;
 import Src.GameMaps.Sun;
 import Src.GameMaps.ZombieManager;
-import java.util.ArrayList;
 
 public class Gameplay implements Runnable {
     private ArrayList<Entities> entities;

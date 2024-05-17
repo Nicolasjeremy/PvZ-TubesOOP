@@ -49,6 +49,7 @@ public class Main {
 
                 GameMap gameMap = new GameMap();
 
+
                 // Initialize Inventory, Deck, And Filling Deck
                 Deck deck = new Deck(gameMap);
                 Inventory inventory = new Inventory(deck);
