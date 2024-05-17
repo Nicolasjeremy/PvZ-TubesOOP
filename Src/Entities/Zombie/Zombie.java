@@ -1,8 +1,5 @@
 package Src.Entities.Zombie;
-
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
 import Src.GameMaps.*;
@@ -99,28 +96,19 @@ public abstract class Zombie extends Entities implements Runnable {
 
     // the object decrease plant health in the same tile based on its atkdmg
     public void walk(GameMap gameMap) {
-        int[] position = getPosition(); // Get zombie's current position
+        int[] position = getPosition();
         int row = position[0];
         int col = position[1];
-        // Calculate the position of the next tile (moving left)
         int nextCol = col - 1;
-
-        // Check if the next tile is within the bounds of the game map
         if (nextCol >= 0) {
-            Tile tile = gameMap.getTile(row, col); // Get the current tile
-            Tile nextTile = gameMap.getTile(row, nextCol); // Get the next tile
-
-            // Remove the zombie from the current tile
+            Tile tile = gameMap.getTile(row, col);
+            Tile nextTile = gameMap.getTile(row, nextCol); 
             tile.removeEntity(this);
-
-            // Update the zombie's position
             int[] nextPosition = { row, nextCol };
             setPosition(nextPosition);
-            // Add the zombie to the next tile
             nextTile.addEntity(this);
         } else {
-            // Zombie has reached the end of the map, you may want to handle this case
-            // For example, remove the zombie from the game or trigger a game over condition
+            //todo kalo zombie dah ampe akhir blom dibikin menang
         }
     }
 

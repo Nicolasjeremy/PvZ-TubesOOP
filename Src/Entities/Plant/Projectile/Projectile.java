@@ -75,12 +75,10 @@ public class Projectile extends Entities implements Runnable {
     }
 
     public void run() {
-        int i = 0;
         try {
-            while (i < 15) {
+            while (true) {
                 Thread.sleep(2000);
                 action();
-                i++;
 
             }
         } catch (InterruptedException e) {

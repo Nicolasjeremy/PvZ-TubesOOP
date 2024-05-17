@@ -18,16 +18,4 @@ public class ShooterPlant extends Plant {
         Thread projectileThread = new Thread(projectile);
         projectileThread.start();
     };
-
-    public void run() {
-        int i = 0;
-        try {
-            while (i < 15) {
-                Thread.sleep(attackSpd * 1000);
-                attack();
-                i++;
-            }
-        } catch (InterruptedException e) {
-        }
-    }
 }

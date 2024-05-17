@@ -60,14 +60,6 @@ public abstract class Plant extends Entities implements Runnable{
      * Set Position
      * @void
      */
-    public void setPosition(int[] position) {
-        // this.getGameMap() = gameMaps;
-        this.position = position;
-    }
-
-    public int[] getPosition() {
-        return this.position;
-    }
 
 
     public abstract void attack();

@@ -2,10 +2,15 @@ package Src.Entities.Zombie;
 
 import Src.GameMaps.GameMap;
 
-public class ZAsep extends Zombie { // ! Zombie special dimana gabisa di freeze
-    public ZAsep(String name, int[] position, GameMap gameMap) {
-        super(name, 125, 100, 1, position, false, false, gameMap);
+public class ZAsep extends Zombie implements ZombieFactory{ // ! Zombie special dimana gabisa di freeze
+    public ZAsep(int[] position, GameMap gameMap) {
+        super("ZAsep", 125, 100, 1, position, false, false, gameMap);
     }
+
+    public Zombie createZombie(int[] position, GameMap gameMap) {
+        return new ZAsep(position, gameMap);
+    }
+
 
     @Override
     public void setSlow(boolean slow) {
