@@ -1,36 +1,39 @@
 package Src.GameMaps;
 
-import java.util.Random;
-
 public class Sun {
     // private long sunWaitingTime;
-    private static int lastSun;
-    private int sunPerProduction = 25;
-    private boolean running = true;
+    private static int sun;
+    // private int sunPerProduction = 25;
+    private boolean Sunrunning = true;
+
+    public Sun(){
+        this.Sunrunning = true;
+        Sun.sun = 25;
+    }
     
-    public void addSun(int sun){
+    public void addSun(int addsun){
         synchronized (this){
-            lastSun += sun;
-            System.out.println("Sun ditambah: " + sun + ", Total sun: " + lastSun);
+            sun += addsun;
+            System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
         }
     }
 
-    public boolean spendSun(int sun) {
+    public boolean spendSun(int spendsun) {
         synchronized (this){
-            if (lastSun >= sun){
-                lastSun -= sun;
-                System.out.println("Sun yang digunakan: " + sun + ", Sisa sun: " + lastSun);
+            if (sun >= spendsun){
+                sun -= spendsun;
+                System.out.println("Sun yang digunakan: " + spendsun + ", Sisa sun: " + sun);
                 return true;
             } else {
-                System.out.println("Sun tidak cukup. Diperlukan: " + sun + ", Sun yang tersedia: " + lastSun);
+                System.out.println("Sun tidak cukup. Diperlukan: " + spendsun + ", Sun yang tersedia: " + sun);
                 return false;
             }
         }
     }
 
-    public void run(){
+    public void runSun(){
         try {
-            while (running) {
+            while (Sunrunning) {
                 Thread.sleep((long) (Math.random() * (10000 - 5000) + 5000));
                 addSun(25);
             }
@@ -40,10 +43,11 @@ public class Sun {
     }
 
     public void sunerror() {
-        running = false;
+        Sunrunning = false;
     }
 
     public int getSun(){
-        return lastSun;
+        return sun;
     }
+
 }
