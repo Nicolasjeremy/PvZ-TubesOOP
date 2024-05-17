@@ -50,7 +50,7 @@ public class Sun implements Runnable {
                 System.out.println("Sun berhenti spawn");
         }
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+        // throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 
 }

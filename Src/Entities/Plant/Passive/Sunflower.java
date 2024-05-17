@@ -1,6 +1,5 @@
 package Src.Entities.Plant.Passive;
 import Src.GameMaps.*;
-import Src.GameMaps.Sun;
 
 public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
@@ -19,6 +18,7 @@ public class Sunflower extends PassivePlant{
                 Sun.addSun(25);
             }
         } catch (InterruptedException e) {
+            System.out.println("Sunflower gagal");
         }
     }
 }

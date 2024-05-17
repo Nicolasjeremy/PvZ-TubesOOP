@@ -49,8 +49,6 @@ public class Main {
 
                 GameMap gameMap = new GameMap();
 
-                Sun sun = new Sun();
-
                 // Initialize Inventory, Deck, And Filling Deck
                 Deck deck = new Deck(gameMap);
                 Inventory inventory = new Inventory(deck);
@@ -88,6 +86,7 @@ public class Main {
                         count--;
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
+                        System.out.println("Countdown gagal berjalan");
                     }
                 }
 
@@ -96,6 +95,7 @@ public class Main {
                     System.out.println("Game Start!");
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    System.out.println("Game gagal berjalan");
                 }
 
                 gameplay.setGameMap(gameMap);
@@ -165,7 +165,7 @@ public class Main {
                             System.out.println("Current time: " + gameplay.getCurrentTime());
                             break;
                         case 7: 
-                            System.out.println("Current Sun: " + sun.getSun());
+                            System.out.println("Current Sun: " + Sun.getSun());
                             break;
                         default:
                             System.out.println("Invalid option!");
