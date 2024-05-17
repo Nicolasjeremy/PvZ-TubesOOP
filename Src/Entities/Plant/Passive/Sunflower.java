@@ -1,15 +1,14 @@
 package Src.Entities.Plant.Passive;
 import Src.GameMaps.*;
+import Src.GameMaps.Sun;
 
 public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
-    private int sun;
-    private Sun sunInstance;
+    Sun sun = new Sun();
 
-    public Sunflower(int[] position, int sunWaitingTime, int lastSun, GameMap gameMap) {
+    public Sunflower(int[] position, GameMap gameMap) {
         super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap);
-        this.sunWaitingTime = 10;
-        this.sun = 25;
+        this.sunWaitingTime = 3;
     }
 
     @Override
@@ -17,7 +16,7 @@ public class Sunflower extends PassivePlant{
         try {
             while (true) {
                 Thread.sleep(sunWaitingTime * 1000);
-                sunInstance.addSun(sun);
+                Sun.addSun(25);
             }
         } catch (InterruptedException e) {
         }

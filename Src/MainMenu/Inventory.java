@@ -6,6 +6,7 @@ import Src.Entities.Plant.Melee.Chomper;
 import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;
 import Src.Entities.Plant.Passive.Lilypad;
+import Src.Entities.Plant.Passive.Sunflower;
 import Src.Entities.Plant.Passive.Tallnut;
 import Src.Entities.Plant.Passive.Wallnut;
 import Src.Entities.Plant.Shooter.Peashooter;
@@ -30,6 +31,7 @@ public class Inventory {
         inventory.add(new Peashooter(null, null));
         inventory.add(new Repeater(null, null));
         inventory.add(new Snowpea(null, null));
+        inventory.add(new Sunflower(null, null));
     }
 
     public ArrayList<Plant> getInventory() {
