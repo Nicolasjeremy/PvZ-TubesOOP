@@ -49,7 +49,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                     break;
                 }
 
-                int[] position = { i, 8 };
+                int[] position = { i, 10 };
                 if (i == 2 || i == 3) { // Kalo tile 3 dan 4 yang ke spawn bakal Zombie di air
                     int randomspwn = random.nextInt(10);
                     if (randomspwn == 1 || randomspwn == 2 || randomspwn == 3) {// dari angka 1-10 kalo kepilih 1-3

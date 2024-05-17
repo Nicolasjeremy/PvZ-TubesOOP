@@ -20,7 +20,7 @@ public class Gameplay implements Runnable {
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 200000;
+        this.current_time = 200;
         this.isDay = true;
         this.isEnd = false;
         Gameplay.sun = new Sun();
@@ -39,9 +39,9 @@ public class Gameplay implements Runnable {
             
 
             while (current_time > 0) {
-                if (current_time == 180000) {
+                if (current_time == 180) {
                     zombieManagerThread.start();
-                } else if (current_time == 40000) {
+                } else if (current_time == 40) {
                     zombieManagerThread.interrupt();
                 }
                 if (current_time == 100000) {
@@ -125,7 +125,7 @@ public class Gameplay implements Runnable {
 
     public void resetAttributes() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 10;
+        this.current_time = 200;
         this.isDay = true;
         this.isEnd = false;
         Gameplay.sun = new Sun();

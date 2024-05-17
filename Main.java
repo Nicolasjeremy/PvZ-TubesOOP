@@ -76,9 +76,9 @@ public class Main {
                 }
 
                 // Playing the game
-                System.out.println("Prepare For Playing The Game In 5 Sec");
+                System.out.println("Prepare For Playing The Game In 3 Sec");
                 int count = 5;
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     try {
                         Thread.sleep(1000);
                         System.out.println(count);
@@ -151,8 +151,8 @@ public class Main {
                         case 4:
                             System.out.println("Exiting...");
                             gameStatus = false;
-                            gameplayThread.interrupt();
                             System.out.println("Kembali ke Main Menu...");
+                            gameplayThread.interrupt();
                             break;
                         case 5:
                             deck.displayDeck();
