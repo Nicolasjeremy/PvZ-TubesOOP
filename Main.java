@@ -108,13 +108,17 @@ public class Main {
 
                 // GamePlay
                 while (gameStatus && !Gameplay.getIsEnd()) {
-                    System.out.println("\n1. Plant");
+                    System.out.println("\n");
+                    System.out.println("|||STATUS GAME|||");
+                    System.out.println("Current Time: " + gameplay.getCurrentTime());
+                    System.out.println("Current Sun: " + Sun.getSun());
+                    deck.displayDeck();
+                    System.out.println("\n|||COMMAND GAME|||");
+                    System.out.println("1. Plant");
                     System.out.println("2. Unplant");
                     System.out.println("3. Display Map");
                     System.out.println("4. Quit");
-                    System.out.println("5. ShowDeck");
-                    System.out.println("6. ShowTime");
-                    System.out.println("7. Display Sun");
+                    System.out.println("5. ShowTime");
                     System.out.print("Choose an option: ");
 
                     while (!scanner.hasNextInt()) {
@@ -127,8 +131,8 @@ public class Main {
 
                     switch (choice) {
                         case 1:
-                            deck.displayDeck();
-                            System.out.print("Enter the index of the plant to plant: ");
+                            // deck.displayDeck();
+                            System.out.print("Enter plant numerical order: ");
                             int plantIndexToPlant = scanner.nextInt() - 1;
                             Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
                             if (plantToPlant != null) {
@@ -160,13 +164,7 @@ public class Main {
                             gameplayThread.interrupt();
                             break;
                         case 5:
-                            deck.displayDeck();
-                            break;
-                        case 6:
-                            System.out.println("Current time: " + gameplay.getCurrentTime());
-                            break;
-                        case 7: 
-                            System.out.println("Current Sun: " + Sun.getSun());
+                        System.out.println("Current time: " + gameplay.getCurrentTime());
                             break;
                         default:
                             System.out.println("Invalid option!");
