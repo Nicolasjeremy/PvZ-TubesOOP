@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
 import Src.GameMaps.*;
+import Src.MainMenu.Gameplay;
 
 public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
@@ -109,6 +110,10 @@ public abstract class Zombie extends Entities implements Runnable {
             nextTile.addEntity(this);
         } else {
             //todo kalo zombie dah ampe akhir blom dibikin menang
+            // Zombie gua bikin mati
+            this.die(gameMap);
+            Gameplay.setIsEnd(true);
+            Gameplay.setWinningState(false);
         }
     }
 

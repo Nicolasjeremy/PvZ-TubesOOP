@@ -79,7 +79,7 @@ public class Main {
 
                 // Playing the game
                 System.out.println("Prepare For Playing The Game In 3 Sec");
-                int count = 5;
+                int count = 3;
                 for (int i = 0; i < 3; i++) {
                     try {
                         Thread.sleep(1000);
@@ -107,7 +107,7 @@ public class Main {
                 gameplayThread.start();
 
                 // GamePlay
-                while (gameStatus && !gameplay.getIsEnd()) {
+                while (gameStatus && !Gameplay.getIsEnd()) {
                     System.out.println("\n1. Plant");
                     System.out.println("2. Unplant");
                     System.out.println("3. Display Map");
@@ -173,9 +173,20 @@ public class Main {
                             break;
                     }
                 }
-
-                if (gameplay.getIsEnd()) {
-                    System.out.println("Game Over ;(");
+                if (Gameplay.getIsEnd()) {
+                    System.out.println("Game Ended!");
+                    gameStatus = false;
+                    gameplayThread.interrupt();
+                    gameplay.resetAttributes();
+                }
+                if (Gameplay.getWinningState()) {
+                    System.out.println("You Win!");
+                    gameStatus = false;
+                    gameplayThread.interrupt();
+                    gameplay.resetAttributes();
+                    System.out.println("Game Restarted!");
+                } else {
+                    System.out.println("You Lose!");
                     gameStatus = false;
                     gameplayThread.interrupt();
                     gameplay.resetAttributes();

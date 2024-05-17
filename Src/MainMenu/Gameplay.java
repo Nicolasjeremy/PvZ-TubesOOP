@@ -11,21 +11,23 @@ public class Gameplay implements Runnable {
     private ArrayList<Entities> entities;
     private int current_time;
     private boolean isDay;
-    private boolean isEnd;
+    private static boolean isEnd;
     private static Sun sun;
     private GameMap gameMap;
     private Deck deck;
     private Inventory inventory;
+    private static boolean winningstate;
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
         this.current_time = 200;
         this.isDay = true;
-        this.isEnd = false;
+        Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
         this.gameMap = new GameMap();
         this.deck = new Deck(gameMap);
         this.inventory = new Inventory(deck);
+        Gameplay.winningstate = false;
     }
 
     @Override
@@ -57,7 +59,7 @@ public class Gameplay implements Runnable {
                 this.current_time--;
                 // System.out.print(current_time);
             }
-            this.isEnd = true;
+            Gameplay.isEnd = true;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -76,8 +78,8 @@ public class Gameplay implements Runnable {
         return this.isDay;
     }
 
-    public boolean getIsEnd() {
-        return this.isEnd;
+    public static boolean getIsEnd() {
+        return Gameplay.isEnd;
     }
 
     public Sun getSun() {
@@ -95,6 +97,9 @@ public class Gameplay implements Runnable {
     public Inventory getInventory() {
         return inventory;
     }
+    public static boolean getWinningState() {
+        return winningstate;
+    }
 
     public void setEntities(ArrayList<Entities> entities) {
         this.entities = entities;
@@ -108,8 +113,8 @@ public class Gameplay implements Runnable {
         this.isDay = isDay;
     }
 
-    public void setIsEnd(boolean isEnd) {
-        this.isEnd = isEnd;
+    public static synchronized void setIsEnd(boolean isEnd) {
+        Gameplay.isEnd = isEnd;
     }
 
     public void setSun(Sun sun) {
@@ -127,16 +132,20 @@ public class Gameplay implements Runnable {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
-
+    public static synchronized void setWinningState(boolean winningstate) {
+        Gameplay.winningstate = winningstate;
+    }
+    // Karena ini game singleton maka harus di reset setiap kali game dimulai
     public void resetAttributes() {
         this.entities = new ArrayList<Entities>();
         this.current_time = 200;
         this.isDay = true;
-        this.isEnd = false;
+        Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
         this.gameMap = new GameMap();
         this.deck = new Deck(gameMap);
         this.inventory = new Inventory(deck);
+        Gameplay.winningstate = false;
     }
 
 }
