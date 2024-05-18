@@ -3,6 +3,7 @@ package Src.MainMenu;
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
 import Src.Entities.Plant.Melee.Chomper;
+import Src.Entities.Plant.Melee.Jalapeno;
 import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;
 import Src.Entities.Plant.Passive.Lilypad;
@@ -22,7 +23,7 @@ public class Inventory {
         inventory = new ArrayList<>();
         this.deck = deck;
 
-        inventory.add(new Chomper(null, null));
+        inventory.add(new Jalapeno(null, null, null));
         inventory.add(new Squash(null, null, null));
         inventory.add(new TangleKelp(null, null));
         inventory.add(new Lilypad(null, null));

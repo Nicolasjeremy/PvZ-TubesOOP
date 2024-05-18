@@ -3,6 +3,7 @@ package Src.MainMenu;
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
 import Src.Entities.Plant.Melee.Chomper;
+import Src.Entities.Plant.Melee.Jalapeno;
 import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;
 import Src.Entities.Plant.Passive.Lilypad;
@@ -180,8 +181,8 @@ public class Deck {
     }
 
     private Plant createNewPlantInstance(Plant plant) {
-        if (plant instanceof Chomper) {
-            return new Chomper(null, null);
+        if (plant instanceof Jalapeno) {
+            return new Jalapeno(null, null, null);
         } else if (plant instanceof Squash) {
             return new Squash(null, null, null);
         } else if (plant instanceof TangleKelp) {
