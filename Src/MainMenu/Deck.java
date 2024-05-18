@@ -181,26 +181,27 @@ public class Deck {
     }
 
     private Plant createNewPlantInstance(Plant plant) {
-        if (plant instanceof Jalapeno) {
-            return new Jalapeno(null, null);
-        } else if (plant instanceof Squash) {
-            return new Squash(null, null);
-        } else if (plant instanceof TangleKelp) {
-            return new TangleKelp(null, null);
-        } else if (plant instanceof Lilypad) {
-            return new Lilypad(null, null);
-        } else if (plant instanceof Tallnut) {
-            return new Tallnut(null, null);
-        } else if (plant instanceof Wallnut) {
-            return new Wallnut(null, null);
-        } else if (plant instanceof Peashooter) {
-            return new Peashooter(null, null);
-        } else if (plant instanceof Repeater) {
-            return new Repeater(null, null);
-        } else if (plant instanceof Snowpea) {
-            return new Snowpea(null, null);
-        } else if (plant instanceof Sunflower) {
-            return new Sunflower(null, null);
+        // if (plant instanceof Jalapeno) {
+        //     return new Jalapeno(null, null);
+        // } else if (plant instanceof Squash) {
+        //     return new Squash(null, null);
+        // } else if (plant instanceof TangleKelp) {
+        //     return new TangleKelp(null, null);
+        // } else if (plant instanceof Lilypad) {
+        //     return new Lilypad(null, null);
+        // } else if (plant instanceof Tallnut) {
+        //     return new Tallnut(null, null);
+        // } else if (plant instanceof Wallnut) {
+        //     return new Wallnut(null, null);
+        // } 
+        if (plant instanceof Peashooter) {
+            return new Peashooter(null, null, null);
+        // } else if (plant instanceof Repeater) {
+        //     return new Repeater(null, null);
+        // } else if (plant instanceof Snowpea) {
+        //     return new Snowpea(null, null);
+        // } else if (plant instanceof Sunflower) {
+        //     return new Sunflower(null, null);
         }
         return null;
     }
