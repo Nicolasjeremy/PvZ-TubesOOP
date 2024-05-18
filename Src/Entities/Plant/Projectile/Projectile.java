@@ -35,11 +35,13 @@ public class Projectile extends Entities implements Runnable {
             for (Zombie zombie : ListZombie) {
                 zombie.setHealth(getHealth() - this.getAttackDmg());
                 if (zombie.getHealth() <= 0) {
-                    zombie.die(zombie.getGameMap());
+                    zombie.die(getGameMap());
                 } else {
                 }
             }
-            getGameMap().getTile(position[0], position[1]).removeEntity(this);
+            this.die(getGameMap());
+            this.stop();
+
         }
 
         else {
@@ -57,20 +59,15 @@ public class Projectile extends Entities implements Runnable {
 
         // Check if the next tile is within the bounds of the game map
         if (nextCol <= 9) {
-            Tile tile = gameMap.getTile(row, col); // Get the current tile
-            Tile nextTile = gameMap.getTile(row, nextCol); // Get the next tile
-
-            // Remove the zombie from the current tile
+            Tile tile = gameMap.getTile(row, col);
+            Tile nextTile = gameMap.getTile(row, nextCol);
             tile.removeEntity(this);
-
-            // Update the zombie's position
             int[] nextPosition = { row, nextCol };
             setPosition(nextPosition);
-            // Add the zombie to the next tile
             nextTile.addEntity(this);
         } else {
-            // Zombie has reached the end of the map, you may want to handle this case
-            // For example, remove the zombie from the game or trigger a game over condition
+            this.die(gameMap);
+            this.stop();
         }
     }
 

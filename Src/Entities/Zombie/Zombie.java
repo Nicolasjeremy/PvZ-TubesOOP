@@ -1,4 +1,5 @@
 package Src.Entities.Zombie;
+
 import java.util.ArrayList;
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
@@ -15,7 +16,6 @@ public abstract class Zombie extends Entities implements Runnable {
         super(name, health, attackDmg, attackSpd, position, gameMap);
         this.isAquatic = isAquatic;
         this.special = special;
-
     }
 
     public boolean getAquatic() {
@@ -44,23 +44,23 @@ public abstract class Zombie extends Entities implements Runnable {
 
     @Override
     public void die(GameMap gameMap) {
-        int[] position = getPosition();
+        int[] position = this.getPosition();
         Tile tile = gameMap.getTile(position[0], position[1]);
         tile.removeEntity(this);
-        ZombieManager.ZombieCounter--;
+        ZombieManager.decrementCounter();
+        this.stop();
     }
 
-    // ? ini action yang bakal dilakuin sesuai posisi zombienya
     public void action() {
         Plant plantInTile = null;
         boolean isplant = false;
-        int[] position = getPosition(); // ? Buat posisi zombie
-        Tile tile = getGameMap().getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
+        int[] position = getPosition();
+        Tile tile = getGameMap().getTile(position[0], position[1]);
 
         ArrayList<Entities> entity = tile.getAllEntities();
 
-        for (Entities entities : entity) { // ? Ngecek semua isi tile
-            if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin
+        for (Entities entities : entity) {
+            if (entities instanceof Plant) {
                 isplant = true;
                 Plant plant = (Plant) entities;
                 plantInTile = plant;
@@ -77,25 +77,19 @@ public abstract class Zombie extends Entities implements Runnable {
             } else {
                 attack(getGameMap(), plantInTile);
             }
-        }
-
-        else {
+        } else {
             walk(getGameMap());
         }
     }
 
-    // if there are no plant in the same tile the zombie walk, if there are plant it
-    // attack
     public void attack(GameMap gameMap, Plant plant) {
         int dmg = this.getAttackDmg();
-        plant.setHealth(plant.getHealth() - dmg); // ? kalo plant, darahnya dikurangin sesuai
+        plant.setHealth(plant.getHealth() - dmg);
         if (plant.getHealth() <= 0) {
             plant.die(gameMap);
         }
-
     }
 
-    // the object decrease plant health in the same tile based on its atkdmg
     public void walk(GameMap gameMap) {
         int[] position = getPosition();
         int row = position[0];
@@ -103,37 +97,33 @@ public abstract class Zombie extends Entities implements Runnable {
         int nextCol = col - 1;
         if (nextCol >= 0) {
             Tile tile = gameMap.getTile(row, col);
-            Tile nextTile = gameMap.getTile(row, nextCol); 
+            Tile nextTile = gameMap.getTile(row, nextCol);
             tile.removeEntity(this);
             int[] nextPosition = { row, nextCol };
             setPosition(nextPosition);
             nextTile.addEntity(this);
         } else {
-            //todo kalo zombie dah ampe akhir blom dibikin menang
-            // Zombie gua bikin mati
+            // todo kalo zombie dah ampe akhir blom dibikin menang
             this.die(gameMap);
             Gameplay.setIsEnd(true);
             Gameplay.setWinningState(false);
         }
     }
 
-    // the object advance in the game map from right to left
-
     public void special(GameMap gameMap, Plant plant) {
         plant.die(gameMap);
     }
 
-    public void run() { // ? Methode RUN Zombie
+    public void run() {
         try {
-            while (true) { // todo: ni Blom diubah whilenya harusnya selama blom menang
-                if (this.isSlow() == true) { // ! Blom dites
-                    Thread.sleep(7500);// todo: jadi kalo udah 3 detik ga di slow, efek slownya ilang
+            while (Gameplay.getIsEnd() == false && this.getHealth() >= 0) {
+                if (this.isSlow() == true) {
+                    Thread.sleep(7500);
                     action();
                 } else {
                     Thread.sleep(5000);
                     action();
                 }
-
             }
         } catch (InterruptedException e) {
         }

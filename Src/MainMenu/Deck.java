@@ -2,9 +2,17 @@ package Src.MainMenu;
 
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
+import Src.Entities.Plant.Melee.Chomper;
+import Src.Entities.Plant.Melee.Squash;
+import Src.Entities.Plant.Melee.TangleKelp;
 import Src.Entities.Plant.Passive.Lilypad;
+import Src.Entities.Plant.Passive.Sunflower;
+import Src.Entities.Plant.Passive.Tallnut;
+import Src.Entities.Plant.Passive.Wallnut;
+import Src.Entities.Plant.Shooter.Peashooter;
+import Src.Entities.Plant.Shooter.Repeater;
+import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
-import Src.GameMaps.Sun;
 
 public class Deck {
     public static final int MAXCAPACITYDECK = 6;
@@ -90,37 +98,32 @@ public class Deck {
     }
 
     public void planting(Plant plant, int[] position) {
+        Plant newPlant = createNewPlantInstance(plant);
         Tile tile = this.gameMap.getTile(position[0], position[1]);
-        if (tile instanceof Home)  {
-            System.out.println("Cant Plant On Home!");
-        }
-        else if (tile instanceof ZombieSpawn) {
-            System.out.println("Cant Plant On ZombieSpawn!");
-        }
-        else if (tile instanceof Pool) {
+        
+        if (tile instanceof Home) {
+            System.out.println("Can't Plant On Home!");
+        } else if (tile instanceof ZombieSpawn) {
+            System.out.println("Can't Plant On ZombieSpawn!");
+        } else if (tile instanceof Pool) {
             Pool tilepool = (Pool) tile;
             if (tilepool.getLilyPad_Plant()) {
-                plantManager(plant, position, tilepool);
-            }
-            else {
-                if (plant instanceof Lilypad) {
-                    plantManager(plant, position, tilepool);
+                plantManager(newPlant, position, tilepool);
+            } else {
+                if (newPlant instanceof Lilypad) {
+                    plantManager(newPlant, position, tilepool);
                     tilepool.Plant_LilyPad();
-                }
-                else {
+                } else {
                     System.out.println("Needs Lilypad To Plant!");
                 }
             }
-        }
-        else {
-            if (plant instanceof Lilypad) {
-                System.out.println("Lilypad Cant Planted On Grass");
-            }
-            else {
-                plantManager(plant, position, tile);
+        } else {
+            if (newPlant instanceof Lilypad) {
+                System.out.println("Lilypad Can't Be Planted On Grass");
+            } else {
+                plantManager(newPlant, position, tile);
             }
         }
-
     }
 
     public void plantManager(Plant plant, int[] position, Tile tile) {
@@ -128,16 +131,12 @@ public class Deck {
             Sun.spendSun(plant.getCost());
         }
         else {
-            if (plant instanceof Lilypad) {
-                if (tile instanceof Home) {
-                    System.out.println("Lilypad");
-                }
-            }
             if (isCooldownOver()) {
                 System.out.println("This Plant is On Cooldown!");
             } else if (tile.hasPlanted()) { 
                 if (tile.getEntities(0) instanceof Lilypad && tile.getAllEntities().size() < 2) {
                     plant.setgameMap(gameMap);
+                    plant.setPosition(position);
                     tile.addEntity(plant);
                     tile.setPlanted(true);
                     Sun.spendSun(plant.getCost());
@@ -152,6 +151,7 @@ public class Deck {
                 }
             } else {
                 plant.setgameMap(gameMap);
+                plant.setPosition(position);
                 tile.addEntity(plant);
                 tile.setPlanted(true);
                 Sun.spendSun(plant.getCost());
@@ -162,6 +162,31 @@ public class Deck {
                 plantThread.start();
             }
         }
+    }
+
+    private Plant createNewPlantInstance(Plant plant) {
+        if (plant instanceof Chomper) {
+            return new Chomper(null, null);
+        } else if (plant instanceof Squash) {
+            return new Squash(null, null, null);
+        } else if (plant instanceof TangleKelp) {
+            return new TangleKelp(null, null);
+        } else if (plant instanceof Lilypad) {
+            return new Lilypad(null, null);
+        } else if (plant instanceof Tallnut) {
+            return new Tallnut(null, null);
+        } else if (plant instanceof Wallnut) {
+            return new Wallnut(null, null);
+        } else if (plant instanceof Peashooter) {
+            return new Peashooter(null, null);
+        } else if (plant instanceof Repeater) {
+            return new Repeater(null, null);
+        } else if (plant instanceof Snowpea) {
+            return new Snowpea(null, null);
+        } else if (plant instanceof Sunflower) {
+            return new Sunflower(null, null);
+        }
+        return null;
     }
 
     public void unPlanting(int[] position) {

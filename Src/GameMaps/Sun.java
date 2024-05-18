@@ -6,21 +6,21 @@ public class Sun implements Runnable {
     // private int sunPerProduction = 25;
     private boolean Sunrunning = true;
 
-    public Sun(){
+    public Sun() {
         this.Sunrunning = true;
-        Sun.sun = 25;
+        Sun.sun = 1000;
     }
-    
-    public static void addSun(int addsun){
-        synchronized (Sun.class){
+
+    public static void addSun(int addsun) {
+        synchronized (Sun.class) {
             sun += addsun;
             // System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
         }
     }
 
     public static boolean spendSun(int spendsun) {
-        synchronized (Sun.class){
-            if (sun >= spendsun){
+        synchronized (Sun.class) {
+            if (sun >= spendsun) {
                 sun -= spendsun;
                 System.out.println("Sun yang digunakan: " + spendsun + ", Sisa sun: " + sun);
                 return true;
@@ -35,7 +35,7 @@ public class Sun implements Runnable {
         Sunrunning = false;
     }
 
-    public static int getSun(){
+    public static int getSun() {
         return sun;
     }
 
@@ -47,7 +47,7 @@ public class Sun implements Runnable {
                 addSun(25);
             }
         } catch (InterruptedException e) {
-                System.out.println("Sun berhenti spawn");
+            System.out.println("Sun berhenti spawn");
         }
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'run'");

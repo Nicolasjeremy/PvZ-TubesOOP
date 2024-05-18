@@ -73,5 +73,10 @@ public class Entities {
     public void die(GameMap gameMap) {
         Tile tile = gameMap.getTile(position[0], position[1]);
         tile.removeEntity(this);
+        this.stop();
+    }
+
+    public void stop() {
+        Thread.currentThread().interrupt(); // Interrupt the thread
     }
 }
