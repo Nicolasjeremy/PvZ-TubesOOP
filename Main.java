@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Src.Entities.Plant.Plant;
@@ -133,17 +134,22 @@ public class Main {
                         case 1:
                             deck.displayDeck();
                             System.out.print("Enter plant numerical order: ");
-                            int plantIndexToPlant = scanner.nextInt() - 1;
-                            Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
-                            if (plantToPlant != null) {
-                                System.out.print("Enter the row and column to plant (e.g., 2 3): ");
-                                int row = scanner.nextInt();
-                                int col = scanner.nextInt();
-                                scanner.nextLine(); // Consume newline
-                                int[] position = { row, col };
-                                deck.planting(plantToPlant, position);
-                            } else {
-                                System.out.println("Plant not found in deck!");
+                            try {
+                                int plantIndexToPlant = scanner.nextInt() - 1;
+                                Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
+                                if (plantToPlant != null) {
+                                    System.out.print("Enter the row and column to plant (e.g., 2 3): ");
+                                    int row = scanner.nextInt();
+                                    int col = scanner.nextInt();
+                                    scanner.nextLine(); // Consume newline
+                                    int[] position = { row, col };
+                                    deck.planting(plantToPlant, position);
+                                } else {
+                                    System.out.println("Plant not found in deck!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input! Please enter a number.");
+                                scanner.nextLine(); // Consume the invalid input
                             }
                             break;
                         case 2:
