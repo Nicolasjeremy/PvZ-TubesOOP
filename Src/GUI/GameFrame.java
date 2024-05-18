@@ -13,7 +13,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame() {
         setTitle("Plants vs Zombies");
-        setSize(800, 600);
+        setSize(1100, 806);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initializeComponents();
@@ -79,7 +79,7 @@ public class GameFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                setSize(800, 565);
+                setSize(1100, 806);
                 // Menggambar gambar peta PvZ
                 ImageIcon imageIcon = new ImageIcon(getClass().getResource("../Image/pvz_image.jpg"));
                 Image image = imageIcon.getImage();

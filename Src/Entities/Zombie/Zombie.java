@@ -12,8 +12,8 @@ public abstract class Zombie extends Entities implements Runnable {
     private boolean special;
 
     public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic,
-            boolean special, GameMap gameMap) {
-        super(name, health, attackDmg, attackSpd, position, gameMap);
+            boolean special, GameMap gameMap, String imagepath) {
+        super(name, health, attackDmg, attackSpd, position, gameMap, imagepath);
         this.isAquatic = isAquatic;
         this.special = special;
     }

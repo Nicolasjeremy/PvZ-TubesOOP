@@ -5,8 +5,8 @@ import Src.Entities.Entities;
 import Src.Entities.Zombie.*;
 
 public class SnowProjectile extends Projectile {
-    public SnowProjectile(int damage, int[] position, GameMap gameMap) {
-        super(damage, position, gameMap);
+    public SnowProjectile(int damage, int[] position, GameMap gameMap, String imagepath) {
+        super(damage, position, gameMap, imagepath);
     }
 
     @Override

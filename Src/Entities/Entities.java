@@ -10,15 +10,17 @@ public class Entities {
     protected int attackSpd;
     private int[] position;
     private GameMap gameMap;
+    private String imagepath;
 
     // Constructor
-    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position, GameMap gameMap) {
+    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position, GameMap gameMap, String imagepath) {
         this.name = name;
         this.health = health;
         this.attackDmg = attackDmg;
         this.attackSpd = attackSpd;
         this.position = position;
         this.gameMap = gameMap;
+        this.imagepath = imagepath;
     }
 
     // Getters and setters
@@ -68,6 +70,14 @@ public class Entities {
 
     public void setgameMap(GameMap gameMap) {
         this.gameMap = gameMap;
+    }
+
+    public void setimagepath(String imagepath){
+        this.imagepath = imagepath;
+    }
+
+    public String getimagepath(){
+        return imagepath;
     }
 
     public void die() {

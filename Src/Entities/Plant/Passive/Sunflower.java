@@ -5,8 +5,8 @@ public class Sunflower extends PassivePlant{
     private int sunWaitingTime;
     Sun sun = new Sun();
 
-    public Sunflower(int[] position, GameMap gameMap) {
-        super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap);
+    public Sunflower(int[] position, GameMap gameMap, String imagepath) {
+        super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap, imagepath);
         this.sunWaitingTime = 3;
     }
 

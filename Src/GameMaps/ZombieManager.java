@@ -20,15 +20,15 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         this.random = new Random();
 
         // Add the zombie factory instances here
-        zombieFactories.add(new ZRaul(null, gameMap));
-        zombieFactories.add(new ZConeHead(null, gameMap));
-        zombieFactories.add(new ZBucketHead(null, gameMap));
-        zombieFactories.add(new ZDipsy(null, gameMap));
-        zombieFactoriesWater.add(new ZDolphonRider(null, gameMap));
-        zombieFactoriesWater.add(new ZDuckyTube(null, gameMap));
-        zombieFactories.add(new ZLala(null, gameMap));
-        zombieFactories.add(new ZNormal(null, gameMap));
-        zombieFactories.add(new ZPoleVault(null, gameMap));
+        zombieFactories.add(new ZRaul(null, gameMap, null));
+        zombieFactories.add(new ZConeHead(null, gameMap, null));
+        zombieFactories.add(new ZBucketHead(null, gameMap, null));
+        zombieFactories.add(new ZDipsy(null, gameMap, null));
+        zombieFactoriesWater.add(new ZDolphonRider(null, gameMap, null));
+        zombieFactoriesWater.add(new ZDuckyTube(null, gameMap, null));
+        zombieFactories.add(new ZLala(null, gameMap, null));
+        zombieFactories.add(new ZNormal(null, gameMap, null));
+        zombieFactories.add(new ZPoleVault(null, gameMap, null));
     }
 
     public void spawnZombie() {

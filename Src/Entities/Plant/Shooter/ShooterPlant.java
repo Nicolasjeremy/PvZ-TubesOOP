@@ -7,8 +7,8 @@ import Src.Entities.Plant.*;
 public class ShooterPlant extends Plant {
     public static final int range = -1;
 
-    public ShooterPlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, int bulletWaitingTime, GameMap gameMap) {
-        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap);
+    public ShooterPlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, int bulletWaitingTime, GameMap gameMap, String imagepath) {
+        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath);
     }
 
     public void attack() {

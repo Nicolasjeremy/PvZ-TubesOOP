@@ -23,16 +23,16 @@ public class Inventory {
         inventory = new ArrayList<>();
         this.deck = deck;
 
-        inventory.add(new Jalapeno(null, null, null));
-        inventory.add(new Squash(null, null, null));
-        inventory.add(new TangleKelp(null, null));
-        inventory.add(new Lilypad(null, null));
-        inventory.add(new Tallnut(null, null));
-        inventory.add(new Wallnut(null, null));
-        inventory.add(new Peashooter(null, null));
-        inventory.add(new Repeater(null, null));
-        inventory.add(new Snowpea(null, null));
-        inventory.add(new Sunflower(null, null));
+        inventory.add(new Jalapeno(null, null, null, null));
+        inventory.add(new Squash(null, null, null, null));
+        inventory.add(new TangleKelp(null, null, null));
+        inventory.add(new Lilypad(null, null, null));
+        inventory.add(new Tallnut(null, null, null));
+        inventory.add(new Wallnut(null, null, null));
+        inventory.add(new Peashooter(null, null, null));
+        inventory.add(new Repeater(null, null, null));
+        inventory.add(new Snowpea(null, null, null));
+        inventory.add(new Sunflower(null, null, null));
     }
 
     public ArrayList<Plant> getInventory() {

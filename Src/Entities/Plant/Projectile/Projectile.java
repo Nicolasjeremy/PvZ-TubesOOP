@@ -10,8 +10,8 @@ import Src.Entities.Zombie.Zombie;
 public class Projectile extends Entities implements Runnable {
     private ArrayList<Zombie> ListZombie;
 
-    public Projectile(int damage, int[] Position, GameMap gameMap) {
-        super("Projetiles", 0, damage, 0, Position, gameMap);
+    public Projectile(int damage, int[] Position, GameMap gameMap, String imagepath) {
+        super("Projetiles", 0, damage, 0, Position, gameMap, imagepath);
         this.ListZombie = new ArrayList<>();
     }
 
