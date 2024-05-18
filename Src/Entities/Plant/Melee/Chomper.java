@@ -9,8 +9,8 @@ import Src.GameMaps.*;
 public class Chomper extends MeleePlant{
     private boolean isChewing = false;
 
-    public Chomper(int[] position, GameMap gameMap, String imagepath) {
-        super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, imagepath);
+    public Chomper(int[] position, GameMap gameMap) {
+        super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "imagepath");
     }
 
     @Override

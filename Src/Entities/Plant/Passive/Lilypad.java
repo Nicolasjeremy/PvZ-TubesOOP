@@ -6,8 +6,8 @@ import Src.GameMaps.*;
 public class Lilypad extends PassivePlant{
     private Plant plantOnTop;
 
-    public Lilypad (int[] position, GameMap gameMap, String imagepath) {
-        super("LilyPad", 100, attackDmg, attackSpd, position, 25, range, 10, gameMap, imagepath);
+    public Lilypad (int[] position, GameMap gameMap) {
+        super("LilyPad", 100, attackDmg, attackSpd, position, 25, range, 10, gameMap, "imagepath");
     }
 
     public boolean isOccupied() { 

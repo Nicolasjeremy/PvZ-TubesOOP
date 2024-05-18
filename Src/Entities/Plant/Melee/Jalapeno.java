@@ -6,8 +6,8 @@ import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
 
 public class Jalapeno extends MeleePlant {
-    public Jalapeno(String name, int[] position, GameMap gameMap, String imagepath) {
-        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, imagepath);
+    public Jalapeno(int[] position, GameMap gameMap) {
+        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "imagepath");
     }
 
     @Override

@@ -6,8 +6,8 @@ import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
 
 public class Squash extends MeleePlant {
-    public Squash(String name, int[] position, GameMap gameMap, String imagepath) {
-        super("Squash", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, imagepath);
+    public Squash(int[] position, GameMap gameMap) {
+        super("Squash", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "imagepath");
     }
 
     @Override

@@ -3,12 +3,12 @@ package Src.Entities.Zombie;
 import Src.GameMaps.GameMap;
 
 public class ZDipsy extends Zombie implements ZombieFactory{
-    public ZDipsy(int[] position, GameMap gameMap, String imagepath) {
-        super("Dipsy", 200, 125, 1, position, false, false, gameMap, imagepath);
+    public ZDipsy(int[] position, GameMap gameMap) {
+        super("Dipsy", 200, 125, 1, position, false, false, gameMap, "imagepath");
     }
 
     public Zombie createZombie(int[] position, GameMap gameMap) {
-        return new ZDipsy(position, gameMap, null);
+        return new ZDipsy(position, gameMap);
     }
 
 }
