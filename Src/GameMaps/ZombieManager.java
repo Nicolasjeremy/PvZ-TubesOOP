@@ -3,8 +3,6 @@ package Src.GameMaps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import Src.Entities.Entities;
 import Src.Entities.Zombie.*;
 
@@ -14,7 +12,6 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
     private Random random;
     private GameMap gameMap;
     private static final Object lock = new Object();
-    private static AtomicInteger ZombieCounter = new AtomicInteger(0);
 
     public ZombieManager(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -23,7 +20,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         this.random = new Random();
 
         // Add the zombie factory instances here
-        zombieFactories.add(new ZRaul(null, gameMap)); // Assuming ZRaul implements ZombieFactory
+        zombieFactories.add(new ZRaul(null, gameMap));
         zombieFactories.add(new ZConeHead(null, gameMap));
         zombieFactories.add(new ZBucketHead(null, gameMap));
         zombieFactories.add(new ZDipsy(null, gameMap));
@@ -34,25 +31,12 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         zombieFactories.add(new ZPoleVault(null, gameMap));
     }
 
-    public static int getZombieCounter() {
-        return ZombieCounter.get();
-    }
-
-    public static void incrementCounter() {
-        ZombieCounter.incrementAndGet();
-    }
-
-    public synchronized static void decrementCounter() {
-        ZombieCounter.decrementAndGet();
-    }
-
     public void spawnZombie() {
         synchronized (lock) {
-            System.out.println(getZombieCounter());
             for (int i = 0; i <= 5; i++) {
                 int[] position = { i, 10 };
                 try {
-                    if (getZombieCounter() < 10) {
+                    if (checkZombiecount(gameMap) < 10) {
                         if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
                             int randomspwn = random.nextInt(10);
                             if (randomspwn < 3) { // 30% chance to spawn
@@ -62,7 +46,6 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                                 gameMap.getTile(position[0], position[1]).addEntity(newZombie);
                                 Thread zombieThread = new Thread(newZombie);
                                 zombieThread.start();
-                                incrementCounter();
                             }
                         } else {
                             int randomspwn = random.nextInt(10);
@@ -73,7 +56,6 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                                 gameMap.getTile(position[0], position[1]).addEntity(newZombie);
                                 Thread zombieThread = new Thread(newZombie);
                                 zombieThread.start();
-                                incrementCounter();
                             }
                         }
                     }

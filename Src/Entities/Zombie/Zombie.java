@@ -48,7 +48,6 @@ public abstract class Zombie extends Entities implements Runnable {
             int[] position = this.getPosition();
             Tile tile = getGameMap().getTile(position[0], position[1]);
             tile.removeEntity(this);
-            ZombieManager.decrementCounter();
             this.stop();
         }
     }
