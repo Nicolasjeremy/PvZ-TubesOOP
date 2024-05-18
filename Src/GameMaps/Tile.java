@@ -25,14 +25,20 @@ public class Tile {
 
     public void addEntity(Entities entities) {
         entity.add(entities);
-        this.hasPlant = true;
+        if (entities instanceof Plant) {
+            this.hasPlant = true;
+        }
     }
 
     public void removeEntity(Entities entities) {
         entity.remove(entities);
     }
 
-    public ArrayList<Entities> getEntities() {
+    public Entities getEntities(int index) {
+        return this.entity.get(index);
+    }
+
+    public ArrayList<Entities> getAllEntities() {
         return this.entity;
     }
 

@@ -2,6 +2,7 @@ package Src.MainMenu;
 
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
+import Src.Entities.Plant.Passive.Lilypad;
 import Src.GameMaps.*;
 import Src.GameMaps.Sun;
 
@@ -89,17 +90,67 @@ public class Deck {
     }
 
     public void planting(Plant plant, int[] position) {
+        Tile tile = this.gameMap.getTile(position[0], position[1]);
+        if (tile instanceof Home)  {
+            System.out.println("Cant Plant On Home!");
+        }
+        else if (tile instanceof ZombieSpawn) {
+            System.out.println("Cant Plant On ZombieSpawn!");
+        }
+        else if (tile instanceof Pool) {
+            Pool tilepool = (Pool) tile;
+            if (tilepool.getLilyPad_Plant()) {
+                plantManager(plant, position, tilepool);
+            }
+            else {
+                if (plant instanceof Lilypad) {
+                    plantManager(plant, position, tilepool);
+                    tilepool.Plant_LilyPad();
+                }
+                else {
+                    System.out.println("Needs Lilypad To Plant!");
+                }
+            }
+        }
+        else {
+            if (plant instanceof Lilypad) {
+                System.out.println("Lilypad Cant Planted On Grass");
+            }
+            else {
+                plantManager(plant, position, tile);
+            }
+        }
+
+    }
+
+    public void plantManager(Plant plant, int[] position, Tile tile) {
         if(Sun.getSun() < plant.getCost()){
             Sun.spendSun(plant.getCost());
         }
         else {
-            Tile tile = this.gameMap.getTile(position[0], position[1]);
+            if (plant instanceof Lilypad) {
+                if (tile instanceof Home) {
+                    System.out.println("Lilypad");
+                }
+            }
             if (isCooldownOver()) {
                 System.out.println("This Plant is On Cooldown!");
-            } else if (tile.hasPlanted()) {
-                System.out.println("This Tile Has Been Planted!");
+            } else if (tile.hasPlanted()) { 
+                if (tile.getEntities(0) instanceof Lilypad && tile.getAllEntities().size() < 2) {
+                    plant.setgameMap(gameMap);
+                    tile.addEntity(plant);
+                    tile.setPlanted(true);
+                    Sun.spendSun(plant.getCost());
+
+                    System.out.println("Plant Planted Successfully!");
+
+                    Thread plantThread = new Thread(plant);
+                    plantThread.start();
+                }
+                else {
+                    System.out.println("This Tile Has Been Planted!");
+                }
             } else {
-                plant.setPosition(position);
                 plant.setgameMap(gameMap);
                 tile.addEntity(plant);
                 tile.setPlanted(true);
@@ -110,7 +161,7 @@ public class Deck {
                 Thread plantThread = new Thread(plant);
                 plantThread.start();
             }
-            }
+        }
     }
 
     public void unPlanting(int[] position) {

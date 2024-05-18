@@ -20,7 +20,7 @@ public class Projectile extends Entities implements Runnable {
         int[] position = getPosition();
         Tile tile = getGameMap().getTile(position[0], position[1]);
 
-        ArrayList<Entities> entity = tile.getEntities();
+        ArrayList<Entities> entity = tile.getAllEntities();
 
         for (Entities entities : entity) { // ? Ngecek semua isi tile
             if (entities instanceof Zombie) { // ? Kalo ada Plant apa yang dilakuin

@@ -15,7 +15,7 @@ public class SnowProjectile extends Projectile {
         Tile tile = getGameMap().getTile(position[0], position[1]);
         boolean hitZombie = false;
 
-        for (Entities entity : tile.getEntities()) {
+        for (Entities entity : tile.getAllEntities()) {
             if (entity instanceof Zombie) {
                 hitZombie = true;
                 Zombie zombie = (Zombie) entity;

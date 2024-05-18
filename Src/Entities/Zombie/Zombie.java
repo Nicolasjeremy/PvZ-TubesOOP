@@ -57,7 +57,7 @@ public abstract class Zombie extends Entities implements Runnable {
         int[] position = getPosition(); // ? Buat posisi zombie
         Tile tile = getGameMap().getTile(position[0], position[1]); // ? Buat Nentuin tile zombienya
 
-        ArrayList<Entities> entity = tile.getEntities();
+        ArrayList<Entities> entity = tile.getAllEntities();
 
         for (Entities entities : entity) { // ? Ngecek semua isi tile
             if (entities instanceof Plant) { // ? Kalo ada Plant apa yang dilakuin

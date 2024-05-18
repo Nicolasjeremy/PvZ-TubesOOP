@@ -50,7 +50,7 @@ public class GameMap {
                 StringBuilder sb = new StringBuilder();
                 sb.append(tileColor).append("[");
 
-                ArrayList<Entities> entities = tile.getEntities();
+                ArrayList<Entities> entities = tile.getAllEntities();
                 if (entities.isEmpty()) {
                     sb.append(" "); // Add a space if no entities
                 } else {

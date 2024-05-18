@@ -19,7 +19,7 @@ public class Chomper extends MeleePlant{
     public void attack() {
         int[] position = this.getPosition(); 
         Tile tile = getGameMap().getTile(position[0], position[1]); 
-        ArrayList<Entities> entitiesInFront = tile.getEntities();
+        ArrayList<Entities> entitiesInFront = tile.getAllEntities();
         for (Entities entity : entitiesInFront) {
             if (entity instanceof Zombie) {
                 Zombie zombie = (Zombie) entity;
