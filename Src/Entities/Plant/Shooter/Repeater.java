@@ -5,7 +5,7 @@ import Src.Entities.Plant.Projectile.Projectile;
 
 public class Repeater extends ShooterPlant{
     public Repeater (int[] position, GameMap gameMap) {
-        super("Repeater", 100, 25, 4, position, 150, range, 10, 3, gameMap, "imagepath");
+        super("Repeater", 100, 25, 4, position, 150, range, 10, 3, gameMap, "../../../Image/PlantImage/Repeater.png");
     }
     @Override
     public void attack() {

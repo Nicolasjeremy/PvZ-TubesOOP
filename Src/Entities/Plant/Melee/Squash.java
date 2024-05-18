@@ -7,7 +7,7 @@ import Src.GameMaps.*;
 
 public class Squash extends MeleePlant {
     public Squash(int[] position, GameMap gameMap) {
-        super("Squash", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "imagepath");
+        super("Squash", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../../../Image/PlantImage/Squash.png");
     }
 
     @Override

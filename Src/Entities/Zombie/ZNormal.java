@@ -4,7 +4,7 @@ import Src.GameMaps.GameMap;
 
 public class ZNormal extends Zombie implements ZombieFactory{
     public ZNormal(int[] position, GameMap gameMap) {
-        super("Normal", 125, 100, 1, position, false, false, gameMap, "imagepath");
+        super("Normal", 125, 100, 1, position, false, false, gameMap, "../../Image/ZombieImage/NormalZ.png");
     }
 
     public Zombie createZombie(int[] position, GameMap gameMap) {

@@ -4,7 +4,7 @@ import Src.GameMaps.GameMap;
 
 public class ZAsep extends Zombie implements ZombieFactory{ // ! Zombie special dimana gabisa di freeze
     public ZAsep(int[] position, GameMap gameMap) {
-        super("ZAsep", 125, 100, 1, position, false, false, gameMap, "imagepath");
+        super("ZAsep", 125, 100, 1, position, false, false, gameMap, "../../Image/ZombieImage/Asep.png");
     }
 
     public Zombie createZombie(int[] position, GameMap gameMap) {
