@@ -44,11 +44,13 @@ public abstract class Zombie extends Entities implements Runnable {
 
     @Override
     public void die() {
-        int[] position = getPosition();
-        Tile tile = this.getGameMap().getTile(position[0], position[1]);
-        tile.removeEntity(this);
-        ZombieManager.decrementCounter();
-        this.stop();
+        synchronized (ZombieManager.class) {
+            int[] position = this.getPosition();
+            Tile tile = getGameMap().getTile(position[0], position[1]);
+            tile.removeEntity(this);
+            ZombieManager.decrementCounter();
+            this.stop();
+        }
     }
 
     public void action() {
@@ -105,7 +107,7 @@ public abstract class Zombie extends Entities implements Runnable {
             setPosition(nextPosition);
             nextTile.addEntity(this);
         } else {
-            //todo kalo zombie dah ampe akhir blom dibikin menang
+            // todo kalo zombie dah ampe akhir blom dibikin menang
             // Zombie gua bikin mati
             this.die();
             Gameplay.setIsEnd(true);
@@ -121,8 +123,8 @@ public abstract class Zombie extends Entities implements Runnable {
 
     public void run() {
         try {
-            while (Gameplay.getIsEnd() == false && this.getHealth() >= 0) {
-                if (this.isSlow() == true) {
+            while (!Gameplay.getIsEnd() && this.getHealth() > 0) {
+                if (this.isSlow()) {
                     Thread.sleep(7500);
                     action();
                 } else {
