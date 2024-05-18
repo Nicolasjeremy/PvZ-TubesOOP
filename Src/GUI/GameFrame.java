@@ -4,81 +4,112 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Src.MainMenu.Deck;
-import Src.MainMenu.Inventory;
-import Src.GameMaps.GameMap;
 
 public class GameFrame extends JFrame {
-    private Inventory inventory;
-    private Deck deck;
-    
-    public GameFrame(Inventory inventory, Deck deck) {
-        this.inventory = inventory;
-        this.deck = deck;
-        
-        setTitle("Michael vs. Lalapan");
-        setSize(800, 600); // Set ukuran sesuai kebutuhan
+    private JButton startButton;
+    private JButton entityListButton;
+    private JButton helpButton;
+    private JButton exitButton;
+
+    public GameFrame() {
+        setTitle("Plants vs Zombies");
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Buka di tengah screen
+        setLocationRelativeTo(null);
         initializeComponents();
     }
 
     private void initializeComponents() {
-        setLayout(new BorderLayout());
-        
-        // Judul game
-        JLabel titleLabel = new JLabel("Michael vs. Lalapan", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        add(titleLabel, BorderLayout.NORTH);
-        
-        // Panel untuk inventory dan deck
-        JPanel inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new FlowLayout());
-        
-        JButton showInventoryButton = new JButton("Show Inventory");
-        showInventoryButton.addActionListener(new ActionListener() {
+        setLayout(new GridLayout(4, 1));
+
+        // Tombol "Start Game"
+        startButton = new JButton("Start Game");
+        startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Tampilkan inventory
-                JOptionPane.showMessageDialog(null, inventory.toString(), "Inventory", JOptionPane.INFORMATION_MESSAGE);
+                // Jalankan game PvZ
+                startPvZGame();
             }
         });
-        
-        JButton showDeckButton = new JButton("Show Deck");
-        showDeckButton.addActionListener(new ActionListener() {
+        add(startButton);
+
+        // Tombol "Entity List"
+        entityListButton = new JButton("Entity List");
+        entityListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Tampilkan deck
-                JOptionPane.showMessageDialog(null, deck.toString(), "Deck", JOptionPane.INFORMATION_MESSAGE);
+                // Tampilkan daftar entity (zombie dan plant)
+                showEntityList();
             }
         });
-        
-        inventoryPanel.add(showInventoryButton);
-        inventoryPanel.add(showDeckButton);
-        add(inventoryPanel, BorderLayout.CENTER);
-        
-        // Tombol keluar
-        JButton exitButton = new JButton("Exit Game");
+        add(entityListButton);
+
+        // Tombol "Help"
+        helpButton = new JButton("Help");
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Tampilkan menu bantuan
+                showHelp();
+            }
+        });
+        add(helpButton);
+
+        // Tombol "Exit"
+        exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Keluar dari aplikasi
                 System.exit(0);
             }
         });
-        
-        add(exitButton, BorderLayout.SOUTH);
+        add(exitButton);
 
+        // Initialize map label
+        
     }
 
-        public static void main(String[] args) {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    Inventory inventory = new Inventory(new Deck(new GameMap()));
-                    Deck deck = new Deck(new GameMap());
-                    JFrame frame = new GameFrame(inventory, deck);
-                    frame.setVisible(true);
-                }
-            });
-        }    
-}
+    private void startPvZGame() {
+        // Hapus semua komponen dari frame kecuali tombol-tombol di sisi atas
+        getContentPane().removeAll();
+    
+        // Panel untuk menampilkan peta PvZ
+        JPanel mapPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                setSize(800, 565);
+                // Menggambar gambar peta PvZ
+                ImageIcon imageIcon = new ImageIcon(getClass().getResource("../Image/pvz_image.jpg"));
+                Image image = imageIcon.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        
+        // Tambahkan panel peta ke tengah frame
+        add(mapPanel, BorderLayout.CENTER);
+    
+        // Perbarui tampilan frame
+        revalidate();
+        repaint();
+    }
+    
 
+    private void showEntityList() {
+        // Logika untuk menampilkan daftar entity (zombie dan plant)
+    }
+
+    private void showHelp() {
+        // Logika untuk menampilkan menu bantuan
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new GameFrame();
+                frame.setVisible(true);
+            }
+        });
+    }
+}
