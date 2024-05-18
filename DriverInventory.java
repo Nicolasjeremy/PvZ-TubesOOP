@@ -10,9 +10,10 @@ public class DriverInventory {
 
         while (!full) {
             if (deck.getDeck().size() >= 6) {
-                System.out.println("Deck is full! You can either swap plants or quit.");
+                System.out.println("Deck is full! You can either swap or remove plants.");
                 System.out.println("\n1. Swap Plants");
-                System.out.println("2. Quit");
+                System.out.println("2. Remove Plants");
+                System.out.println("3. Quit");
                 System.out.print("Choose an option: ");
                 int fullChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -48,7 +49,14 @@ public class DriverInventory {
                         System.out.println("Invalid Option!");
                     }
                     break;
-                    case 2:
+                    case 2 :
+                        deck.displayDeck();
+                        System.out.print("Enter the index of the plant to remove from the deck: ");
+                        int indexToRemove = scanner.nextInt() - 1;
+                        scanner.nextLine(); // Consume newline
+                        inventory.removeDeck(indexToRemove);
+                    break;
+                    case 3:
                         System.out.println("Exiting...");
                         full = true;
                         break;

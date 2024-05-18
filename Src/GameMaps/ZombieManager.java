@@ -42,7 +42,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         ZombieCounter.incrementAndGet();
     }
 
-    public static void decrementCounter() {
+    public synchronized static void decrementCounter() {
         ZombieCounter.decrementAndGet();
     }
 
