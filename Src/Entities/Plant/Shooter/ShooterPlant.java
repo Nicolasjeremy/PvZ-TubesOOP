@@ -2,7 +2,7 @@ package Src.Entities.Plant.Shooter;
 
 import Src.GameMaps.*;
 import Src.Entities.Plant.*;
-import Src.Entities.Plant.Projectile.*;
+// import Src.Entities.Plant.Projectile.*;
 
 public class ShooterPlant extends Plant {
     public static final int range = -1;
@@ -12,10 +12,16 @@ public class ShooterPlant extends Plant {
     }
 
     public void attack() {
-        int[] position = this.getPosition();
-        Projectile projectile = new Projectile(getAttackDmg(), position, getGameMap());
-        getGameMap().getTile(position[0], position[1]).addEntity(projectile);
-        Thread projectileThread = new Thread(projectile);
-        projectileThread.start();
     };
+
+    public void run() {
+        System.out.println("SHOOTTINGGG DA ZOMBIEEE!!!!!!!");
+        try {
+            while (true) {
+                Thread.sleep(attackSpd * 1000);
+                attack();
+            }
+        } catch (InterruptedException e) {
+        }
+    }
 }

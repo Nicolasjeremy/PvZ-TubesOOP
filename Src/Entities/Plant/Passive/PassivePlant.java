@@ -12,4 +12,15 @@ public class PassivePlant extends Plant{
     }
 
     public void attack() {};
+    
+    public void run() {
+        try {
+            while (true) {
+                attack();
+            }
+        }
+        catch (Exception e) {
+
+        }
+    }
 }

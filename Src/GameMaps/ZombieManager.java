@@ -55,7 +55,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                 try {
                     if (i == 2 || i == 3) { // If tile 3 and 4, spawn water zombies
                         int randomspwn = random.nextInt(10);
-                        if (randomspwn < 3) { // 30% chance to spawn
+                        if (randomspwn < 1) { // 30% chance to spawn
                             int randomIndex = random.nextInt(zombieFactoriesWater.size());
                             ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
                             Zombie newZombie = selectedFactory.createZombie(position, gameMap);
@@ -66,7 +66,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                         }
                     } else {
                         int randomspwn = random.nextInt(10);
-                        if (randomspwn < 3) { // 30% chance to spawn
+                        if (randomspwn < 1) { // 30% chance to spawn
                             int randomIndex = random.nextInt(zombieFactories.size());
                             ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
                             Zombie newZombie = selectedFactory.createZombie(position, gameMap);

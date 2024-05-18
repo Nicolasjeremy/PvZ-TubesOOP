@@ -37,5 +37,8 @@ public class Lilypad extends PassivePlant{
             this.plantOnTop.die(); 
         }
     }
+
+    public void attack() {
+    };
 }
 
