@@ -18,8 +18,8 @@ public class TangleKelp extends MeleePlant{
         for (Entities entity : entitiesInFront) {
             if (entity instanceof Zombie) {
                 Zombie zombie = (Zombie) entity;
-                zombie.die(getGameMap());
-                this.die(getGameMap());
+                zombie.die();
+                this.die();
             }
         }
     }

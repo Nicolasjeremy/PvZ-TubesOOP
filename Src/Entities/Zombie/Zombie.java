@@ -43,9 +43,9 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     @Override
-    public void die(GameMap gameMap) {
-        int[] position = this.getPosition();
-        Tile tile = gameMap.getTile(position[0], position[1]);
+    public void die() {
+        int[] position = getPosition();
+        Tile tile = this.getGameMap().getTile(position[0], position[1]);
         tile.removeEntity(this);
         ZombieManager.decrementCounter();
         this.stop();
@@ -72,21 +72,23 @@ public abstract class Zombie extends Entities implements Runnable {
 
         if (isplant == true) {
             if (getSpecial() == true) {
-                special(getGameMap(), plantInTile);
+                special(plantInTile);
                 setSpecial(false);
             } else {
-                attack(getGameMap(), plantInTile);
+                attack(plantInTile);
             }
         } else {
             walk(getGameMap());
         }
     }
 
-    public void attack(GameMap gameMap, Plant plant) {
+    // if there are no plant in the same tile the zombie walk, if there are plant it
+    // attack
+    public void attack(Plant plant) {
         int dmg = this.getAttackDmg();
         plant.setHealth(plant.getHealth() - dmg);
         if (plant.getHealth() <= 0) {
-            plant.die(gameMap);
+            plant.die();
         }
     }
 
@@ -103,15 +105,18 @@ public abstract class Zombie extends Entities implements Runnable {
             setPosition(nextPosition);
             nextTile.addEntity(this);
         } else {
-            // todo kalo zombie dah ampe akhir blom dibikin menang
-            this.die(gameMap);
+            //todo kalo zombie dah ampe akhir blom dibikin menang
+            // Zombie gua bikin mati
+            this.die();
             Gameplay.setIsEnd(true);
             Gameplay.setWinningState(false);
         }
     }
 
-    public void special(GameMap gameMap, Plant plant) {
-        plant.die(gameMap);
+    // the object advance in the game map from right to left
+
+    public void special(Plant plant) {
+        plant.die();
     }
 
     public void run() {

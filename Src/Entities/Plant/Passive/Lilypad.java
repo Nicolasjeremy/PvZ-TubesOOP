@@ -34,7 +34,7 @@ public class Lilypad extends PassivePlant{
         super.setHealth(health);
         if (this.health <= 0 && this.plantOnTop != null) {
             this.plantOnTop.setHealth(0);
-            this.plantOnTop.die(getGameMap()); 
+            this.plantOnTop.die(); 
         }
     }
 }

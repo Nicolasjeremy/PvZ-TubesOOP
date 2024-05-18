@@ -22,7 +22,7 @@ public class SnowProjectile extends Projectile {
                 zombie.setHealth(getHealth() - this.getAttackDmg());
                 zombie.setSlow(true); //ini ga yakin sih, sebenernya slow ini khusus buat nentuin zomboe yang lambat apa gmn ya je
                 if (zombie.getHealth() <= 0) {
-                    zombie.die(zombie.getGameMap());
+                    zombie.die();
                 } else {
                 }
                 break; 

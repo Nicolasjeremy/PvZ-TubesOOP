@@ -131,7 +131,7 @@ public class Main {
 
                     switch (choice) {
                         case 1:
-                            // deck.displayDeck();
+                            deck.displayDeck();
                             System.out.print("Enter plant numerical order: ");
                             int plantIndexToPlant = scanner.nextInt() - 1;
                             Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);

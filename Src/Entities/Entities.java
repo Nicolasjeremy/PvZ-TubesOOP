@@ -70,8 +70,8 @@ public class Entities {
         this.gameMap = gameMap;
     }
 
-    public void die(GameMap gameMap) {
-        Tile tile = gameMap.getTile(position[0], position[1]);
+    public void die() {
+        Tile tile = this.gameMap.getTile(this.position[0], this.position[1]);
         tile.removeEntity(this);
         this.stop();
     }

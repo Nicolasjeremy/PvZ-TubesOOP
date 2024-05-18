@@ -15,7 +15,7 @@ public class Projectile extends Entities implements Runnable {
         this.ListZombie = new ArrayList<>();
     }
 
-    public void action() {
+    public synchronized void action() {
         boolean isZombie = false;
         int[] position = getPosition();
         Tile tile = getGameMap().getTile(position[0], position[1]);
@@ -35,11 +35,11 @@ public class Projectile extends Entities implements Runnable {
             for (Zombie zombie : ListZombie) {
                 zombie.setHealth(getHealth() - this.getAttackDmg());
                 if (zombie.getHealth() <= 0) {
-                    zombie.die(getGameMap());
+                    zombie.die();
                 } else {
                 }
             }
-            this.die(getGameMap());
+            this.die();
             this.stop();
 
         }
@@ -66,7 +66,7 @@ public class Projectile extends Entities implements Runnable {
             setPosition(nextPosition);
             nextTile.addEntity(this);
         } else {
-            this.die(gameMap);
+            this.die();
             this.stop();
         }
     }

@@ -29,6 +29,8 @@ public abstract class Plant extends Entities implements Runnable {
     }
 
     public void run() {
+        int i = 0;
+        System.out.println("SQUASH IN ACTION MA BOIIIII!!!!!!!");
         try {
             while (true) {
                 Thread.sleep(attackSpd * 1000);

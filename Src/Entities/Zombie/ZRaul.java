@@ -13,7 +13,7 @@ public class ZRaul extends Zombie implements ZombieFactory{
 
 
     @Override
-    public void special(GameMap gameMap, Plant plant) {
+    public void special(Plant plant) {
         if (this.getHealth() < 125) {
             this.setAttackDmg(getAttackDmg() * 2);
             setSpecial(false);

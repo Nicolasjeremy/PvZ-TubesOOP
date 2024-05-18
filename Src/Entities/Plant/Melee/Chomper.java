@@ -43,6 +43,6 @@ public class Chomper extends MeleePlant{
             e.printStackTrace();
         }
         isChewing = false;
-        zombie.die(getGameMap());
+        zombie.die();
     }
 }
