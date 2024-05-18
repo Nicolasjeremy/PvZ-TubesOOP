@@ -60,7 +60,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println("Error spawning zombie");
                 }
             }
         }
@@ -91,7 +91,8 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                     spawnZombie();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
+                System.out.println("Zombie Manager stop");
             }
         }
     }

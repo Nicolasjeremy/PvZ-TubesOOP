@@ -61,7 +61,7 @@ public class Gameplay implements Runnable {
             }
             Gameplay.isEnd = true;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Gameplay stop");
         }
 
     }
