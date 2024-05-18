@@ -3,7 +3,7 @@ import Src.GameMaps.*;
 
 public class Wallnut extends PassivePlant{
     public Wallnut (int[] position, GameMap gameMap) {
-        super("Wallnut", 1000, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../../../Image/PlantImage/Wallnut.png");
+        super("Wallnut", 1000, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/Wallnut.png");
     }
 
     public void attack() {

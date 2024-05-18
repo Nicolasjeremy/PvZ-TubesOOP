@@ -1,10 +1,11 @@
 package Src.Entities.Plant.Shooter;
+
 import Src.Entities.Plant.Projectile.SnowProjectile;
 import Src.GameMaps.*;
 
-public class Snowpea extends ShooterPlant{
-    public Snowpea(int[] position ,GameMap gameMap) {
-        super("Snowpea", 100, 25, 4, position, 100, range, 10, 3, gameMap, "../../../Image/PlantImage/Snowpea.png");
+public class Snowpea extends ShooterPlant {
+    public Snowpea(int[] position, GameMap gameMap) {
+        super("Snowpea", 100, 25, 4, position, 100, range, 10, 3, gameMap, "../Image/PlantImage/Snowpea.png");
     }
 
     @Override

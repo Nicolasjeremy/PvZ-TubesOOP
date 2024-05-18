@@ -13,7 +13,8 @@ public class Entities {
     private String imagepath;
 
     // Constructor
-    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position, GameMap gameMap, String imagepath) {
+    public Entities(String name, int health, int attackDmg, int attackSpd, int[] position, GameMap gameMap,
+            String imagepath) {
         this.name = name;
         this.health = health;
         this.attackDmg = attackDmg;
@@ -72,11 +73,11 @@ public class Entities {
         this.gameMap = gameMap;
     }
 
-    public void setimagepath(String imagepath){
+    public void setimagepath(String imagepath) {
         this.imagepath = imagepath;
     }
 
-    public String getimagepath(){
+    public String getimagepath() {
         return imagepath;
     }
 

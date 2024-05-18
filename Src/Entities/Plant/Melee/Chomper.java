@@ -10,7 +10,7 @@ public class Chomper extends MeleePlant{
     private boolean isChewing = false;
 
     public Chomper(int[] position, GameMap gameMap) {
-        super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../../../Image/PlantImage/.png");
+        super("Chomper", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/.png");
     }
 
     @Override

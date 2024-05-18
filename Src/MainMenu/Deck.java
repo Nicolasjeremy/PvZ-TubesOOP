@@ -195,7 +195,7 @@ public class Deck {
         //     return new Wallnut(null, null);
         // } 
         if (plant instanceof Peashooter) {
-            return new Peashooter(null, null, null);
+            return new Peashooter(null, null);
         // } else if (plant instanceof Repeater) {
         //     return new Repeater(null, null);
         // } else if (plant instanceof Snowpea) {

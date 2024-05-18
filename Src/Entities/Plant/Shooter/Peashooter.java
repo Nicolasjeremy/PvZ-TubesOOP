@@ -4,8 +4,8 @@ import Src.Entities.Plant.Projectile.Projectile;
 import Src.GameMaps.*;
 
 public class Peashooter extends ShooterPlant {
-    public Peashooter(int[] position, GameMap gameMap, String imagePath) {
-        super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap, imagePath);
+    public Peashooter(int[] position, GameMap gameMap) {
+        super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap, "../Image/PlantImage/image1.jpg");
     }
 
     @Override

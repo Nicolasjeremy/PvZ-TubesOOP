@@ -12,7 +12,7 @@ public class StartGameMapPanel extends JPanel {
 
     public StartGameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
-        setLayout(null);  // Set layout to null for StartGameMapPanel itself
+        setLayout(null); // Set layout to null for StartGameMapPanel itself
 
         // Panel untuk menampilkan peta PvZ
         JPanel mapPanel = new JPanel() {
@@ -45,7 +45,7 @@ public class StartGameMapPanel extends JPanel {
                 int y = yStart + row * yGap;
 
                 JLabel tileLabel = new JLabel();
-                tileLabel.setBounds(x, y, tileWidth, tileHeight);  // Setting position and size
+                tileLabel.setBounds(x, y, tileWidth, tileHeight); // Setting position and size
                 tileLabel.setOpaque(true);
                 tileLabel.setBackground(getTileColor(gameMap.getTile(row, col)));
 
@@ -55,13 +55,14 @@ public class StartGameMapPanel extends JPanel {
                 // Check if the tile is at (0, 3) and plant Peashooter there
                 if (row == 0 && col == 3) {
                     tileLabel.setOpaque(false);
-                    int[] position = {0,3};
-                    Peashooter peashooter = new Peashooter(position, gameMap, "../Image/PlantImage/image1.jpg");
-                    JLabel peashooterlabel = new JLabel(new ImageIcon(getClass().getResource("../Image/PlantImage/image1.jpg")));
-                    peashooterlabel.setBounds(x, y, tileWidth, tileHeight);
+                    int[] position = { 0, 3 };
+                    Peashooter peashooter = new Peashooter(position, gameMap);
+                    JLabel peashooterLabel = new JLabel(
+                            new ImageIcon(getClass().getResource(peashooter.getimagepath())));
+                    peashooterLabel.setBounds(x, y, tileWidth, tileHeight);
                     gameMap.getTile(row, col).addEntity(peashooter);
                     gameMap.getTile(row, col).setPlanted(true);
-                    mapPanel.add(peashooterlabel);
+                    mapPanel.add(peashooterLabel);
                 }
             }
         }
