@@ -12,17 +12,16 @@ public class Squash extends MeleePlant {
 
     @Override
     public void attack() {
-        System.out.println("Attack Nih Boi!!!!!!!!!!!!!!");
+        System.out.println("Squash Attack!!!!!!!!!!!!!");
         int[] position = this.getPosition(); 
         Tile tile = getGameMap().getTile(position[0], position[1]); 
         ArrayList<Entities> entitiesInFront = tile.getAllEntities();
         for (Entities entity : entitiesInFront) {
             if (entity instanceof Zombie) {
-                System.out.println("OTW NYERANGGGGGGGGGGGGG");
                 Zombie newzombie = (Zombie) entity;
+                System.out.println("SQUASHINGGG!!!!!!!!!!!!!!!");
                 newzombie.die();
                 this.die();
-                System.out.println("Kelar Harusnya!!!!!!!!!!!");
             }
         }
     }

@@ -103,23 +103,38 @@ public class Deck {
         
         if (tile instanceof Home) {
             System.out.println("Can't Plant On Home!");
-        } else if (tile instanceof ZombieSpawn) {
+        } 
+        else if (tile instanceof ZombieSpawn) {
             System.out.println("Can't Plant On ZombieSpawn!");
-        } else if (tile instanceof Pool) {
+        } 
+        else if (tile instanceof Pool) {
             Pool tilepool = (Pool) tile;
             if (tilepool.getLilyPad_Plant()) {
-                plantManager(newPlant, position, tilepool);
-            } else {
+                if (plant instanceof TangleKelp) {
+                    System.out.println("Can't Plant TangleKelp On Lilypad");
+                }
+                else {
+                    plantManager(newPlant, position, tilepool);
+                }
+            } 
+            else {
                 if (newPlant instanceof Lilypad) {
                     plantManager(newPlant, position, tilepool);
                     tilepool.Plant_LilyPad();
-                } else {
-                    System.out.println("Needs Lilypad To Plant!");
+                } 
+                else {
+                    if (plant instanceof TangleKelp) {
+                        plantManager(newPlant, position, tilepool);
+                    }
+                    else {
+                        System.out.println("Needs Lilypad To Plant!");
+                    }
                 }
             }
-        } else {
-            if (newPlant instanceof Lilypad) {
-                System.out.println("Lilypad Can't Be Planted On Grass");
+        } 
+        else {
+            if (newPlant instanceof Lilypad || newPlant instanceof TangleKelp) {
+                System.out.println("Lilypad And TangleKelp Can't Be Planted On Grass");
             } else {
                 plantManager(newPlant, position, tile);
             }
