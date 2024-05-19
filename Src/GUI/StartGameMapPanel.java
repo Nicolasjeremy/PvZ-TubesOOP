@@ -8,6 +8,7 @@ import Src.Entities.Plant.Shooter.*;
 public class StartGameMapPanel extends JPanel {
     private Image mapImage;
     private JLabel[][] tileLabels;
+    private JLayeredPane[][] tilePanes;
     private GameMap gameMap;
 
     public StartGameMapPanel(GameMap gameMap) {
@@ -31,6 +32,7 @@ public class StartGameMapPanel extends JPanel {
         mapPanel.setOpaque(false);
 
         tileLabels = new JLabel[6][11];
+        tilePanes = new JLayeredPane[6][11];
         int xStart = 185;
         int yStart = 220;
         int tileWidth = 70;
@@ -44,25 +46,31 @@ public class StartGameMapPanel extends JPanel {
                 int x = xStart + col * xGap;
                 int y = yStart + row * yGap;
 
+                JLayeredPane layeredPane = new JLayeredPane();
+                layeredPane.setBounds(x, y, tileWidth, tileHeight);
+
                 JLabel tileLabel = new JLabel();
-                tileLabel.setBounds(x, y, tileWidth, tileHeight); // Setting position and size
+                tileLabel.setBounds(0, 0, tileWidth, tileHeight); // Setting position and size
                 tileLabel.setOpaque(true);
                 tileLabel.setBackground(getTileColor(gameMap.getTile(row, col)));
 
-                mapPanel.add(tileLabel);
+                layeredPane.add(tileLabel, JLayeredPane.DEFAULT_LAYER);
+                mapPanel.add(layeredPane);
+
                 tileLabels[row][col] = tileLabel;
+                tilePanes[row][col] = layeredPane;
 
                 // Check if the tile is at (0, 3) and plant Peashooter there
                 if (row == 0 && col == 3) {
                     tileLabel.setOpaque(false);
-                    int[] position = { 0, 3 };
+                    int[] position = {0, 3};
                     Peashooter peashooter = new Peashooter(position, gameMap);
                     JLabel peashooterLabel = new JLabel(
                             new ImageIcon(getClass().getResource(peashooter.getimagepath())));
-                    peashooterLabel.setBounds(x, y, tileWidth, tileHeight);
+                    peashooterLabel.setBounds(0, 0, tileWidth, tileHeight);
                     gameMap.getTile(row, col).addEntity(peashooter);
                     gameMap.getTile(row, col).setPlanted(true);
-                    mapPanel.add(peashooterLabel);
+                    layeredPane.add(peashooterLabel, JLayeredPane.PALETTE_LAYER);
                 }
             }
         }
@@ -96,5 +104,11 @@ public class StartGameMapPanel extends JPanel {
 
     public void updateTile(int row, int col, Color color) {
         tileLabels[row][col].setBackground(color);
+    }
+
+    public void addEntityToTile(int row, int col, String imagePath) {
+        JLabel entityLabel = new JLabel(new ImageIcon(getClass().getResource(imagePath)));
+        entityLabel.setBounds(0, 0, tileLabels[row][col].getWidth(), tileLabels[row][col].getHeight());
+        tilePanes[row][col].add(entityLabel, JLayeredPane.PALETTE_LAYER);
     }
 }

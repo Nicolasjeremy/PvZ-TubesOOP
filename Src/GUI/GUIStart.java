@@ -2,6 +2,8 @@ package Src.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+
+import Src.Entities.Plant.Shooter.Peashooter;
 import Src.GameMaps.*;
 
 public class GUIStart extends JFrame {
@@ -21,6 +23,9 @@ public class GUIStart extends JFrame {
 
         mainPanel.add(mainMenuPanel, "mainMenu");
         mainPanel.add(gameMapPanel, "gameMap");
+        int[] position = { 1, 1 };
+        Peashooter pea = new Peashooter(position, gameMap);
+        gameMapPanel.addEntityToTile(position[0], position[0], pea.getimagepath());
 
         add(mainPanel);
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import Src.Entities.Entities;
 import Src.Entities.Zombie.*;
+import Src.MainMenu.*;
 
 public class ZombieManager extends ZombieSpawn implements Runnable {
     private List<ZombieFactory> zombieFactories;
@@ -36,7 +37,31 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
             for (int i = 0; i <= 5; i++) {
                 int[] position = { i, 10 };
                 try {
-                    if (checkZombiecount(gameMap) < 10) {
+                    if (checkZombiecount(gameMap) < 10 && Gameplay.getCurrentTime() > 100) {
+                        if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
+                            int randomspwn = random.nextInt(10);
+                            if (randomspwn < 3) { // 30% chance to spawn
+                                int randomIndex = random.nextInt(zombieFactoriesWater.size());
+                                ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
+                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                Thread zombieThread = new Thread(newZombie);
+                                zombieThread.start();
+                            }
+                        } else {
+                            int randomspwn = random.nextInt(10);
+                            if (randomspwn < 3) { // 30% chance to spawn
+                                int randomIndex = random.nextInt(zombieFactories.size());
+                                ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
+                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                Thread zombieThread = new Thread(newZombie);
+                                zombieThread.start();
+                            }
+                        }
+                    }
+
+                    else if (Gameplay.getCurrentTime()<100){
                         if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
                             int randomspwn = random.nextInt(10);
                             if (randomspwn < 3) { // 30% chance to spawn

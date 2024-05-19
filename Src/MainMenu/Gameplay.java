@@ -9,7 +9,7 @@ import Src.GameMaps.ZombieManager;
 
 public class Gameplay implements Runnable {
     private ArrayList<Entities> entities;
-    private int current_time;
+    private static int current_time;
     private boolean isDay;
     private static boolean isEnd;
     private static Sun sun;
@@ -20,7 +20,7 @@ public class Gameplay implements Runnable {
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 200;
+        Gameplay.current_time = 200;
         this.isDay = true;
         Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
@@ -70,8 +70,8 @@ public class Gameplay implements Runnable {
         return this.entities;
     }
 
-    public int getCurrentTime() {
-        return this.current_time;
+    public static synchronized int getCurrentTime() {
+        return Gameplay.current_time;
     }
 
     public boolean getIsDay() {
@@ -97,6 +97,7 @@ public class Gameplay implements Runnable {
     public Inventory getInventory() {
         return inventory;
     }
+
     public static boolean getWinningState() {
         return winningstate;
     }
@@ -105,8 +106,8 @@ public class Gameplay implements Runnable {
         this.entities = entities;
     }
 
-    public void setCurrentTime(int current_time) {
-        this.current_time = current_time;
+    public static synchronized void setCurrentTime(int current_time) {
+        Gameplay.current_time = current_time;
     }
 
     public void setIsDay(boolean isDay) {
@@ -132,9 +133,11 @@ public class Gameplay implements Runnable {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
+
     public static synchronized void setWinningState(boolean winningstate) {
         Gameplay.winningstate = winningstate;
     }
+
     // Karena ini game singleton maka harus di reset setiap kali game dimulai
     public void resetAttributes() {
         this.entities = new ArrayList<Entities>();

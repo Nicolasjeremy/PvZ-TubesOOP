@@ -39,7 +39,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame() {
         setTitle("Plants vs Zombies");
-        setSize(1100, 806);
+        setSize(1100, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initializeComponents();
@@ -126,83 +126,108 @@ public class GameFrame extends JFrame {
         entityListFrame.setLayout(new GridLayout(4, 5));
 
         // Create entity list
-        ArrayList<Object> entities = new ArrayList<>();
-        entities.add(new Jalapeno(null, null));
-        entities.add(new Squash(null, null));
-        entities.add(new TangleKelp(null, null));
-        entities.add(new Lilypad(null, null));
-        entities.add(new Tallnut(null, null));
-        entities.add(new Wallnut(null, null));
-        entities.add(new Peashooter(null, null));
-        entities.add(new Repeater(null, null));
-        entities.add(new Snowpea(null, null));
-        entities.add(new Sunflower(null, null));
-        entities.add(new ZRaul(null, null));
-        entities.add(new ZConeHead(null, null));
-        entities.add(new ZBucketHead(null, null));
-        entities.add(new ZDipsy(null, null));
-        entities.add(new ZDolphonRider(null, null));
-        entities.add(new ZDuckyTube(null, null));
-        entities.add(new ZLala(null, null));
-        entities.add(new ZNormal(null, null));
-        entities.add(new ZPoleVault(null, null));
-        entities.add(new ZAsep(null, null));
+        ArrayList<Entities> entities = new ArrayList<>();
 
-        for (Object entity : entities) {
-            if (entity instanceof Plant) {
-                Plant plant = (Plant) entity;
-                ImageIcon plantIcon = new ImageIcon(getClass().getResource(plant.getimagepath()));
-                JButton entityButton = new JButton(plant.getName(), plantIcon);
-                entityButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Show entity stats
-                        JOptionPane.showMessageDialog(entityListFrame,
-                                "Name: " + plant.getName() + "\n" +
-                                        "Attack Damage: " + plant.getAttackDmg() + "\n" +
-                                        "Attack Speed: " + plant.getAttackSpd() + "\n" +
-                                        "Cooldown: " + plant.getCooldown() + "\n" +
-                                        "Cost: " + plant.getCost() + "\n" +
-                                        "Health: " + plant.getHealth() + "\n" +
-                                        "Range: " + plant.getRange(),
-                                "Plant Stats", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                });
-                entityListFrame.add(entityButton);
-            } else if (entity instanceof Zombie) {
-                Zombie zombie = (Zombie) entity;
-                ImageIcon zombieIcon = new ImageIcon(getClass().getResource(zombie.getimagepath()));
-                JButton entityButton = new JButton(zombie.getName(), zombieIcon);
-                entityButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Show entity stats
-                        JOptionPane.showMessageDialog(entityListFrame,
-                                "Name: " + zombie.getName() + "\n" +
-                                        "Health: " + zombie.getHealth() + "\n" +
-                                        "Attack Damage: " + zombie.getAttackDmg() + "\n" +
-                                        "Attack Speed: " + zombie.getAttackSpd() + "\n" +
-                                        "Special: " + zombie.getSpecial() + "\n" +
-                                        "Aquatic: " + zombie.getAquatic(),
-                                "Zombie Stats", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                });
-                entityListFrame.add(entityButton);
-            }
+        Jalapeno jalapeno = new Jalapeno(null, null);
+        jalapeno.setimagepath("../Image/MenuList/ListJalapeno.png");
+        entities.add(jalapeno);
+
+        Squash squash = new Squash(null, null);
+        squash.setimagepath("../Image/MenuList/ListSquash.png");
+        entities.add(squash);
+
+        TangleKelp tangleKelp = new TangleKelp(null, null);
+        tangleKelp.setimagepath("../Image/MenuList/ListTangleKelp.png");
+        entities.add(tangleKelp);
+
+        Lilypad lilypad = new Lilypad(null, null);
+        lilypad.setimagepath("../Image/MenuList/ListLiliypad.png");
+        entities.add(lilypad);
+
+        Tallnut tallnut = new Tallnut(null, null);
+        tallnut.setimagepath("../Image/MenuList/ListTallnut.png");
+        entities.add(tallnut);
+
+        Wallnut wallnut = new Wallnut(null, null);
+        wallnut.setimagepath("../Image/MenuList/ListWallnut.png");
+        entities.add(wallnut);
+
+        Peashooter peashooter = new Peashooter(null, null);
+        peashooter.setimagepath("../Image/MenuList/ListPeaShooter.png");
+        entities.add(peashooter);
+
+        Repeater repeater = new Repeater(null, null);
+        repeater.setimagepath("../Image/MenuList/ListRepeater.png");
+        entities.add(repeater);
+
+        Snowpea snowpea = new Snowpea(null, null);
+        snowpea.setimagepath("../Image/MenuList/ListSnowpea.png");
+        entities.add(snowpea);
+
+        Sunflower sunflower = new Sunflower(null, null);
+        sunflower.setimagepath("../Image/MenuList/ListSunflower.png");
+        entities.add(sunflower);
+
+        ZRaul zRaul = new ZRaul(null, null);
+        zRaul.setimagepath("../Image/MenuList/ListZRaul.png");
+        entities.add(zRaul);
+
+        ZConeHead zConeHead = new ZConeHead(null, null);
+        zConeHead.setimagepath("../Image/MenuList/ListZConeHead.png");
+        entities.add(zConeHead);
+
+        ZBucketHead zBucketHead = new ZBucketHead(null, null);
+        zBucketHead.setimagepath("../Image/MenuList/ListZBucketHead.png");
+        entities.add(zBucketHead);
+
+        ZDipsy zDipsy = new ZDipsy(null, null);
+        zDipsy.setimagepath("../Image/MenuList/ListZDipsy.png");
+        entities.add(zDipsy);
+
+        ZDolphonRider zDolphonRider = new ZDolphonRider(null, null);
+        zDolphonRider.setimagepath("../Image/MenuList/ListZDolphonRider.png");
+        entities.add(zDolphonRider);
+
+        ZDuckyTube zDuckyTube = new ZDuckyTube(null, null);
+        zDuckyTube.setimagepath("../Image/MenuList/ListZDuckyTube.png");
+        entities.add(zDuckyTube);
+
+        ZLala zLala = new ZLala(null, null);
+        zLala.setimagepath("../Image/MenuList/ListZLala.png");
+        entities.add(zLala);
+
+        ZNormal zNormal = new ZNormal(null, null);
+        zNormal.setimagepath("../Image/MenuList/ListZNormal.png");
+        entities.add(zNormal);
+
+        ZPoleVault zPoleVault = new ZPoleVault(null, null);
+        zPoleVault.setimagepath("../Image/MenuList/ListZPoleVault.png");
+        entities.add(zPoleVault);
+
+        ZAsep zAsep = new ZAsep(null, null);
+        zAsep.setimagepath("../Image/MenuList/ListZAsep.png");
+        entities.add(zAsep);
+
+        for (Entities entity : entities) {
+            ImageIcon entityIcon = new ImageIcon(getClass().getResource(entity.getimagepath()));
+            JButton entityButton = new JButton(entityIcon);
+            entityButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Show entity stats
+                    JOptionPane.showMessageDialog(entityListFrame,
+                            "Name: " + entity.getName() + "\n" +
+                                    "Health: " + entity.getHealth() + "\n" +
+                                    "Attack Damage: " + entity.getAttackDmg() + "\n" +
+                                    "Attack Speed: " + entity.getAttackSpd(),
+                            "Entity Stats", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+            entityListFrame.add(entityButton);
         }
 
         // Show the entity list frame
         entityListFrame.setVisible(true);
-    }
-
-    private ImageIcon getImageIcon(String path) {
-        java.net.URL imgURL = getClass().getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return new ImageIcon(); // Return an empty icon or a default placeholder image
-        }
     }
 
     private void showHelp() {
