@@ -111,7 +111,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 if (checkZombiecount(gameMap) < 10) {
                     spawnZombie();
                 }

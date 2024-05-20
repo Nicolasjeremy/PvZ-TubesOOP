@@ -1,13 +1,179 @@
 package Src.MainMenu;
 
 public class Command {
+    String[] headersZombie = {"Zombie Name", "Attribute", "Value"};
+    String[][][] dataZombie = {
+            {
+                {"Normal", "Health", "125"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","false"}
+            },
+            {
+                {"Conehead Zombie", "Health", "250"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","false"},
+            },
+            {
+                {"Pole Vaulting Zombie", "Health", "175"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","false"},
+            },
+            {
+                {"Buckethead Zombie", "Health", "300"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","false"},
+            },
+            {
+                {"Ducky Tube Zombie", "Health", "100"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","True"},
+            },
+            {
+                {"Doplhin Rider Zombie", "Health", "175"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","True"},
+            },
+            {
+                {"Raul Zombie", "Health", "250"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","False"},
+            },
+            {
+                {"Lala Zombie", "Health", "100"},
+                {"", "Attack Damage", "200"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","False"},
+            },
+            {
+                {"Dispy Zombie", "Health", "200"},
+                {"", "Attack Damage", "125"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","False"},
+            },
+            {
+                {"Asep Zombie", "Health", "125"},
+                {"", "Attack Damage", "100"},
+                {"", "Attack Speed", "1"},
+                {"", "Aquatic","False"},
+            },
+        };
+        String[] headerPlant = {"Plant Name", "Attribute", "Value"};
+        String[][][] dataPlant =  {
+            {
+                {"Sunflower", "Cost", "50"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "0"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","0"},
+                {"", "Cooldown","10"}
+            },
+            {
+                {"Peashooter", "Cost", "100"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "25"},
+                {"", "Attack Speed", "4"},
+                {"", "Range","-1"},
+                {"", "Cooldown","10"}
+            },
+            {
+                {"Wall-nut", "Cost", "50"},
+                {"", "Health", "1000"},
+                {"", "Attack Damage", "0"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","0"},
+                {"", "Cooldown","20"}
+            },
+            {
+                {"Snow Pea", "Cost", "175"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "25"},
+                {"", "Attack Speed", "4"},
+                {"", "Range","-1"},
+                {"", "Cooldown","10"}
+            },
+            {
+                {"Snow Pea", "Cost", "175"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "25"},
+                {"", "Attack Speed", "4"},
+                {"", "Range","-1"},
+                {"", "Cooldown","10"}
+            },
+            {
+                {"Squash", "Cost", "50"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "5000"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","1"},
+                {"", "Cooldown","20"}
+            },
+            {
+                {"Lilypad", "Cost", "25"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "0"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","0"},
+                {"", "Cooldown","10"}
+            },
+            {
+                {"Jalapeno", "Cost", "50"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "5000"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","0"},
+                {"", "Cooldown","20"}
+            },
+            {
+                {"TangleKelp", "Cost", "50"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "5000"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","1"},
+                {"", "Cooldown","20"}
+            },
+            {
+                {"Tallnut", "Cost", "50"},
+                {"", "Health", "20000"},
+                {"", "Attack Damage", "0"},
+                {"", "Attack Speed", "0"},
+                {"", "Range","1"},
+                {"", "Cooldown","30"}
+            },
+            {
+                {"Repeater", "Cost", "150"},
+                {"", "Health", "100"},
+                {"", "Attack Damage", "25"},
+                {"", "Attack Speed", "4"},
+                {"", "Range","-1"},
+                {"", "Cooldown","10"}
+            },
+        };
+        int idWidth = 20;
+        int nameWidth = 15;
+        int ageWidth = 10;
+        int totalWidth = idWidth + nameWidth + ageWidth + 6;
+        // Method to print a single row
+    public static void printRow(String[] columns, int idWidth, int nameWidth, int ageWidth) {
+            System.out.print("|");
+            System.out.printf("%-" + idWidth + "s|", columns[0]);
+            System.out.printf("%-" + nameWidth + "s|", columns[1]);
+            System.out.printf("%-" + ageWidth + "s|%n", columns[2]);
+        }
+    
+        // Method to print horizontal borders
+    public static void printHorizontalBorder(int totalWidth) {
+            System.out.println("+" + "-".repeat(totalWidth - 2) + "+");
+        }
+
     public void start() {
         System.out.println("Game Started");
-       
-        
-        
-
-
     }
     public void help() {
         System.out.println("List of Commands:");
@@ -21,37 +187,33 @@ public class Command {
         System.out.println("Game Exited");
     }
     public void zombielist() {
-        System.out.println("List of Zombies:");
-        System.out.println("1. Regular Zombie");
-        System.out.println("2. Conehead Zombie");
-        System.out.println("3. Buckethead Zombie");
-        System.out.println("4. Newspaper Zombie");
-        System.out.println("5. Screen Door Zombie");
-        System.out.println("6. Football Zombie");
-        System.out.println("7. Dancing Zombie");
-        System.out.println("8. Gargantuar");
+        printHorizontalBorder(totalWidth);
+
+        // Print headers with vertical borders
+        printRow(headersZombie, idWidth, nameWidth, ageWidth);
+        printHorizontalBorder(totalWidth);
+
+        // Print rows of data with borders
+        for (String[][] row : dataZombie) {
+            for (String[] element : row) {
+                printRow(element, idWidth, nameWidth, ageWidth);
+            }
+            printHorizontalBorder(totalWidth);
+        }
     }
     public void plantlist() {
-        System.out.println("List of Plants:");
-        System.out.println("1. Peashooter");
-        System.out.println("2. Sunflower");
-        System.out.println("3. Wallnut");
-        System.out.println("4. Cherry Bomb");
-        System.out.println("5. Snow Pea");
-        System.out.println("6. Chomper");
-        System.out.println("7. Repeater");
-        System.out.println("8. Puff-shroom");
-        System.out.println("9. Sun-shroom");
-        System.out.println("10. Fume-shroom");
-        System.out.println("11. Hypno-shroom");
-        System.out.println("12. Scaredy-shroom");
-        System.out.println("13. Ice-shroom");
-        System.out.println("14. Doom-shroom");
-        System.out.println("15. Lily Pad");
-        System.out.println("16. Squash");
-        System.out.println("17. Threepeater");
-        System.out.println("18. Tangle Kelp");
-        System.out.println("19. Jalapeno");
-        System.out.println("20. Spikeweed");
+        printHorizontalBorder(totalWidth);
+
+        // Print headers with vertical borders
+        printRow(headerPlant, idWidth, nameWidth, ageWidth);
+        printHorizontalBorder(totalWidth);
+
+        // Print rows of data with borders
+        for (String[][] row : dataPlant) {
+            for (String[] element : row) {
+                printRow(element, idWidth, nameWidth, ageWidth);
+            }
+            printHorizontalBorder(totalWidth);
+        }
     }
 }

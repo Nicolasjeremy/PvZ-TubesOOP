@@ -141,7 +141,7 @@ public class Gameplay implements Runnable {
     // Karena ini game singleton maka harus di reset setiap kali game dimulai
     public void resetAttributes() {
         this.entities = new ArrayList<Entities>();
-        this.current_time = 200;
+        Gameplay.current_time = 200;
         this.isDay = true;
         Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
