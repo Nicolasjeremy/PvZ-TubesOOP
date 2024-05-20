@@ -1,8 +1,10 @@
 package Src.Entities.Plant.Shooter;
 
 import Src.GameMaps.*;
+import Src.Entities.Entities;
 import Src.Entities.Plant.*;
 // import Src.Entities.Plant.Projectile.*;
+import Src.Entities.Zombie.Zombie;
 
 public class ShooterPlant extends Plant {
     public static final int range = -1;
@@ -13,12 +15,28 @@ public class ShooterPlant extends Plant {
 
     public void attack() {
     };
-
+    public boolean zombiechecker() {
+        int row = this.getPosition()[0];
+        boolean status = false;
+        int col = 0;
+        while(!status && col < 11) {
+            Tile check_tile = this.getGameMap().getTile(row, col);
+            for (Entities zombie : check_tile.getAllEntities()) {
+                if(zombie instanceof Zombie) {
+                    status = true;
+                }
+            }
+            col++;
+        }
+        return status;
+    }
     public void run() {
         try {
             while (true) {
                 Thread.sleep(attackSpd * 1000);
-                attack();
+                if (zombiechecker()) {
+                    attack();
+                }
             }
         } catch (InterruptedException e) {
         }
