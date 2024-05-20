@@ -170,7 +170,7 @@ public class Main {
                             gameplayThread.interrupt();
                             break;
                         case 5:
-                        System.out.println("Current time: " + gameplay.getCurrentTime());
+                        System.out.println("Current time: " + Gameplay.getCurrentTime());
                             break;
                         default:
                             System.out.println("Invalid option!");
