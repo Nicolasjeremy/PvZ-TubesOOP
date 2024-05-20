@@ -13,7 +13,7 @@ public class Projectile extends Entities implements Runnable {
     private StartGameMapPanel gamePanel;
 
     public Projectile(int damage, int[] Position, GameMap gameMap) {
-        super("Projectile", 0, damage, 0, Position, gameMap, "../Image/PlantImage/greenProjectile.png");
+        super("Projectile", 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");
         this.ListZombie = new ArrayList<>();
     }
 

@@ -15,7 +15,6 @@ public class ShooterPlant extends Plant {
     };
 
     public void run() {
-        System.out.println("SHOOTTINGGG DA ZOMBIEEE!!!!!!!");
         try {
             while (true) {
                 Thread.sleep(attackSpd * 1000);

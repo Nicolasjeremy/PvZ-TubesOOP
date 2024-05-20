@@ -9,6 +9,8 @@ import Src.MainMenu.Deck;
 import Src.Entities.Entities;
 import Src.Entities.Plant.*;
 import Src.Entities.Plant.Projectile.*;
+import Src.Entities.Plant.Passive.*;
+import java.util.ArrayList;
 
 public class StartGameMapPanel extends JPanel implements TileObserver {
     private Image mapImage;
@@ -19,6 +21,7 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
     private Deck deck;
     private Plant selectedPlant = null;
 
+    // Constructor for StartGameMapPanel
     public StartGameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
         this.deck = new Deck(gameMap);
@@ -48,6 +51,7 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         int yGap = 93;
         int x, y;
 
+        // Initialize the grid of tiles
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 11; col++) {
                 x = xStart + (col * xGap);
@@ -67,27 +71,22 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
                 tileLabels[row][col] = tileLabel;
                 tilePanes[row][col] = layeredPane;
 
-                // Register as an observer
+                // Register this panel as an observer for the tile
                 gameMap.getTile(row, col).addObserver(this);
 
                 final int tileRow = row;
                 final int tileCol = col;
+
                 tileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
                         if (selectedPlant != null) {
                             int[] position = { tileRow, tileCol };
-                            deck.planting(selectedPlant, position);
-                            placePlant(tileRow, tileCol, selectedPlant.getimagepath());
+                            selectedPlant.setPosition(position);
+                            addEntityToTile(selectedPlant.getPosition()[0], selectedPlant.getPosition()[1],
+                                    selectedPlant.getimagepath(), selectedPlant);
+                            startPlant(selectedPlant);
 
-                            // Add plant image
-                            selectedPlant = new Peashooter(null, gameMap);
-
-                            JLabel plantLabel = new JLabel(
-                                    new ImageIcon(getClass().getResource(selectedPlant.getimagepath())));
-                            plantLabel.setBounds(0, 0, tileWidth, tileHeight); // Match position
-                            tilePanes[tileRow][tileCol].add(plantLabel, Integer.valueOf(4)); // Add to tilePane
-                            tilePanes[tileRow][tileCol].revalidate();
-                            tilePanes[tileRow][tileCol].repaint();
+                            selectedPlant = null;
                         }
                     }
                 });
@@ -95,7 +94,7 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         }
 
         mapPanel.add(addDeckImage(), Integer.valueOf(1));
-        mapPanel.add(addPlantCard(), Integer.valueOf(2));
+        addPlantCards(mapPanel);
 
         add(mapPanel);
 
@@ -103,6 +102,7 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         startZombieManager();
     }
 
+    // Method to get the color of a tile based on its type
     private Color getTileColor(Tile tile) {
         if (tile instanceof Home) {
             return Color.PINK;
@@ -115,10 +115,12 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         }
     }
 
+    // Method to update the color of a tile
     public void updateTile(int row, int col, Color color) {
         tileLabels[row][col].setBackground(color);
     }
 
+    // Method to add the deck image to the map panel
     public JLabel addDeckImage() {
         JLabel deckLabel = new JLabel() {
             @Override
@@ -133,70 +135,71 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         return deckLabel;
     }
 
-    public JLabel addPlantCard() {
-        JLabel plantCard = new JLabel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon imageIcon = new ImageIcon(getClass().getResource("../Image/GameMapImage/peashooter.png"));
-                Image image = imageIcon.getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        plantCard.setBounds(130, 22, 70, 93);
+    // Method to add plant cards to the map panel
+    public void addPlantCards(JLayeredPane mapPanel) {
+        ArrayList<Plant> plants = new ArrayList<>();
+        plants.add(new Peashooter(new int[] { 0, 0 }, deck.getGameMap()));
+        plants.add(new Repeater(new int[] { 0, 0 }, deck.getGameMap()));
+        plants.add(new Snowpea(new int[] { 0, 0 }, deck.getGameMap()));
+        plants.add(new Sunflower(new int[] { 0, 0 }, deck.getGameMap()));
+        plants.add(new Wallnut(new int[] { 0, 0 }, deck.getGameMap()));
+        plants.add(new Tallnut(new int[] { 0, 0 }, deck.getGameMap()));
 
-        JButton plantButton = new JButton();
-        plantButton.setBounds(0, 0, 70, 93);
-        plantButton.setContentAreaFilled(false);
-        plantButton.setBorderPainted(false);
-        plantButton.addActionListener(e -> {
-            int[] position = { 0, 0 }; // Dummy position
-            selectedPlant = new Peashooter(position, deck.getGameMap());
-        });
-        plantCard.add(plantButton);
+        int xStart = 130;
+        int yStart = 22;
+        int cardWidth = 70;
+        int cardHeight = 93;
+        int xGap = 80;
 
-        return plantCard;
-    }
+        for (int i = 0; i < plants.size(); i++) {
+            Plant plant = plants.get(i);
+            JLabel plantCard = new JLabel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    ImageIcon imageIcon = new ImageIcon(getClass().getResource(plant.getimagepath()));
+                    Image image = imageIcon.getImage();
+                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+            plantCard.setBounds(xStart + (i * xGap), yStart, cardWidth, cardHeight);
 
-    private void placePlant(int row, int col, String imagePath) {
-        if (selectedPlant != null && !deck.getGameMap().getTile(row, col).hasPlanted()) {
-            JLabel plantLabel = new JLabel(
-                    new ImageIcon(selectedPlant.getIcon().getImage().getScaledInstance(65, 65, Image.SCALE_SMOOTH)));
-            plantLabel.setBounds(tileLabels[row][col].getBounds());
-            ((JLayeredPane) tileLabels[row][col].getParent()).add(plantLabel, Integer.valueOf(1));
-            tileLabels[row][col].getParent().repaint();
-            selectedPlant = null;
+            JButton plantButton = new JButton();
+            plantButton.setBounds(0, 0, cardWidth, cardHeight);
+            plantButton.setContentAreaFilled(false);
+            plantButton.setBorderPainted(false);
+            plantButton.addActionListener(e -> {
+                selectedPlant = plant;
+            });
+            plantCard.add(plantButton);
+
+            mapPanel.add(plantCard, Integer.valueOf(2));
         }
     }
 
-    public void addProjectile(Projectile projectile) {
-        JLabel greenProjectile = new JLabel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon imageIcon = new ImageIcon(
-                        getClass().getResource("../Image/GameMapImage/greenProjectile.png"));
-                Image image = imageIcon.getImage();
-                g.drawImage(image, 275, 220, getWidth(), getHeight(), this);
-            }
-        };
-        this.add(greenProjectile, Integer.valueOf(3));
-        this.repaint();
-    }
-
+    // Method to add an entity to a tile
     public void addEntityToTile(int row, int col, String imagePath, Entities entity) {
-        System.out.println("Adding entity to tile (" + row + ", " + col + ")");
-        JLabel entityLabel = new JLabel(new ImageIcon(getClass().getResource(imagePath)));
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
+        originalIcon.setDescription(imagePath); // Set description to image path
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(tileLabels[row][col].getWidth(),
+                tileLabels[row][col].getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        resizedIcon.setDescription(imagePath); // Set description to image path
+
+        JLabel entityLabel = new JLabel(resizedIcon);
         entityLabel.setBounds(0, 0, tileLabels[row][col].getWidth(), tileLabels[row][col].getHeight());
         tilePanes[row][col].add(entityLabel, JLayeredPane.PALETTE_LAYER);
+        tilePanes[row][col].revalidate();
+        tilePanes[row][col].repaint();
     }
 
+    // Method to remove an entity from a tile
     public void removeEntityFromTile(int row, int col, String imagePath, Entities entity) {
         for (Component component : tilePanes[row][col].getComponentsInLayer(JLayeredPane.PALETTE_LAYER)) {
             if (component instanceof JLabel) {
                 JLabel label = (JLabel) component;
-                if (label.getIcon() != null && ((ImageIcon) label.getIcon()).getDescription()
-                        .equals(getClass().getResource(imagePath).toString())) {
+                if (label.getIcon() != null && imagePath.equals(label.getIcon().toString())) {
                     tilePanes[row][col].remove(label);
                     tilePanes[row][col].revalidate();
                     tilePanes[row][col].repaint();
@@ -206,20 +209,27 @@ public class StartGameMapPanel extends JPanel implements TileObserver {
         }
     }
 
+    // Callback method when an entity is added to a tile
     @Override
     public void entityAdded(int row, int col, Entities entity) {
         addEntityToTile(row, col, entity.getimagepath(), entity);
     }
 
+    // Callback method when an entity is removed from a tile
     @Override
     public void entityRemoved(int row, int col, Entities entity) {
         removeEntityFromTile(row, col, entity.getimagepath(), entity);
     }
 
+    // Method to start the ZombieManager thread
     public void startZombieManager() {
-        System.out.println("Starting ZombieManager");
         zombieManager = new ZombieManager(this.gameMap);
         Thread zombieManagerThread = new Thread(zombieManager);
         zombieManagerThread.start();
+    }
+
+    public void startPlant(Plant selectedPlant) {
+        Thread threadPlan = new Thread(selectedPlant);
+        threadPlan.start();
     }
 }
