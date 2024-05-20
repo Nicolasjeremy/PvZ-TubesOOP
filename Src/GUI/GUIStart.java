@@ -10,7 +10,7 @@ public class GUIStart extends JFrame {
 
     public GUIStart() {
         setTitle("Plants vs Zombies");
-        setSize(1100, 806);
+        setSize(1100, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -25,7 +25,7 @@ public class GUIStart extends JFrame {
         mainPanel.add(gameMapPanel, "gameMap");
         int[] position = { 1, 1 };
         Peashooter pea = new Peashooter(position, gameMap);
-        gameMapPanel.addEntityToTile(position[0], position[0], pea.getimagepath());
+        gameMapPanel.addEntityToTile(position[0], position[0], pea.getimagepath(), pea);
 
         add(mainPanel);
 

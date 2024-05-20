@@ -31,6 +31,10 @@ public class Deck {
         return deck.size();
     }
 
+    public GameMap getGameMap() {
+        return this.gameMap;
+    }
+
     public ArrayList<Plant> getDeck() {
         return this.deck;
     }

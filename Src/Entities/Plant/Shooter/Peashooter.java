@@ -1,7 +1,9 @@
 package Src.Entities.Plant.Shooter;
 
 import Src.Entities.Plant.Projectile.Projectile;
+import Src.GUI.StartGameMapPanel;
 import Src.GameMaps.*;
+import Src.GUI.*;
 
 public class Peashooter extends ShooterPlant {
     public Peashooter(int[] position, GameMap gameMap) {
