@@ -56,3 +56,4 @@ public class MainMenuPanel extends JPanel {
         add(exitButton);
     }
 }
+

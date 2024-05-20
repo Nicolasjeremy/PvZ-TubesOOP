@@ -7,14 +7,15 @@ import Src.GUI.*;
 
 public class Peashooter extends ShooterPlant {
     public Peashooter(int[] position, GameMap gameMap) {
-        super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap, "../Image/PlantImage/image1.jpg");
+        super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap,
+                "../Image/PlantImage/peashooterfigma.png");
     }
 
     @Override
     public void attack() {
         int[] position = this.getPosition();
         if (position != null) {
-            int[] projectilePosition = {position[0], position[1]};
+            int[] projectilePosition = { position[0], position[1] };
             Projectile projectile1 = new Projectile(getAttackDmg(), projectilePosition, getGameMap());
             getGameMap().getTile(position[0], position[1]).addEntity(projectile1);
             Thread projectileThread1 = new Thread(projectile1);

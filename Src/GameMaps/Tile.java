@@ -1,22 +1,23 @@
 package Src.GameMaps;
 
-import Src.Entities.*;
+import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
-
-// import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tile {
     private String area;
     private boolean canPlant;
     private boolean hasPlant;
     private ArrayList<Entities> entity;
+    private List<TileObserver> observers;
 
     public Tile(String area, boolean canPlant) {
         this.area = area;
         this.canPlant = canPlant;
         this.entity = new ArrayList<>();
         this.hasPlant = false;
+        this.observers = new ArrayList<>();
     }
 
     public String getType() {
@@ -28,10 +29,13 @@ public class Tile {
         if (entities instanceof Plant) {
             this.hasPlant = true;
         }
+        notifyEntityAdded(entities);
+        
     }
 
     public void removeEntity(Entities entities) {
         entity.remove(entities);
+        notifyEntityRemoved(entities);
     }
 
     public Entities getEntities(int index) {
@@ -45,8 +49,7 @@ public class Tile {
     public Plant getTilePlant() {
         for (Entities entities : entity) {
             if (entities instanceof Plant) {
-                Plant plant = (Plant) entities;
-                return plant;
+                return (Plant) entities;
             }
         }
         return null;
@@ -63,6 +66,24 @@ public class Tile {
     public boolean getCanPlant() {
         return canPlant;
     }
-    
-}
 
+    public void addObserver(TileObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(TileObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyEntityAdded(Entities entity) {
+        for (TileObserver observer : observers) {
+            observer.entityAdded(entity.getPosition()[0], entity.getPosition()[1], entity);
+        }
+    }
+
+    private void notifyEntityRemoved(Entities entity) {
+        for (TileObserver observer : observers) {
+            observer.entityRemoved(entity.getPosition()[0], entity.getPosition()[1], entity);
+        }
+    }
+}

@@ -20,12 +20,13 @@ public class GUIStart extends JFrame {
         GameMap gameMap = new GameMap();
         MainMenuPanel mainMenuPanel = new MainMenuPanel(cardLayout, mainPanel);
         StartGameMapPanel gameMapPanel = new StartGameMapPanel(gameMap);
+        if (gameMapPanel != null) {
+            System.out.println("MASUK MANIS");
+            gameMapPanel.startZombieManager();
+        }
 
         mainPanel.add(mainMenuPanel, "mainMenu");
         mainPanel.add(gameMapPanel, "gameMap");
-        int[] position = { 1, 1 };
-        Peashooter pea = new Peashooter(position, gameMap);
-        gameMapPanel.addEntityToTile(position[0], position[0], pea.getimagepath(), pea);
 
         add(mainPanel);
 

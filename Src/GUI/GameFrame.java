@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import Src.Entities.*;
 import Src.Entities.Plant.Plant;
 import Src.Entities.Plant.Melee.Jalapeno;
@@ -30,16 +29,20 @@ import Src.Entities.Zombie.ZPoleVault;
 import Src.Entities.Zombie.ZRaul;
 import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
+import Src.MainMenu.Gameplay;
+import Src.GameMaps.ZombieManager;
 
 public class GameFrame extends JFrame {
     private JButton startButton;
     private JButton entityListButton;
     private JButton helpButton;
     private JButton exitButton;
+    private StartGameMapPanel gameMapPanel;
+    private GameMap gameMap;
 
     public GameFrame() {
         setTitle("Plants vs Zombies");
-        setSize(1100, 800);
+        setSize(1100, 806);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initializeComponents();
@@ -94,24 +97,21 @@ public class GameFrame extends JFrame {
     }
 
     private void startPvZGame() {
+        // Initialize the game map
+        gameMap = new GameMap();
+
+        // Create the game map panel
+        gameMapPanel = new StartGameMapPanel(gameMap);
+        gameMapPanel.setBounds(0, 0, 1000, 733);
+
         // Hapus semua komponen dari frame kecuali tombol-tombol di sisi atas
         getContentPane().removeAll();
+        add(gameMapPanel);
 
-        // Panel untuk menampilkan peta PvZ
-        JPanel mapPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setSize(1100, 806);
-                // Menggambar gambar peta PvZ
-                ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("Image/pvz_image.jpg"));
-                Image image = imageIcon.getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-
-        // Tambahkan panel peta ke tengah frame
-        add(mapPanel, BorderLayout.CENTER);
+        // Start the zombie manager
+        ZombieManager zombieManager = new ZombieManager(gameMap);
+        Thread zombieManagerThread = new Thread(zombieManager);
+        zombieManagerThread.start();
 
         // Perbarui tampilan frame
         revalidate();
@@ -141,7 +141,7 @@ public class GameFrame extends JFrame {
         entities.add(tangleKelp);
 
         Lilypad lilypad = new Lilypad(null, null);
-        lilypad.setimagepath("../Image/MenuList/ListLiliypad.png");
+        lilypad.setimagepath("../Image/MenuList/ListLilypad.png");
         entities.add(lilypad);
 
         Tallnut tallnut = new Tallnut(null, null);
@@ -210,7 +210,7 @@ public class GameFrame extends JFrame {
 
         for (Entities entity : entities) {
             ImageIcon entityIcon = new ImageIcon(getClass().getResource(entity.getimagepath()));
-            JButton entityButton = new JButton(entityIcon);
+            JButton entityButton = new JButton(entity.getName(), entityIcon);
             entityButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
