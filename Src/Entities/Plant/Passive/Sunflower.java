@@ -14,8 +14,8 @@ public class Sunflower extends PassivePlant{
     public void attack() {
         try {
             while (true) {
-                System.out.println("REGAININGG SUNNNN!!!!!!!!!!!");
                 Thread.sleep(sunWaitingTime * 1000);
+                // System.out.println("\nREGAININGG SUNNNN!!!!!!!!!!!");
                 Sun.addSun(25);
             }
         } catch (InterruptedException e) {

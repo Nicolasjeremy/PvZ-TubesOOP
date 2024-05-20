@@ -51,8 +51,7 @@ public abstract class Zombie extends Entities implements Runnable {
             this.stop();
         }
     }
-
-    public void action() {
+    public void action() throws InterruptedException {
         Plant plantInTile = null;
         boolean isplant = false;
         int[] position = getPosition();
@@ -70,17 +69,41 @@ public abstract class Zombie extends Entities implements Runnable {
                 isplant = false;
             }
         }
-
-        if (isplant == true) {
-            if (getSpecial() == true) {
-                special(plantInTile);
-                setSpecial(false);
+        if(this.isSlow()) {
+            // Case terkena slow
+            if (isplant == true) {
+                if (getSpecial() == true) {
+                    special(plantInTile);
+                    setSpecial(false);
+                } else {
+                    Thread.sleep(1500);
+                    attack(plantInTile);
+                }
             } else {
-                attack(plantInTile);
+                // Jalan tiap 10 detik
+                Thread.sleep(15000);
+                walk(getGameMap());
             }
-        } else {
-            walk(getGameMap());
         }
+        else {
+        // Case tidak terkena slow
+            if (isplant == true) {
+                if (getSpecial() == true) {
+                    special(plantInTile);
+                    setSpecial(false);
+                } else {
+                    // Attacm tiap 1 detik
+                    Thread.sleep(1000);
+                    attack(plantInTile);
+                }
+            } else {
+                // Jalan tiap 10 detik
+                Thread.sleep(10000);
+                walk(getGameMap());
+
+            }
+        }
+
     }
 
     // if there are no plant in the same tile the zombie walk, if there are plant it
@@ -94,6 +117,7 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     public void walk(GameMap gameMap) {
+        
         int[] position = getPosition();
         int row = position[0];
         int col = position[1];
@@ -123,15 +147,17 @@ public abstract class Zombie extends Entities implements Runnable {
     public void run() {
         try {
             while (!Gameplay.getIsEnd() && this.getHealth() > 0) {
-                if (this.isSlow()) {
-                    Thread.sleep(7500);
-                    action();
-                } else {
-                    Thread.sleep(5000);
-                    action();
-                }
+                // if (this.isSlow()) {
+                //     Thread.sleep(7500);
+                //     action();
+                // } else {
+                //     // Thread.sleep(5000);
+                //     action();
+                // }
+                action();
             }
         } catch (InterruptedException e) {
+            System.out.println("Zombie " + this.getName()+ " mati");
         }
     }
 }

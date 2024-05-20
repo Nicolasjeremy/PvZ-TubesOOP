@@ -138,24 +138,29 @@ public class Main {
                                 int plantIndexToPlant = scanner.nextInt() - 1;
                                 Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
                                 if (plantToPlant != null) {
-                                    System.out.print("Enter the row and column to plant (e.g., 2 3): ");
-                                    int row = scanner.nextInt();
+                                    System.out.println("Column enter range(1-9)");
+                                    System.out.println("Row enter range(0-5)");
+                                    System.out.print("Enter the column and row to plant (e.g., 2 3): ");
                                     int col = scanner.nextInt();
+                                    int row = scanner.nextInt();
                                     scanner.nextLine(); // Consume newline
                                     int[] position = { row, col };
                                     deck.planting(plantToPlant, position);
                                 } else {
                                     System.out.println("Plant not found in deck!");
                                 }
+                                gameMap.displayMap();
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid input! Please enter a number.");
                                 scanner.nextLine(); // Consume the invalid input
                             }
                             break;
                         case 2:
-                            System.out.print("Enter the row and column to unplant (e.g., 2 3): ");
-                            int rowToUnplant = scanner.nextInt();
+                            System.out.println("Column enter range(1-9)");
+                            System.out.println("Row enter range(0-5)");
+                            System.out.print("Enter the column and row to unplant (e.g., 2 3): ");
                             int colToUnplant = scanner.nextInt();
+                            int rowToUnplant = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
                             int[] positionToUnplant = { rowToUnplant, colToUnplant };
                             deck.unPlanting(positionToUnplant);

@@ -56,7 +56,7 @@ public class Gameplay implements Runnable {
                     System.out.println("\nNight has come");
                 }
                 Thread.sleep(1000);
-                this.current_time--;
+                Gameplay.current_time--;
                 // System.out.print(current_time);
             }
             Gameplay.isEnd = true;
