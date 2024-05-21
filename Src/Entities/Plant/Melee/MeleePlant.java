@@ -14,19 +14,46 @@ public class MeleePlant extends Plant{
     }
 
     public void attack() {};
-
+    
+    public boolean zombiechecker() {
+        int row = this.getPosition()[0];
+        boolean status = false;
+        int col = 0;
+        while(!status && col < 11) {
+            Tile check_tile = this.getGameMap().getTile(row, col);
+            for (Entities zombie : check_tile.getAllEntities()) {
+                if(zombie instanceof Zombie) {
+                    status = true;
+                }
+            }
+            col++;
+        }
+        return status;
+    }
     public void run() {
         while (true) {
             try {
-                boolean cek = false;
-                Tile zombieDetected = this.getGameMap().getTile(getPosition()[0], getPosition()[1]);
-                for (Entities zombie : zombieDetected.getAllEntities()) {
-                    if (zombie instanceof Zombie) {
-                        cek = true;
+                if (this instanceof Jalapeno) {
+                    if (zombiechecker()) {
+                        // this.attack();
+                        // System.out.println("Zombie exist in this row");
+                        // System.out.println("Jalapeno ready to attack");
+                        this.attack();
+                        this.die();
+                        break;
                     }
-                }
-                if (cek == true) {
-                    this.attack();
+
+                } else {
+                    boolean cek = false;
+                    Tile zombieDetected = this.getGameMap().getTile(getPosition()[0], getPosition()[1]);
+                    for (Entities zombie : zombieDetected.getAllEntities()) {
+                        if (zombie instanceof Zombie) {
+                            cek = true;
+                        }
+                    }
+                    if (cek == true) {
+                        this.attack();
+                    }
                 }
             }
             catch (Exception e) {

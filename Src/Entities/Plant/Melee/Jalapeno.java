@@ -15,18 +15,22 @@ public class Jalapeno extends MeleePlant {
         System.out.println("Jalapeno Attack!!!!!!!!!!!!!");
         int[] position = this.getPosition();
         int row = position[0];
-        for (int col = 0; col < 10; col++) {
+        for (int col = 0; col < 11; col++) {
+            // System.out.println(col);
             Tile tile = getGameMap().getTile(row, col);
             ArrayList<Entities> entitiesInTile = tile.getAllEntities();
             for (Entities entity : entitiesInTile) {
                 if (entity instanceof Zombie) {
                     Zombie zombie = (Zombie) entity;
                     System.out.println("BURNING ZOMBIES!!!!!!!!!!!!!!!");
+                    System.out.println(zombie.getName() + " terbunuh");
                     zombie.die();
                 }
             }
         }
+        System.out.println("Jalapeno Mati!!!!!!!!!!!!!");
         this.die();
+        Thread.interrupted();
     }
 }
 
