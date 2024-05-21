@@ -218,6 +218,7 @@ public class Deck {
             Plant templant = tile.getTilePlant();
             System.out.println("Plant name : " + templant.getName());
             tile.removeEntity(templant);
+            tile.setPlanted(false);
             System.out.println("Plant Removed!");
         }
     }
