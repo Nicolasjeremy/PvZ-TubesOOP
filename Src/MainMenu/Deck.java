@@ -166,7 +166,7 @@ public class Deck {
                     Thread plantThread = new Thread(plant);
                     plantThread.start();
                 }
-                else {
+                else if (tile.getEntities(0) instanceof Plant){
                     System.out.println("This Tile Has Been Planted!");
                 }
             } else {
