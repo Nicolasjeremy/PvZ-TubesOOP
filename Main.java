@@ -124,6 +124,13 @@ public class Main {
 
                     while (!scanner.hasNextInt()) {
                         System.out.println("Please enter a valid number.");
+                        System.out.println("\n|||COMMAND GAME|||");
+                        System.out.println("1. Plant");
+                        System.out.println("2. Unplant");
+                        System.out.println("3. Display Map");
+                        System.out.println("4. Quit");
+                        System.out.println("5. ShowTime");
+                        System.out.print("Choose an option: ");
                         scanner.next(); // Clear invalid input
                     }
 
@@ -156,6 +163,7 @@ public class Main {
                             }
                             break;
                         case 2:
+                        try {
                             System.out.println("Column enter range(1-9)");
                             System.out.println("Row enter range(0-5)");
                             System.out.print("Enter the column and row to unplant (e.g., 2 3): ");
@@ -164,7 +172,12 @@ public class Main {
                             scanner.nextLine(); // Consume newline
                             int[] positionToUnplant = { rowToUnplant, colToUnplant };
                             deck.unPlanting(positionToUnplant);
-                            break;
+                            
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input! Please enter a number.");
+                            scanner.nextLine(); // Consume the invalid input
+                        }
+                        break;
                         case 3:
                             gameMap.displayMap();
                             break;
@@ -172,6 +185,7 @@ public class Main {
                             System.out.println("Exiting...");
                             gameStatus = false;
                             System.out.println("Kembali ke Main Menu...");
+                            
                             gameplayThread.interrupt();
                             break;
                         case 5:
