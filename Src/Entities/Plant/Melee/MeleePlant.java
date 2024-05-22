@@ -11,8 +11,8 @@ public class MeleePlant extends Plant {
     public static final int range = 1;
 
     public MeleePlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
-            int cooldown, GameMap gameMap, String imagepath) {
-        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath);
+            int cooldown, GameMap gameMap, String imagepath, int lastPlantedTime) {
+        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath, lastPlantedTime);
     }
 
     public void attack() {

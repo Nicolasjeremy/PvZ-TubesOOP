@@ -7,7 +7,7 @@ import Src.GameMaps.*;
 
 public class Jalapeno extends MeleePlant {
     public Jalapeno(int[] position, GameMap gameMap) {
-        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/Jalapeno.png");
+        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/Jalapeno.png", 0);
     }
 
     @Override

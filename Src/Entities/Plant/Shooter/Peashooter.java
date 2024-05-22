@@ -1,14 +1,14 @@
 package Src.Entities.Plant.Shooter;
 
 import Src.Entities.Plant.Projectile.Projectile;
-import Src.GUI.StartGameMapPanel;
+// import Src.GUI.StartGameMapPanel;
 import Src.GameMaps.*;
-import Src.GUI.*;
+// import Src.GUI.*;
 
 public class Peashooter extends ShooterPlant {
     public Peashooter(int[] position, GameMap gameMap) {
         super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap,
-                "../Image/PlantImage/peashooterfigma.png");
+                "../Image/PlantImage/peashooterfigma.png", 0);
     }
 
     @Override
