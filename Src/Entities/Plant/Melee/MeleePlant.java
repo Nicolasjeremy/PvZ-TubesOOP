@@ -1,28 +1,31 @@
 package Src.Entities.Plant.Melee;
+
 import Src.GameMaps.*;
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
 import Src.Entities.Zombie.*;
 
-public class MeleePlant extends Plant{
+public class MeleePlant extends Plant {
     public static final int attackDmg = 5000;
     public static final int attackSpd = 0;
     public static final int range = 1;
 
-    public MeleePlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, GameMap gameMap, String imagepath) {
+    public MeleePlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
+            int cooldown, GameMap gameMap, String imagepath) {
         super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath);
     }
 
-    public void attack() {};
-    
+    public void attack() {
+    };
+
     public boolean zombiechecker() {
         int row = this.getPosition()[0];
         boolean status = false;
         int col = 0;
-        while(!status && col < 11) {
+        while (!status && col < 11) {
             Tile check_tile = this.getGameMap().getTile(row, col);
             for (Entities zombie : check_tile.getAllEntities()) {
-                if(zombie instanceof Zombie) {
+                if (zombie instanceof Zombie) {
                     status = true;
                 }
             }
@@ -30,6 +33,7 @@ public class MeleePlant extends Plant{
         }
         return status;
     }
+
     public void run() {
         while (true) {
             try {
@@ -55,8 +59,7 @@ public class MeleePlant extends Plant{
                         this.attack();
                     }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
     }

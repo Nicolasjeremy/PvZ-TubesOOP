@@ -37,9 +37,9 @@ public class ShooterPlant extends Plant {
     public void run() {
         try {
             while (!Gameplay.getIsEnd() && this.getHealth() > 0) {
-                Thread.sleep(attackSpd * 1000);
                 if (zombiechecker()) {
                     attack();
+                    Thread.sleep(attackSpd * 1000);
                 }
             }
         } catch (InterruptedException e) {

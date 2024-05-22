@@ -94,6 +94,7 @@ public abstract class Zombie extends Entities implements Runnable {
                             special(plantInTile);
                             setSpecial(false);
                         } else {
+                            attack(plantInTile);
                             Thread.sleep(sleepDuration * 10);
                         }
                     } else {
@@ -112,8 +113,8 @@ public abstract class Zombie extends Entities implements Runnable {
                     special(plantInTile);
                     setSpecial(false);
                 } else {
-                    Thread.sleep(1000);
                     attack(plantInTile);
+                    Thread.sleep(1000);
                 }
             } else {
                 Thread.sleep(10000);
@@ -151,6 +152,7 @@ public abstract class Zombie extends Entities implements Runnable {
 
     public void special(Plant plant) {
         plant.die();
+        this.walk(getGameMap());
     }
 
     public void run() {
