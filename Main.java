@@ -99,7 +99,7 @@ public class Main {
                     Thread.currentThread().interrupt();
                     System.out.println("Game gagal berjalan");
                 }
-
+                Gameplay.setIsEnd(false);
                 gameplay.setGameMap(gameMap);
                 gameplay.setDeck(deck);
                 gameplay.setInventory(inventory);
