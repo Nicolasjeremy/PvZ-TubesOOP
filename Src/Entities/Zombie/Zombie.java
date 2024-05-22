@@ -66,13 +66,10 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     public void action() throws InterruptedException {
-        if (this.isSlow() == true) {
-        }
         Plant plantInTile = null;
         boolean isPlant = false;
         int[] position = getPosition();
         Tile tile = getGameMap().getTile(position[0], position[1]);
-
         ArrayList<Entities> entity = tile.getAllEntities();
 
         for (Entities entities : entity) {
@@ -88,22 +85,34 @@ public abstract class Zombie extends Entities implements Runnable {
             // Case terkena slow
             int sleepDuration = 1500 / 10; // Check every 150ms
             for (int i = 0; i < 10; i++) {
-                if (this.isSlow()) {
-                    if (isPlant) {
-                        if (getSpecial()) {
-                            special(plantInTile);
-                            setSpecial(false);
-                        } else {
-                            attack(plantInTile);
-                            Thread.sleep(sleepDuration * 10);
-                        }
+                if (isPlant) {
+                    if (getSpecial()) {
+                        special(plantInTile);
+                        setSpecial(false);
                     } else {
-                        Thread.sleep(sleepDuration * 100); // 1500ms
-                        walk(getGameMap());
-                        return;
+                        attack(plantInTile);
+                        Thread.sleep(sleepDuration * 10);
                     }
                 } else {
-                    break;
+                    for (int x = 0; x < 150; x++) { // ngecek tiap ...detik ada plant di tile apa ngak
+                        Thread.sleep(100);
+                        entity = tile.getAllEntities();
+                        for (Entities entities : entity) {
+                            if (entities instanceof Plant) {
+                                isPlant = true;
+                                Plant plant = (Plant) entities;
+                                plantInTile = plant;
+                                break;
+                            }
+                        }
+                        if (isPlant == true) {
+                            break;
+                        }
+                    }
+                    if (isPlant == true) {
+                        return;
+                    }
+                    walk(getGameMap());
                 }
             }
         } else {
@@ -117,7 +126,25 @@ public abstract class Zombie extends Entities implements Runnable {
                     Thread.sleep(1000);
                 }
             } else {
-                Thread.sleep(10000);
+                for (int x = 0; x < 100; x++) { // ngecek tiap ...detik ada plant di tile apa ngak
+                    Thread.sleep(100);
+                    entity = tile.getAllEntities();
+                    for (Entities entities : entity) {
+                        if (entities instanceof Plant) {
+                            isPlant = true;
+                            Plant plant = (Plant) entities;
+                            plantInTile = plant;
+                            break;
+                        }
+                    }
+                    if (isPlant == true) {
+                        break;
+                    }
+                }
+                if (isPlant == true) {
+                    System.out.println("ada plant");
+                    return;
+                }
                 walk(getGameMap());
             }
         }
