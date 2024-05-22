@@ -127,9 +127,15 @@ public class DriverInventory {
                         inventory.displayInventory();
                         break;
                     case 6:
-                        System.out.println("Exiting...");
-                        full = true;
-                        break;
+                        if (full){
+                            System.out.println("Exiting...");
+                            full = true;
+                            break;
+                        }
+                        else {
+                            System.out.println("Isi deck hingga 6 Plant");
+                            break;
+                        }
                     default:
                         System.out.println("Invalid option!");
                         break;
