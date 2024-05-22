@@ -81,9 +81,10 @@ public class Entities {
         return imagepath;
     }
 
-    public void  die() {
+    public void die() {
         Tile tile = this.gameMap.getTile(this.position[0], this.position[1]);
         tile.removeEntity(this);
+        this.setHealth(-1);
         this.stop();
     }
 

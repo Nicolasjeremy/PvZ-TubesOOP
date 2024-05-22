@@ -10,12 +10,14 @@ public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
     private boolean slow;
     private boolean special;
+    private UnslowThread unslowThread; // Thread to handle unslowing
 
     public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic,
             boolean special, GameMap gameMap, String imagepath) {
         super(name, health, attackDmg, attackSpd, position, gameMap, imagepath);
         this.isAquatic = isAquatic;
         this.special = special;
+        this.slow = false;
     }
 
     public boolean getAquatic() {
@@ -32,6 +34,14 @@ public abstract class Zombie extends Entities implements Runnable {
 
     public void setSlow(boolean slow) {
         this.slow = slow;
+        if (slow == true) {
+            if (unslowThread == null || !unslowThread.isAlive()) {
+                unslowThread = new UnslowThread();
+                unslowThread.start();
+            } else {
+                unslowThread.resetTimer();
+            }
+        }
     }
 
     public boolean getSpecial() {
@@ -49,11 +59,17 @@ public abstract class Zombie extends Entities implements Runnable {
             Tile tile = getGameMap().getTile(position[0], position[1]);
             tile.removeEntity(this);
             this.stop();
+            if (unslowThread != null) {
+                unslowThread.interrupt();
+            }
         }
     }
+
     public void action() throws InterruptedException {
+        if (this.isSlow() == true) {
+        }
         Plant plantInTile = null;
-        boolean isplant = false;
+        boolean isPlant = false;
         int[] position = getPosition();
         Tile tile = getGameMap().getTile(position[0], position[1]);
 
@@ -61,53 +77,51 @@ public abstract class Zombie extends Entities implements Runnable {
 
         for (Entities entities : entity) {
             if (entities instanceof Plant) {
-                isplant = true;
+                isPlant = true;
                 Plant plant = (Plant) entities;
                 plantInTile = plant;
                 break;
-            } else {
-                isplant = false;
             }
         }
-        if(this.isSlow()) {
+
+        if (this.isSlow()) {
             // Case terkena slow
-            if (isplant == true) {
-                if (getSpecial() == true) {
-                    special(plantInTile);
-                    setSpecial(false);
+            int sleepDuration = 1500 / 10; // Check every 150ms
+            for (int i = 0; i < 10; i++) {
+                if (this.isSlow()) {
+                    if (isPlant) {
+                        if (getSpecial()) {
+                            special(plantInTile);
+                            setSpecial(false);
+                        } else {
+                            Thread.sleep(sleepDuration * 10);
+                        }
+                    } else {
+                        Thread.sleep(sleepDuration * 100); // 1500ms
+                        walk(getGameMap());
+                        return;
+                    }
                 } else {
-                    Thread.sleep(1500);
-                    attack(plantInTile);
+                    break;
                 }
-            } else {
-                // Jalan tiap 10 detik
-                Thread.sleep(15000);
-                walk(getGameMap());
             }
-        }
-        else {
-        // Case tidak terkena slow
-            if (isplant == true) {
-                if (getSpecial() == true) {
+        } else {
+            // Case tidak terkena slow
+            if (isPlant) {
+                if (getSpecial()) {
                     special(plantInTile);
                     setSpecial(false);
                 } else {
-                    // Attacm tiap 1 detik
                     Thread.sleep(1000);
                     attack(plantInTile);
                 }
             } else {
-                // Jalan tiap 10 detik
                 Thread.sleep(10000);
                 walk(getGameMap());
-
             }
         }
-
     }
 
-    // if there are no plant in the same tile the zombie walk, if there are plant it
-    // attack
     public void attack(Plant plant) {
         int dmg = this.getAttackDmg();
         plant.setHealth(plant.getHealth() - dmg);
@@ -117,7 +131,6 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     public void walk(GameMap gameMap) {
-        
         int[] position = getPosition();
         int row = position[0];
         int col = position[1];
@@ -130,15 +143,11 @@ public abstract class Zombie extends Entities implements Runnable {
             setPosition(nextPosition);
             nextTile.addEntity(this);
         } else {
-            // todo kalo zombie dah ampe akhir blom dibikin menang
-            // Zombie gua bikin mati
             this.die();
             Gameplay.setIsEnd(true);
             Gameplay.setWinningState(false);
         }
     }
-
-    // the object advance in the game map from right to left
 
     public void special(Plant plant) {
         plant.die();
@@ -147,17 +156,44 @@ public abstract class Zombie extends Entities implements Runnable {
     public void run() {
         try {
             while (!Gameplay.getIsEnd() && this.getHealth() > 0) {
-                // if (this.isSlow()) {
-                //     Thread.sleep(7500);
-                //     action();
-                // } else {
-                //     // Thread.sleep(5000);
-                //     action();
-                // }
                 action();
             }
         } catch (InterruptedException e) {
-            System.out.println("Zombie " + this.getName()+ " mati");
+        }
+    }
+
+    // Inner class to handle unslowing logic
+    private class UnslowThread extends Thread {
+        private final Object lock = new Object();
+        private long startTime;
+
+        public UnslowThread() {
+            resetTimer();
+        }
+
+        public void resetTimer() {
+            synchronized (lock) {
+                startTime = System.currentTimeMillis();
+                lock.notify();
+            }
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    synchronized (lock) {
+                        lock.wait(3000);
+                        long elapsed = System.currentTimeMillis() - startTime;
+                        if (elapsed >= 3000) {
+                            setSlow(false);
+                            return;
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                // Handle interruption
+            }
         }
     }
 }

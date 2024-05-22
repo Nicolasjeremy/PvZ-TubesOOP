@@ -35,7 +35,7 @@ public class Projectile extends Entities implements Runnable {
 
         if (isZombie == true) {
             for (Zombie zombie : ListZombie) {
-                zombie.setHealth(getHealth() - this.getAttackDmg());
+                zombie.setHealth(zombie.getHealth() - this.getAttackDmg());
                 if (zombie.getHealth() <= 0) {
                     zombie.die();
                 } else {
