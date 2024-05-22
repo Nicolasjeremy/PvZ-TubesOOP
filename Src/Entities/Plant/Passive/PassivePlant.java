@@ -7,8 +7,8 @@ public class PassivePlant extends Plant{
     public static final int attackSpd = 0;
     public static final int range = 0;
 
-    public PassivePlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, GameMap gameMap, String imagepath) {
-        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath);
+    public PassivePlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range, int cooldown, GameMap gameMap, String imagepath, int lastPlantedTime) {
+        super(name, health, attackDmg, attackSpd, position, cost, range, cooldown, gameMap, imagepath, lastPlantedTime);
     }
 
     public void attack() {};
