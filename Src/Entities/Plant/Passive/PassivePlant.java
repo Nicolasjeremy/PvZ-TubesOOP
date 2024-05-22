@@ -17,6 +17,10 @@ public class PassivePlant extends Plant{
         try {
             while (true) {
                 attack();
+                if (this.getCooldown()!=0){
+                    Thread.sleep(1000);
+                    this.setCooldown(this.getCooldown()-1);
+                }
             }
         }
         catch (Exception e) {

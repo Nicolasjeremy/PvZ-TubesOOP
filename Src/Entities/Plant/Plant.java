@@ -12,7 +12,7 @@ public abstract class Plant extends Entities implements Runnable {
     private Integer range;
     private Integer cooldown;
     private ImageIcon icon;
-    private static int lastPlantedTime;
+    private int lastPlantedTime;
 
     public Plant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
             int cooldown, GameMap gameMap, String imagepath, int lastPlantedTime) {
@@ -21,7 +21,7 @@ public abstract class Plant extends Entities implements Runnable {
         this.range = range;
         this.cooldown = cooldown;
         this.icon = new ImageIcon(imagepath);
-        Plant.lastPlantedTime = lastPlantedTime;
+        this.lastPlantedTime = lastPlantedTime;
     }
 
     public int getCost() {
@@ -34,6 +34,10 @@ public abstract class Plant extends Entities implements Runnable {
 
     public int getCooldown() {
         return cooldown;
+    }
+
+    public void setCooldown(int cooldown){
+        this.cooldown = cooldown;
     }
 
     public ImageIcon getIcon(){

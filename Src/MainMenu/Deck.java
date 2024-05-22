@@ -21,6 +21,7 @@ public class Deck{
     private GameMap gameMap;
     private boolean full;
     private boolean cooldownover;
+    private int cooldowntanaman;
 
     public Deck(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -58,6 +59,14 @@ public class Deck{
 
     public void setCooldownOver(boolean cooldownover){
         this.cooldownover = cooldownover;
+    }
+
+    public void setcooldowntanaman(int cooldowntanaman){
+        this.cooldowntanaman = cooldowntanaman;
+    }
+
+    public int getcooldowntanaman(){
+        return cooldowntanaman;
     }
 
     public void setFull(boolean isFull) {
@@ -103,7 +112,7 @@ public class Deck{
         } else {
             System.out.println("Deck contents:");
             for (int i = 0; i < deck.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName());
+                System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : " + deck.get(i).getCooldown());
             }
         }
     }
@@ -153,12 +162,18 @@ public class Deck{
     }
 
     public void plantManager(Plant plant, int[] position, Tile tile) {
-        if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() > plant.getCooldown()){
+        int temp = plant.getCooldown();
+        plant.setCooldown(Math.abs(Gameplay.getCurrentTime() - plant.getLastPlantedTime()));
+        if(plant.getCooldown() >= temp){
             setCooldownOver(true);
         }
-        else if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() < 0 - plant.getCooldown()){
-            setCooldownOver(true);
-        }
+
+        // if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() > plant.getCooldown()){
+        //     setCooldownOver(true);
+        // }
+        // else if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() < 0 - plant.getCooldown()){
+        //     setCooldownOver(true);
+        // }
         // else {
         //     setCooldownOver(false);
         // }

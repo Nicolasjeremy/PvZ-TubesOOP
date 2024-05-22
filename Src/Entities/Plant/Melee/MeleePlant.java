@@ -37,6 +37,10 @@ public class MeleePlant extends Plant {
     public void run() {
         while (true) {
             try {
+                if (this.getCooldown()!=0){
+                    Thread.sleep(1000);
+                    this.setCooldown(this.getCooldown()-1);
+                }
                 if (this instanceof Jalapeno) {
                     if (zombiechecker()) {
                         // this.attack();
@@ -46,7 +50,6 @@ public class MeleePlant extends Plant {
                         this.die();
                         break;
                     }
-
                 } else {
                     boolean cek = false;
                     Tile zombieDetected = this.getGameMap().getTile(getPosition()[0], getPosition()[1]);

@@ -41,6 +41,10 @@ public class ShooterPlant extends Plant {
                     attack();
                     Thread.sleep(attackSpd * 1000);
                 }
+                if (this.getCooldown()!=0){
+                    Thread.sleep(1000);
+                    this.setCooldown(this.getCooldown()-1);
+                }
             }
         } catch (InterruptedException e) {
         }
