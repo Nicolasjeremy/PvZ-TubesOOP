@@ -89,4 +89,15 @@ public class GameMap {
             return CYAN; // For Pool
         }
     }
+    public void clearEntities() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 11; col++) {
+                Tile tile = getTile(row, col);
+                ArrayList<Entities> entities = tile.getAllEntities();
+                for (Entities entities2 : entities) {
+                    entities2.die();
+                }
+            }
+        }
+    }
 }

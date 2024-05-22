@@ -163,7 +163,7 @@ public abstract class Zombie extends Entities implements Runnable {
         int row = position[0];
         int col = position[1];
         int nextCol = col - 1;
-        if (nextCol >= 0) {
+        if (nextCol > 0) {
             Tile tile = gameMap.getTile(row, col);
             Tile nextTile = gameMap.getTile(row, nextCol);
             tile.removeEntity(this);

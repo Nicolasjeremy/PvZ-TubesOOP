@@ -111,7 +111,7 @@ public class Main {
                 while (gameStatus && !Gameplay.getIsEnd()) {
                     System.out.println("\n");
                     System.out.println("|||STATUS GAME|||");
-                    System.out.println("Current Time: " + gameplay.getCurrentTime());
+                    System.out.println("Current Time: " + Gameplay.getCurrentTime());
                     System.out.println("Current Sun: " + Sun.getSun());
                     deck.displayDeck();
                     System.out.println("\n|||COMMAND GAME|||");

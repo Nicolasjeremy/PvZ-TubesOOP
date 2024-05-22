@@ -148,7 +148,9 @@ public class Gameplay implements Runnable {
         this.gameMap = new GameMap();
         this.deck = new Deck(gameMap);
         this.inventory = new Inventory(deck);
+        this.gameMap.clearEntities();
         Gameplay.winningstate = false;
+
     }
 
 }

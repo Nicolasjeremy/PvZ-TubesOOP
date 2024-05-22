@@ -89,6 +89,7 @@ public class Entities {
         }
         tile.removeEntity(this);
         this.setHealth(-1);
+        System.out.println(this.getName() + " mati");
         this.stop();
     }
 
