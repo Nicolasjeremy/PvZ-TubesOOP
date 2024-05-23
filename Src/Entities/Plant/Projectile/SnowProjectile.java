@@ -1,6 +1,8 @@
 package Src.Entities.Plant.Projectile;
 
 import Src.GameMaps.*;
+import Src.MainMenu.Gameplay;
+
 import java.util.ArrayList;
 import Src.Entities.Entities;
 import Src.Entities.Zombie.*;
@@ -66,7 +68,7 @@ public class SnowProjectile extends Entities implements Runnable {
 
     public void run() {
         try {
-            while (true) {
+            while (Gameplay.getIsEnd() == false) {
                 Thread.sleep(2000);
                 action();
             }

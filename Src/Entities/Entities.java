@@ -84,7 +84,7 @@ public class Entities {
 
     public void die() {
         Tile tile = this.gameMap.getTile(this.position[0], this.position[1]);
-        if (this instanceof Plant){
+        if (this instanceof Plant) {
             tile.setPlanted(false);
         }
         tile.removeEntity(this);

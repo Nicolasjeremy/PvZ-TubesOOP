@@ -1,7 +1,7 @@
 package Src.Entities.Plant.Projectile;
 
 import Src.GameMaps.*;
-
+import Src.MainMenu.Gameplay;
 import Src.GUI.*;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class Projectile extends Entities implements Runnable {
 
     public void run() {
         try {
-            while (true) {
+            while (Gameplay.getIsEnd()==false) {
                 Thread.sleep(2000);
                 action();
 

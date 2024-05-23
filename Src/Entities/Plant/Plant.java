@@ -36,11 +36,11 @@ public abstract class Plant extends Entities implements Runnable {
         return cooldown;
     }
 
-    public void setCooldown(int cooldown){
+    public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
     }
 
-    public ImageIcon getIcon(){
+    public ImageIcon getIcon() {
         return icon;
     }
 
@@ -53,6 +53,6 @@ public abstract class Plant extends Entities implements Runnable {
     }
 
     public abstract void attack();
-    
+
     public abstract void run();
 }

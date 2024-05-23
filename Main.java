@@ -50,32 +50,26 @@ public class Main {
 
                 GameMap gameMap = new GameMap();
 
-
                 // Initialize Inventory, Deck, And Filling Deck
                 Deck deck = new Deck(gameMap);
                 Inventory inventory = new Inventory(deck);
 
-                System.out.print("Want Autofill? (Yes/No): ");
-                String inputuser = scanner.next();
-                if (inputuser.equalsIgnoreCase("Yes")) {
-                    ArrayList<Plant> inventoryCopy = new ArrayList<>(inventory.getInventory());
-                    for (Plant plant : inventoryCopy) {
-                        inventory.addDeck(inventory.getInventory().indexOf(plant));
+                boolean truinput = false;
+                while (truinput == false) {
+                    System.out.print("Want Autofill? (Yes/No): ");
+                    String inputuser = scanner.next();
+                    if (inputuser.equalsIgnoreCase("Yes")) {
+                        truinput = true;
+                        ArrayList<Plant> inventoryCopy = new ArrayList<>(inventory.getInventory());
+                        for (Plant plant : inventoryCopy) {
+                            inventory.addDeck(inventory.getInventory().indexOf(plant));
+                        }
+                    } else if (inputuser.equalsIgnoreCase("No")) {
+                        truinput = true;
+                        DriverInventory.InventoryDeck(deck, inventory, scanner);
+                    } else {
+                        System.out.println("Perintah tidak dikenali");
                     }
-                } else {
-                    // Manual fill deck
-                    // boolean autofill = false;
-                    // while (!autofill) {
-                    //     inventory.displayInventory();
-                    //     System.out.print("Enter the index of the plant to add to the deck (0 to stop): ");
-                    //     int index = scanner.nextInt() - 1;
-                    //     if (index == -1) {
-                    //         autofill = true;
-                    //     } else {
-                    //         inventory.addDeck(index);
-                    //     }
-                    // }
-                    DriverInventory.InventoryDeck(deck, inventory, scanner);
                 }
 
                 // Playing the game
@@ -163,21 +157,21 @@ public class Main {
                             }
                             break;
                         case 2:
-                        try {
-                            System.out.println("Column enter range(1-9)");
-                            System.out.println("Row enter range(0-5)");
-                            System.out.print("Enter the column and row to unplant (e.g., 2 3): ");
-                            int colToUnplant = scanner.nextInt();
-                            int rowToUnplant = scanner.nextInt();
-                            scanner.nextLine(); // Consume newline
-                            int[] positionToUnplant = { rowToUnplant, colToUnplant };
-                            deck.unPlanting(positionToUnplant);
-                            
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input! Please enter a number.");
-                            scanner.nextLine(); // Consume the invalid input
-                        }
-                        break;
+                            try {
+                                System.out.println("Column enter range(1-9)");
+                                System.out.println("Row enter range(0-5)");
+                                System.out.print("Enter the column and row to unplant (e.g., 2 3): ");
+                                int colToUnplant = scanner.nextInt();
+                                int rowToUnplant = scanner.nextInt();
+                                scanner.nextLine(); // Consume newline
+                                int[] positionToUnplant = { rowToUnplant, colToUnplant };
+                                deck.unPlanting(positionToUnplant);
+
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input! Please enter a number.");
+                                scanner.nextLine(); // Consume the invalid input
+                            }
+                            break;
                         case 3:
                             gameMap.displayMap();
                             break;
@@ -185,11 +179,11 @@ public class Main {
                             System.out.println("Exiting...");
                             gameStatus = false;
                             System.out.println("Kembali ke Main Menu...");
-                            
+
                             gameplayThread.interrupt();
                             break;
                         case 5:
-                        System.out.println("Current time: " + Gameplay.getCurrentTime());
+                            System.out.println("Current time: " + Gameplay.getCurrentTime());
                             break;
                         default:
                             System.out.println("Invalid option!");
