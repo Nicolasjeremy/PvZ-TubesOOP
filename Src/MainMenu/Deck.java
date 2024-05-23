@@ -21,7 +21,6 @@ public class Deck{
     private GameMap gameMap;
     private boolean full;
     private boolean cooldownover;
-    private int cooldowntanaman;
 
     public Deck(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -59,14 +58,6 @@ public class Deck{
 
     public void setCooldownOver(boolean cooldownover){
         this.cooldownover = cooldownover;
-    }
-
-    public void setcooldowntanaman(int cooldowntanaman){
-        this.cooldowntanaman = cooldowntanaman;
-    }
-
-    public int getcooldowntanaman(){
-        return cooldowntanaman;
     }
 
     public void setFull(boolean isFull) {
@@ -112,7 +103,15 @@ public class Deck{
         } else {
             System.out.println("Deck contents:");
             for (int i = 0; i < deck.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : " + deck.get(i).getCooldown());
+                if (deck.get(i).getCooldown() <= Math.abs(Gameplay.getCurrentTime() - deck.get(i).getLastPlantedTime())) {
+                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
+                }
+                else if (deck.get(i).getCooldown() == 0) {
+                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
+                }
+                else {
+                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready at " + Math.abs(deck.get(i).getLastPlantedTime() - deck.get(i).getcooldowntanaman()));
+                }
             }
         }
     }
@@ -163,10 +162,13 @@ public class Deck{
 
     public void plantManager(Plant plant, int[] position, Tile tile) {
         int temp = plant.getCooldown();
+        plant.setcooldowntanaman(plant.getCooldown());
         plant.setCooldown(Math.abs(Gameplay.getCurrentTime() - plant.getLastPlantedTime()));
         if(plant.getCooldown() >= temp){
             setCooldownOver(true);
         }
+
+        // masih suka inkosisten cooldownnya
 
         // if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() > plant.getCooldown()){
         //     setCooldownOver(true);

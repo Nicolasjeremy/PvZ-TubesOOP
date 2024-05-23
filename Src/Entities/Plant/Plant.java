@@ -13,6 +13,7 @@ public abstract class Plant extends Entities implements Runnable {
     private Integer cooldown;
     private ImageIcon icon;
     private int lastPlantedTime;
+    private int cooldowntanaman;
 
     public Plant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
             int cooldown, GameMap gameMap, String imagepath, int lastPlantedTime) {
@@ -50,6 +51,14 @@ public abstract class Plant extends Entities implements Runnable {
 
     public void setLastPlantedTime(int planttime) {
         lastPlantedTime = planttime;
+    }
+
+    public int getcooldowntanaman(){
+        return cooldowntanaman;
+    }
+
+    public void setcooldowntanaman(int cooldowntanaman){
+        this.cooldowntanaman = cooldowntanaman;
     }
 
     public abstract void attack();
