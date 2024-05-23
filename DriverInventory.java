@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Src.MainMenu.*;
 // import Src.Entities.Plant.*;
@@ -7,7 +8,7 @@ import Src.MainMenu.*;
 public class DriverInventory {
     public static void InventoryDeck(Deck deck, Inventory inventory, Scanner scanner) {
         boolean full = false;
-
+        
         while (!full) {
             if (deck.getDeck().size() >= 6) {
                 System.out.println("Deck is full! You can either swap or remove plants.");
@@ -17,7 +18,7 @@ public class DriverInventory {
                 System.out.print("Choose an option: ");
                 int fullChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
-
+                
                 switch (fullChoice) {
                     case 1:
                     System.out.println("Where Do You Want To Do The Swap?");
@@ -65,6 +66,9 @@ public class DriverInventory {
                         break;
                 }
             } else {
+                try {
+                    
+                
                 System.out.println("\n1. Add Plant to Deck");
                 System.out.println("2. Remove Plant from Deck");
                 System.out.println("3. Swap Plants");
@@ -140,6 +144,10 @@ public class DriverInventory {
                         System.out.println("Invalid option!");
                         break;
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a number.");
+                scanner.nextLine(); 
+            }
             }
         }
     }

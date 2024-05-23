@@ -20,7 +20,7 @@ public class Gameplay implements Runnable {
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        Gameplay.current_time = 200;
+        Gameplay.current_time = 10;
         this.isDay = true;
         Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
@@ -59,7 +59,14 @@ public class Gameplay implements Runnable {
                 Gameplay.current_time--;
                 // System.out.print(current_time);
             }
-            Gameplay.isEnd = true;
+            if (Gameplay.winningstate ==  false) {
+                System.out.println("\nYou win!");
+                Gameplay.setWinningState(true);
+            } else {
+                System.out.println("You lose!");
+            }
+            Gameplay.setIsEnd(true);
+
         } catch (InterruptedException e) {
             System.out.println("Gameplay stop");
         }
@@ -150,6 +157,7 @@ public class Gameplay implements Runnable {
         this.inventory = new Inventory(deck);
         this.gameMap.clearEntities();
         Gameplay.winningstate = false;
+        Thread.currentThread().interrupt();
 
     }
 

@@ -102,7 +102,8 @@ public class Main {
                 gameplayThread.start();
 
                 // GamePlay
-                while (gameStatus && !Gameplay.getIsEnd()) {
+                while (gameStatus && !Gameplay.getIsEnd() ) {
+                    
                     System.out.println("\n");
                     System.out.println("|||STATUS GAME|||");
                     System.out.println("Current Time: " + Gameplay.getCurrentTime());
@@ -159,6 +160,7 @@ public class Main {
                             break;
                         case 2:
                             try {
+                                scanner.nextLine();
                                 System.out.println("Column enter range(1-9)");
                                 System.out.println("Row enter range(0-5)");
                                 System.out.print("Enter the column and row to unplant (e.g., 2 3): ");
@@ -179,7 +181,7 @@ public class Main {
                         case 4:
                             System.out.println("Exiting...");
                             gameStatus = false;
-                            System.out.println("Kembali ke Main Menu...");
+                            Gameplay.setIsEnd(true);
 
                             gameplayThread.interrupt();
                             break;
@@ -193,22 +195,33 @@ public class Main {
                 }
                 if (Gameplay.getIsEnd()) {
                     System.out.println("Game Ended!");
-                    gameStatus = false;
+                    for (int i = 0; i < 3; i++) {
+                        try {
+                            Thread.sleep(1000);
+                            System.out.println("Kembali ke Main Menu dalam " + (3 - i) + " detik");
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            System.out.println("Countdown gagal berjalan");
+                        }
+                    }
                     gameplayThread.interrupt();
                     gameplay.resetAttributes();
+                    Gameplay.setIsEnd(true);
+                    gameStatus = false;
                 }
-                if (Gameplay.getWinningState()) {
-                    System.out.println("You Win!");
-                    gameStatus = false;
-                    gameplayThread.interrupt();
-                    gameplay.resetAttributes();
-                    System.out.println("Game Restarted!");
-                } else {
-                    System.out.println("You Lose!");
-                    gameStatus = false;
-                    gameplayThread.interrupt();
-                    gameplay.resetAttributes();
-                }
+                // if (Gameplay.getWinningState()) {
+                //     System.out.println("You Win!");
+                //     gameStatus = false;
+                //     gameplayThread.interrupt();
+                //     gameplay.resetAttributes();
+                //     System.out.println("Game Restarted!");
+                // } else {
+                //     System.out.println("You Lose!");
+                //     gameStatus = false;
+                //     gameplayThread.interrupt();
+                //     gameplay.resetAttributes();
+                // }
+                
             }
         }
         scanner.close();
