@@ -1,12 +1,16 @@
 package Src.Entities.Plant.Passive;
+
+import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
 
-public class Sunflower extends PassivePlant{
+public class Sunflower extends PassivePlant {
     private int sunWaitingTime;
+    private static int planttime = 999;
     Sun sun = new Sun();
 
     public Sunflower(int[] position, GameMap gameMap) {
-        super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap, "../Image/PlantImage/Sunflower.png", 0);
+        super("Sunflower", 300, attackDmg, attackSpd, position, 50, range, 10, gameMap,
+                "../Image/PlantImage/Sunflower.png", 0);
         this.sunWaitingTime = 3;
     }
 
@@ -21,5 +25,13 @@ public class Sunflower extends PassivePlant{
         } catch (InterruptedException e) {
             System.out.println("Sunflower gagal");
         }
+    }
+
+    public static int getLastPlantedTime() {
+        return planttime;
+    }
+
+    public static void setLastPlantedTime(int planttime) {
+        Sunflower.planttime = planttime;
     }
 }

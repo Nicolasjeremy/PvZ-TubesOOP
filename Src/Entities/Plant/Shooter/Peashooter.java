@@ -6,6 +6,8 @@ import Src.GameMaps.*;
 // import Src.GUI.*;
 
 public class Peashooter extends ShooterPlant {
+    private static int planttime = 999;
+
     public Peashooter(int[] position, GameMap gameMap) {
         super("Peashooter", 100, 25, 4, position, 100, range, 10, 3, gameMap,
                 "../Image/PlantImage/peashooterfigma.png", 0);
@@ -23,5 +25,13 @@ public class Peashooter extends ShooterPlant {
         } else {
             System.err.println("Error: Position is null in Peashooter.attack()");
         }
+    }
+
+    public static int getLastPlantedTime() {
+        return planttime;
+    }
+
+    public static void setLastPlantedTime(int planttime) {
+        Peashooter.planttime = planttime;
     }
 }
