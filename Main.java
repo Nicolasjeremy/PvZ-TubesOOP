@@ -138,6 +138,7 @@ public class Main {
                             try {
                                 int plantIndexToPlant = scanner.nextInt() - 1;
                                 Plant plantToPlant = deck.getPlantFromDeck(plantIndexToPlant);
+                                scanner.nextLine();
                                 if (plantToPlant != null) {
                                     System.out.println("Column enter range(1-9)");
                                     System.out.println("Row enter range(0-5)");

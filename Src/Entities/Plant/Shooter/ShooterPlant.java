@@ -22,7 +22,7 @@ public class ShooterPlant extends Plant {
         int row = this.getPosition()[0];
         boolean status = false;
         int col = 0;
-        while (!status && col < 11) {
+        while (!status && col < 10) {
             Tile check_tile = this.getGameMap().getTile(row, col);
             for (Entities zombie : check_tile.getAllEntities()) {
                 if (zombie instanceof Zombie) {
