@@ -36,7 +36,7 @@ public class Tile {
     public void removeEntity(Entities entities) {
         entity.remove(entities);
         // Thread.currentThread().interrupt();
-        // notifyEntityRemoved(entities);
+        notifyEntityRemoved(entities);
     }
 
     public Entities getEntities(int index) {

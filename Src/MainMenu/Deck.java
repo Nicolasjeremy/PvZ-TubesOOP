@@ -184,7 +184,7 @@ public class Deck {
                 System.out.println("Plant time : " + plant.getLastPlantedTime());
                 System.out.println("Cooldown plant : " + plant.getCooldown());
             } else if (tile.hasPlanted()) {
-                if (tile.getAllPlant().getFirst() instanceof Lilypad && tile.getAllPlant().size() < 2 && !(plant instanceof Lilypad)) {
+                if (tile.getAllPlant().get(0) instanceof Lilypad && tile.getAllPlant().size() < 2) {
                     plant.setgameMap(gameMap);
                     plant.setPosition(position);
                     tile.addEntity(plant);

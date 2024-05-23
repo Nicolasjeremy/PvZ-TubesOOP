@@ -2,7 +2,7 @@ package Src.Entities.Plant.Projectile;
 
 import Src.GameMaps.*;
 import Src.MainMenu.Gameplay;
-import Src.GUI.*;
+// import Src.GUI.*;
 
 import java.util.ArrayList;
 import Src.Entities.Entities;
@@ -10,7 +10,7 @@ import Src.Entities.Zombie.Zombie;
 
 public class Projectile extends Entities implements Runnable {
     private ArrayList<Zombie> ListZombie;
-    private StartGameMapPanel gamePanel;
+    // private StartGameMapPanel gamePanel;
 
     public Projectile(int damage, int[] Position, GameMap gameMap) {
         super("Projectile", 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");

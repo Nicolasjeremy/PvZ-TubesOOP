@@ -30,6 +30,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         zombieFactories.add(new ZLala(null, gameMap));
         zombieFactories.add(new ZNormal(null, gameMap));
         zombieFactories.add(new ZPoleVault(null, gameMap));
+        zombieFactories.add(new ZAsep(null, gameMap));
     }
 
     public void spawnZombie() {

@@ -3,7 +3,6 @@ package Src.Entities.Zombie;
 import java.util.ArrayList;
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
-import Src.Entities.Plant.Melee.Jalapeno;
 import Src.GameMaps.*;
 import Src.MainMenu.Gameplay;
 
@@ -118,18 +117,11 @@ public abstract class Zombie extends Entities implements Runnable {
             }
         }
 
-        for (int i = 0; i < 11; i++) {
-            Tile testile = getGameMap().getTile(position[0], i);
-            for (Entities entityTes : testile.getAllEntities()) {
-                if (entityTes instanceof Jalapeno) {
-                    setDie(true);
-                    setAlive(false);
-                }
-            }
-        }
-
         if (!this.isAlive()) {
+            System.out.println("Zombie is not alive, calling die()");
             this.die();
+            return;
+
         } else if (this.isSlow()) {
             // Case terkena slow
             int sleepDuration = 1500 / 10; // Check every 150ms
@@ -199,15 +191,6 @@ public abstract class Zombie extends Entities implements Runnable {
         }
     }
 
-
-    // public boolean isAlive() {
-    //     return isAlive;
-    // }
-
-    // public void setAlive(boolean alive) {
-    //     isAlive = alive;
-    // }
-
     public void attack(Plant plant) {
         int dmg = this.getAttackDmg();
         plant.setHealth(plant.getHealth() - dmg);
@@ -257,6 +240,7 @@ public abstract class Zombie extends Entities implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted() && !Gameplay.getIsEnd() && this.getHealth() > 0) {
                 if (dead == false) {
+                    System.out.println(this.getName() + " Location is : " + this.getPosition()[0] + " " + this.getPosition()[1]);
                     action();
                 }
             }
@@ -282,22 +266,22 @@ public abstract class Zombie extends Entities implements Runnable {
             }
         }
 
-        // @Override
-        // public void run() {
-        //     try {
-        //         while (true) {
-        //             synchronized (lock) {
-        //                 lock.wait(3000);
-        //                 long elapsed = System.currentTimeMillis() - startTime;
-        //                 if (elapsed >= 3000) {
-        //                     setSlow(false);
-        //                     return;
-        //                 }
-        //             }
-        //         }
-        //     } catch (InterruptedException e) {
-        //         // Handle interruption
-        //     }
-        // }
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    synchronized (lock) {
+                        lock.wait(3000);
+                        long elapsed = System.currentTimeMillis() - startTime;
+                        if (elapsed >= 3000) {
+                            setSlow(false);
+                            return;
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                // Handle interruption
+            }
+        }
     }
 }
