@@ -184,9 +184,7 @@ public class Deck {
                 System.out.println("Plant time : " + plant.getLastPlantedTime());
                 System.out.println("Cooldown plant : " + plant.getCooldown());
             } else if (tile.hasPlanted()) {
-                if (tile.getEntities(0) instanceof Lilypad && tile.getAllEntities().size() < 2) { // ! ni kalo ada 3
-                                                                                                  // entity gabisa plant
-                                                                                                  // dong
+                if (tile.getAllPlant().getFirst() instanceof Lilypad && tile.getAllPlant().size() < 2) {
                     plant.setgameMap(gameMap);
                     plant.setPosition(position);
                     tile.addEntity(plant);
@@ -205,8 +203,7 @@ public class Deck {
 
                     Thread plantThread = new Thread(plant);
                     plantThread.start();
-                } else if (tile.getEntities(0) instanceof Plant) { // ! Ini kenapa index 0? kalo ada plant bukan di idx
-                                                                   // 0 bisa ke plant dong
+                } else if (tile.getEntities(0) instanceof Plant) { 
                     System.out.println("This Tile Has Been Planted!");
                 }
             } else {

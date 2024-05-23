@@ -46,6 +46,15 @@ public class Tile {
     public ArrayList<Entities> getAllEntities() {
         return this.entity;
     }
+    public ArrayList<Entities> getAllPlant() {
+        ArrayList<Entities> plant = new ArrayList<>();
+        for (Entities entities : entity) {
+            if (entities instanceof Plant) {
+                plant.add(entities);
+            }
+        }
+        return plant;
+    }
 
     public Plant getTilePlant() {
         for (Entities entities : entity) {
