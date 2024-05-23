@@ -146,6 +146,10 @@ public class Main {
                                     System.out.print("Enter the column and row to plant (e.g., 2 3): ");
                                     int col = scanner.nextInt();
                                     int row = scanner.nextInt();
+                                    if (row < 0 || row > 5 || col < 1 || col > 9) {
+                                        System.out.println("Invalid position!");
+                                        break;
+                                    }
                                     scanner.nextLine(); // Consume newline
                                     int[] position = { row, col };
                                     deck.planting(plantToPlant, position);
