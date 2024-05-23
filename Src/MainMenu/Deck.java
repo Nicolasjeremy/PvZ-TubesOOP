@@ -2,20 +2,19 @@ package Src.MainMenu;
 
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
-// import Src.Entities.Plant.Melee.Chomper;
-// import Src.Entities.Plant.Melee.Jalapeno;
-// import Src.Entities.Plant.Melee.Squash;
+import Src.Entities.Plant.Melee.Jalapeno;
+import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;
 import Src.Entities.Plant.Passive.Lilypad;
-// import Src.Entities.Plant.Passive.Sunflower;
-// import Src.Entities.Plant.Passive.Tallnut;
-// import Src.Entities.Plant.Passive.Wallnut;
-// import Src.Entities.Plant.Shooter.Peashooter;
-// import Src.Entities.Plant.Shooter.Repeater;
-// import Src.Entities.Plant.Shooter.Snowpea;
+import Src.Entities.Plant.Passive.Sunflower;
+import Src.Entities.Plant.Passive.Tallnut;
+import Src.Entities.Plant.Passive.Wallnut;
+import Src.Entities.Plant.Shooter.Peashooter;
+import Src.Entities.Plant.Shooter.Repeater;
+import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
 
-public class Deck{
+public class Deck {
     public static final int MAXCAPACITYDECK = 6;
     private ArrayList<Plant> deck;
     private GameMap gameMap;
@@ -56,7 +55,7 @@ public class Deck{
         return this.cooldownover;
     }
 
-    public void setCooldownOver(boolean cooldownover){
+    public void setCooldownOver(boolean cooldownover) {
         this.cooldownover = cooldownover;
     }
 
@@ -103,94 +102,91 @@ public class Deck{
         } else {
             System.out.println("Deck contents:");
             for (int i = 0; i < deck.size(); i++) {
-                if (deck.get(i).getCooldown() <= Math.abs(Gameplay.getCurrentTime() - deck.get(i).getLastPlantedTime())) {
+                if (deck.get(i).getCooldown() <= Math
+                        .abs(Gameplay.getCurrentTime() - deck.get(i).getLastPlantedTime())) {
                     System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
-                }
-                else if (deck.get(i).getCooldown() == 0) {
+                } else if (deck.get(i).getCooldown() == 0) {
                     System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
-                }
-                else {
-                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready at " + Math.abs(deck.get(i).getLastPlantedTime() - deck.get(i).getcooldowntanaman()));
+                } else {
+                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready at "
+                            + Math.abs(deck.get(i).getLastPlantedTime() - deck.get(i).getcooldowntanaman()));
                 }
             }
         }
     }
 
     public void planting(Plant plant, int[] position) {
-        // Plant newPlant = createNewPlantInstance(plant);
+        Plant newPlant = createNewPlantInstance(plant);
         Tile tile = this.gameMap.getTile(position[0], position[1]);
-        
+
         if (tile instanceof Home) {
             System.out.println("Can't Plant On Home!");
-        } 
-        else if (tile instanceof ZombieSpawn) {
+        } else if (tile instanceof ZombieSpawn) {
             System.out.println("Can't Plant On ZombieSpawn!");
-        } 
-        else if (tile instanceof Pool) {
+        } else if (tile instanceof Pool) {
             Pool tilepool = (Pool) tile;
             if (tilepool.getLilyPad_Plant()) {
                 if (plant instanceof TangleKelp) {
                     System.out.println("Can't Plant TangleKelp On Lilypad");
+                } else {
+                    plantManager(newPlant, position, tilepool);
                 }
-                else {
-                    plantManager(plant, position, tilepool);
-                }
-            } 
-            else {
+            } else {
                 if (plant instanceof Lilypad) {
-                    plantManager(plant, position, tilepool);
+                    plantManager(newPlant, position, tilepool);
                     tilepool.Plant_LilyPad();
-                } 
-                else {
+                } else {
                     if (plant instanceof TangleKelp) {
-                        plantManager(plant, position, tilepool);
-                    }
-                    else {
+                        plantManager(newPlant, position, tilepool);
+                    } else {
                         System.out.println("Needs Lilypad To Plant!");
                     }
                 }
             }
-        } 
-        else {
+        } else {
             if (plant instanceof Lilypad || plant instanceof TangleKelp) {
                 System.out.println("Lilypad And TangleKelp Can't Be Planted On Grass");
             } else {
-                plantManager(plant, position, tile);
+                plantManager(newPlant, position, tile);
             }
         }
     }
 
     public void plantManager(Plant plant, int[] position, Tile tile) {
-        int temp = plant.getCooldown();
+        int temp = plant.getCooldown(); // ! ini variable nya ngaruh ke plant yang baru, harusnya ganti statik
         plant.setcooldowntanaman(plant.getCooldown());
         plant.setCooldown(Math.abs(Gameplay.getCurrentTime() - plant.getLastPlantedTime()));
-        if(plant.getCooldown() >= temp){
+
+        if (plant.getCooldown() >= temp) {
             setCooldownOver(true);
         }
 
-        // masih suka inkosisten cooldownnya
+        // // masih suka inkosisten cooldownnya
 
-        // if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() > plant.getCooldown()){
-        //     setCooldownOver(true);
+        // if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() >
+        // plant.getCooldown()){
+        // setCooldownOver(true);
         // }
-        // else if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() < 0 - plant.getCooldown()){
-        //     setCooldownOver(true);
+        // else if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() < 0 -
+        // plant.getCooldown()){
+        // setCooldownOver(true);
         // }
         // else {
-        //     setCooldownOver(false);
+        // setCooldownOver(false);
         // }
 
-        if(Sun.getSun() < plant.getCost()){
+        if (Sun.getSun() < plant.getCost()) {
             Sun.spendSun(plant.getCost());
-        }
-        else {
+        } else {
             if (!isCooldownOver()) {
                 System.out.println("This Plant is On Cooldown!");
                 System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
                 System.out.println("Plant time : " + plant.getLastPlantedTime());
                 System.out.println("Cooldown plant : " + plant.getCooldown());
-            } else if (tile.hasPlanted()) { 
-                if (tile.getEntities(0) instanceof Lilypad && tile.getAllEntities().size() < 2) {
+            } else if (tile.hasPlanted()) {
+                if (tile.getEntities(0) instanceof Lilypad && tile.getAllEntities().size() < 2) { // ! ni kalo ada 3
+                                                                                                  // entity gabisa plant
+                                                                                                  // dong
                     plant.setgameMap(gameMap);
                     plant.setPosition(position);
                     tile.addEntity(plant);
@@ -209,8 +205,8 @@ public class Deck{
 
                     Thread plantThread = new Thread(plant);
                     plantThread.start();
-                }
-                else if (tile.getEntities(0) instanceof Plant){
+                } else if (tile.getEntities(0) instanceof Plant) { // ! Ini kenapa index 0? kalo ada plant bukan di idx
+                                                                   // 0 bisa ke plant dong
                     System.out.println("This Tile Has Been Planted!");
                 }
             } else {
@@ -236,31 +232,31 @@ public class Deck{
         }
     }
 
-    // private Plant createNewPlantInstance(Plant plant) {
-    //     if (plant instanceof Jalapeno) {
-    //         return new Jalapeno(null, null);
-    //     } else if (plant instanceof Squash) {
-    //         return new Squash(null, null);
-    //     } else if (plant instanceof TangleKelp) {
-    //         return new TangleKelp(null, null);
-    //     } else if (plant instanceof Lilypad) {
-    //         return new Lilypad(null, null);
-    //     } else if (plant instanceof Tallnut) {
-    //         return new Tallnut(null, null);
-    //     } else if (plant instanceof Wallnut) {
-    //         return new Wallnut(null, null);
-    //     } 
-    //     if (plant instanceof Peashooter) {
-    //         return new Peashooter(null, null);
-    //     } else if (plant instanceof Repeater) {
-    //         return new Repeater(null, null);
-    //     } else if (plant instanceof Snowpea) {
-    //         return new Snowpea(null, null);
-    //     } else if (plant instanceof Sunflower) {
-    //         return new Sunflower(null, null);
-    //     }
-    //     return null;
-    // }
+    private Plant createNewPlantInstance(Plant plant) {
+        if (plant instanceof Jalapeno) {
+            return new Jalapeno(null, null);
+        } else if (plant instanceof Squash) {
+            return new Squash(null, null);
+        } else if (plant instanceof TangleKelp) {
+            return new TangleKelp(null, null);
+        } else if (plant instanceof Lilypad) {
+            return new Lilypad(null, null);
+        } else if (plant instanceof Tallnut) {
+            return new Tallnut(null, null);
+        } else if (plant instanceof Wallnut) {
+            return new Wallnut(null, null);
+        }
+        if (plant instanceof Peashooter) {
+            return new Peashooter(null, null);
+        } else if (plant instanceof Repeater) {
+            return new Repeater(null, null);
+        } else if (plant instanceof Snowpea) {
+            return new Snowpea(null, null);
+        } else if (plant instanceof Sunflower) {
+            return new Sunflower(null, null);
+        }
+        return null;
+    }
 
     public void unPlanting(int[] position) {
         Tile tile = this.gameMap.getTile(position[0], position[1]);
@@ -275,4 +271,3 @@ public class Deck{
         }
     }
 }
-
