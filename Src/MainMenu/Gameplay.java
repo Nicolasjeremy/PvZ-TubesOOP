@@ -20,7 +20,7 @@ public class Gameplay implements Runnable {
 
     public Gameplay() {
         this.entities = new ArrayList<Entities>();
-        Gameplay.current_time = 10;
+        Gameplay.current_time = 200;
         this.isDay = true;
         Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
