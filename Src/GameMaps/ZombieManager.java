@@ -91,7 +91,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         }
     }
 
-    public int checkZombiecount(GameMap gameMap) {
+    public static int checkZombiecount(GameMap gameMap) {
         int count = 0;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 11; col++) {

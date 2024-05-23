@@ -36,18 +36,20 @@ public class MeleePlant extends Plant {
 
     public void run() {
         while (true) {
+            boolean kill = false;
             try {
                 if (this.getCooldown()!=0){
                     Thread.sleep(1000);
                     this.setCooldown(this.getCooldown()-1);
                 }
                 if (this instanceof Jalapeno) {
-                    if (zombiechecker()) {
+                    if (zombiechecker() && !kill) {
                         // this.attack();
                         // System.out.println("Zombie exist in this row");
                         // System.out.println("Jalapeno ready to attack");
                         this.attack();
                         this.die();
+                        kill = true;
                         break;
                     }
                 } else {

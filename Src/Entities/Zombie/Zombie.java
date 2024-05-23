@@ -3,14 +3,19 @@ package Src.Entities.Zombie;
 import java.util.ArrayList;
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
+import Src.Entities.Plant.Melee.Jalapeno;
 import Src.GameMaps.*;
 import Src.MainMenu.Gameplay;
 
 public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
     private boolean slow;
+    private boolean isAlive;
     private boolean special;
     private UnslowThread unslowThread; // Thread to handle unslowing
+    private Thread zombiThread;
+    private boolean dead;
+    private boolean alive;
 
     public Zombie(String name, int health, int attackDmg, int attackSpd, int[] position, boolean isAquatic,
             boolean special, GameMap gameMap, String imagepath) {
@@ -18,10 +23,35 @@ public abstract class Zombie extends Entities implements Runnable {
         this.isAquatic = isAquatic;
         this.special = special;
         this.slow = false;
+        this.isAlive = true;
+        this.dead = false;
+        this.alive = true;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setZombieThread(Thread thread) {
+        this.zombiThread = thread;
+    }
+
+    public Thread getZombiThread () {
+        return this.zombiThread;
     }
 
     public boolean getAquatic() {
         return isAquatic;
+    }
+
+    public void stopThread() {
+        if (zombiThread != null) {
+            zombiThread.interrupt();
+        }
     }
 
     public void setAquatic(boolean isAquatic) {
@@ -58,10 +88,17 @@ public abstract class Zombie extends Entities implements Runnable {
             int[] position = this.getPosition();
             Tile tile = getGameMap().getTile(position[0], position[1]);
             tile.removeEntity(this);
-            this.stop();
-            if (unslowThread != null) {
-                unslowThread.interrupt();
+            System.out.println(this.getName() + " Position is : " + position[0] + " " + position[1]);
+            if (zombiThread != null) {
+                zombiThread.interrupt(); // Interrupt the zombie thread
+                try {
+                    zombiThread.join(); // Wait for the zombie thread to stop
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); // Restore interrupt status
+                    System.err.println("Interrupted while waiting for zombie thread to stop: " + e.getMessage());
+                }
             }
+            alive = false; // Set the alive flag to false
         }
     }
 
@@ -81,10 +118,22 @@ public abstract class Zombie extends Entities implements Runnable {
             }
         }
 
-        if (this.isSlow()) {
+        for (int i = 0; i < 11; i++) {
+            Tile testile = getGameMap().getTile(position[0], i);
+            for (Entities entityTes : testile.getAllEntities()) {
+                if (entityTes instanceof Jalapeno) {
+                    setDie(true);
+                    setAlive(false);
+                }
+            }
+        }
+
+        if (!this.isAlive()) {
+            this.die();
+        } else if (this.isSlow()) {
             // Case terkena slow
             int sleepDuration = 1500 / 10; // Check every 150ms
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10 && !Thread.currentThread().isInterrupted(); i++) {
                 if (isPlant) {
                     if (getSpecial()) {
                         special(plantInTile);
@@ -94,7 +143,7 @@ public abstract class Zombie extends Entities implements Runnable {
                         Thread.sleep(sleepDuration * 10);
                     }
                 } else {
-                    for (int x = 0; x < 150; x++) { // ngecek tiap ...detik ada plant di tile apa ngak
+                    for (int x = 0; x < 150 && !Thread.currentThread().isInterrupted(); x++) {
                         Thread.sleep(100);
                         entity = tile.getAllEntities();
                         for (Entities entities : entity) {
@@ -126,7 +175,7 @@ public abstract class Zombie extends Entities implements Runnable {
                     Thread.sleep(1000);
                 }
             } else {
-                for (int x = 0; x < 100; x++) { // ngecek tiap ...detik ada plant di tile apa ngak
+                for (int x = 0; x < 100 && !Thread.currentThread().isInterrupted(); x++) {
                     Thread.sleep(100);
                     entity = tile.getAllEntities();
                     for (Entities entities : entity) {
@@ -150,6 +199,15 @@ public abstract class Zombie extends Entities implements Runnable {
         }
     }
 
+
+    // public boolean isAlive() {
+    //     return isAlive;
+    // }
+
+    // public void setAlive(boolean alive) {
+    //     isAlive = alive;
+    // }
+
     public void attack(Plant plant) {
         int dmg = this.getAttackDmg();
         plant.setHealth(plant.getHealth() - dmg);
@@ -159,17 +217,22 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     public void walk(GameMap gameMap) {
+        if (!alive) { // Check if the zombie is alive before moving
+            return;
+        }
         int[] position = getPosition();
         int row = position[0];
         int col = position[1];
         int nextCol = col - 1;
-        if (nextCol > 0) {
+        if (nextCol > 0 && isAlive) {
             Tile tile = gameMap.getTile(row, col);
             Tile nextTile = gameMap.getTile(row, nextCol);
             tile.removeEntity(this);
-            int[] nextPosition = { row, nextCol };
-            setPosition(nextPosition);
-            nextTile.addEntity(this);
+            if (isAlive) {
+                int[] nextPosition = { row, nextCol };
+                setPosition(nextPosition);
+                nextTile.addEntity(this);
+            }
         } else {
             this.die();
             Gameplay.setIsEnd(true);
@@ -182,12 +245,24 @@ public abstract class Zombie extends Entities implements Runnable {
         this.walk(getGameMap());
     }
 
+    public boolean getDie() {
+        return this.dead;
+    }
+
+    public void setDie(boolean dead) {
+        this.dead = dead;
+    }
+
     public void run() {
         try {
-            while (!Gameplay.getIsEnd() && this.getHealth() > 0) {
-                action();
+            while (!Thread.currentThread().isInterrupted() && !Gameplay.getIsEnd() && this.getHealth() > 0) {
+                if (dead == false) {
+                    action();
+                }
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            dead = true;
         }
     }
 
@@ -207,22 +282,22 @@ public abstract class Zombie extends Entities implements Runnable {
             }
         }
 
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    synchronized (lock) {
-                        lock.wait(3000);
-                        long elapsed = System.currentTimeMillis() - startTime;
-                        if (elapsed >= 3000) {
-                            setSlow(false);
-                            return;
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                // Handle interruption
-            }
-        }
+        // @Override
+        // public void run() {
+        //     try {
+        //         while (true) {
+        //             synchronized (lock) {
+        //                 lock.wait(3000);
+        //                 long elapsed = System.currentTimeMillis() - startTime;
+        //                 if (elapsed >= 3000) {
+        //                     setSlow(false);
+        //                     return;
+        //                 }
+        //             }
+        //         }
+        //     } catch (InterruptedException e) {
+        //         // Handle interruption
+        //     }
+        // }
     }
 }
