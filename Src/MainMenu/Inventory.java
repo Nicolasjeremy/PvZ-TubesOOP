@@ -39,6 +39,10 @@ public class Inventory {
         return this.inventory;
     }
 
+    public void addPlantToInventory(Plant plant) {
+        inventory.add(plant);
+    }
+
     public void addDeck(int index) {
         Plant plant = inventory.get(index);
 
