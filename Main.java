@@ -74,7 +74,7 @@ public class Main {
                 command.start();
                 Singleton singleton = Singleton.getInstance();
                 Gameplay gameplay = singleton.getGame();
-
+                gameplay.resetAttributes();
                 GameMap gameMap = new GameMap();
 
                 // Initialize Inventory, Deck, And Filling Deck
@@ -259,9 +259,9 @@ public class Main {
                             break;
                             case 4:
                             System.out.println("Exiting...");
-                            gameStatus = false;
                             Gameplay.setIsEnd(true);
                             gameplayThread.interrupt();
+                            gameStatus = false;
                             break;
                         case 5:
                         System.out.println("Current time: " + Gameplay.getCurrentTime());
@@ -270,6 +270,26 @@ public class Main {
                             System.out.println("Invalid option!");
                             break;
                         }
+                    }
+                    if (Gameplay.getIsEnd()) {
+                        System.out.println("Game Ended!");
+                        for (int i = 0; i < 3; i++) {
+                            try {
+                                Thread.sleep(1000);
+                                System.out.println("Kembali ke Main Menu dalam " + (3 - i) + " detik");
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                System.out.println("Countdown gagal berjalan");
+                            }
+                        }
+                        try {
+                            Thread.sleep(1000);
+                        }
+                        catch (Exception e) {
+                        }
+                        // gameplay.resetAttributes();
+                        gameplayThread.interrupt();
+                        gameStatus = false;
                     }
                 }
                 // if (Gameplay.getWinningState()) {
@@ -285,8 +305,9 @@ public class Main {
                 //     gameplay.resetAttributes();
                 // }
                 
-            }
+            
         }
-        scanner.close();
     }
+    scanner.close();
+}
 }

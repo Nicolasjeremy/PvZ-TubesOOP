@@ -225,14 +225,16 @@ public abstract class Zombie extends Entities implements Runnable {
 
     public void run() {
         try {
-            while (!Thread.currentThread().isInterrupted() && !Gameplay.getIsEnd() && this.getHealth() > 0) {
+            while (!Thread.currentThread().isInterrupted() && Gameplay.getIsEnd() == false && this.getHealth() > 0) {
                 if (alive) {
+                    System.out.println(this.getName() + "berjalan");
                     action();
                 }
             }
-            this.die();
+            Thread.currentThread().interrupt();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            System.out.println("Zombie thread interrupted: " + this.getName());
             alive = false;
         }
     }
