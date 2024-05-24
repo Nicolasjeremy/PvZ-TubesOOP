@@ -11,7 +11,7 @@ public class SnowProjectile extends Entities implements Runnable {
     private ArrayList<Zombie> ListZombie;
 
     public SnowProjectile(int damage, int[] Position, GameMap gameMap) {
-        super("SnowProjetiles", 0, damage, 0, Position, gameMap, "../../../Image/PlantImage/SnowPea.png");
+        super("^", 0, damage, 0, Position, gameMap, "../../../Image/PlantImage/SnowPea.png");
         this.ListZombie = new ArrayList<>();
     }
 

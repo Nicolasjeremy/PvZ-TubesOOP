@@ -13,7 +13,7 @@ public class Projectile extends Entities implements Runnable {
     // private StartGameMapPanel gamePanel;
 
     public Projectile(int damage, int[] Position, GameMap gameMap) {
-        super("Projectile", 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");
+        super("O", 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");
         this.ListZombie = new ArrayList<>();
     }
 
@@ -74,7 +74,7 @@ public class Projectile extends Entities implements Runnable {
 
     public void run() {
         try {
-            while (Gameplay.getIsEnd()==false) {
+            while (Gameplay.getIsEnd() == false) {
                 Thread.sleep(2000);
                 action();
 
