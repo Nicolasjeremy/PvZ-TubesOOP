@@ -89,6 +89,27 @@ public class GameMap {
             return CYAN; // For Pool
         }
     }
+    public ArrayList<Entities> getAllEntities() {
+        ArrayList<Entities> entities = new ArrayList<>();
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 11; col++) {
+                Tile tile = getTile(row, col);
+                entities.addAll(tile.getAllEntities());
+            }
+        }
+        return entities;
+    }
+    public ArrayList<Entities> getAllZombieinGame() {
+        ArrayList<Entities> entities = new ArrayList<>();
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 11; col++) {
+                Tile tile = getTile(row, col);
+                entities.addAll(tile.getAllZombie());
+            }
+        }
+        return entities;
+    }
+
     public void clearEntities() {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 11; col++) {

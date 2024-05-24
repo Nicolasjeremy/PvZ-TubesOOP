@@ -2,6 +2,8 @@ package Src.GameMaps;
 
 import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
+import Src.Entities.Zombie.Zombie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,15 @@ public class Tile {
             }
         }
         return plant;
+    }
+    public ArrayList<Entities> getAllZombie() {
+        ArrayList<Entities> zombie = new ArrayList<>();
+        for (Entities entities : entity) {
+            if (!(entities instanceof Zombie)) {
+                zombie.add(entities);
+            }
+        }
+        return zombie;
     }
 
     public Plant getTilePlant() {

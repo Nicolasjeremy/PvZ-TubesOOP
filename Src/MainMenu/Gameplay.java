@@ -44,7 +44,8 @@ public class Gameplay implements Runnable {
                 sunThread.start();
             }
 
-            while (current_time > 0) {
+            while (this.getGameMap().getAllZombieinGame().size() == 0) {
+                
                 if (current_time == 180) {
                     zombieManagerThread.start();
                 } else if (current_time == 40) {
@@ -54,6 +55,10 @@ public class Gameplay implements Runnable {
                     this.isDay = false;
                     sunThread.interrupt();
                     System.out.println("\nNight has come");
+                }
+                if (current_time == 0) {
+                    System.out.println("Day has come");
+                    current_time = 200;
                 }
                 Thread.sleep(1000);
                 Gameplay.current_time--;
