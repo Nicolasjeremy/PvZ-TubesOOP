@@ -9,9 +9,11 @@ import Src.Entities.Zombie.*;
 
 public class SnowProjectile extends Entities implements Runnable {
     private ArrayList<Zombie> ListZombie;
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     public SnowProjectile(int damage, int[] Position, GameMap gameMap) {
-        super("^", 0, damage, 0, Position, gameMap, "../../../Image/PlantImage/SnowPea.png");
+        super(ANSI_BLUE + "^" + ANSI_RESET, 0, damage, 0, Position, gameMap, "../../../Image/PlantImage/SnowPea.png");
         this.ListZombie = new ArrayList<>();
     }
 

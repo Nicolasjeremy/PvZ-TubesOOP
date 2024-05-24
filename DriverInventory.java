@@ -68,6 +68,7 @@ public class DriverInventory {
                         return true;
                     case 5:
                         deck.displayDeck();
+                        break;
                     default:
                         System.out.println("Invalid option!");
                         break;

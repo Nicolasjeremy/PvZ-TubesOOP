@@ -44,7 +44,6 @@ public class Gameplay implements Runnable {
     public void run() {
 
         try {
-
             ZombieManager zombieManager = new ZombieManager(gameMap);
             Thread zombieManagerThread = new Thread(zombieManager);
             Sun sun = new Sun();
@@ -59,17 +58,19 @@ public class Gameplay implements Runnable {
 
                 if (current_time == 180) {
                     zombieManagerThread.start();
-                } else if (current_time == 100) {
+                } 
+                else if (current_time == 100) {
                     this.isDay = false;
                     sunThread.interrupt();
                     System.out.println("\nNight has come");
-                } else if (current_time <= 40) {
+                } 
+                else if (current_time <= 40) {
                     zombieManagerThread.interrupt();
-                    if (this.getGameMap().getAllZombieinGame().size() == 0) {
-                        Gameplay.setWinningState(true);
-                        Gameplay.setIsEnd(true);
-                        game_end_run = true;
-                    }
+                   if (ZombieManager.checkZombiecount(gameMap) == 0) {
+                       Gameplay.setWinningState(true);
+                       Gameplay.setIsEnd(true);
+                       game_end_run = true;
+                   } 
                 }
                 if (current_time == 0) {
                     System.out.println("Day has come");

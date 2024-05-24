@@ -1,7 +1,6 @@
 package Src.Entities.Plant.Passive;
 
 import Src.Entities.Plant.*;
-import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
 
 public class Lilypad extends PassivePlant {
@@ -18,10 +17,10 @@ public class Lilypad extends PassivePlant {
     }
 
     public void occupy(Plant plant) {
-        if (!this.isOccupied()) { // kalau masih kosong, baru inisialisasi plant on top
+        if (!this.isOccupied()) { 
             this.plantOnTop = plant;
             this.health += plant.getHealth();
-        } else { // kalau udah ada plant on top, gabisa
+        } else {
             System.out.println("Lilypad is already occupied.");
         }
     }

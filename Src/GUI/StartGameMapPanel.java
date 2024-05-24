@@ -3,17 +3,14 @@ package Src.GUI;
 import javax.swing.*;
 import java.awt.*;
 import Src.GameMaps.*;
-import Src.Entities.*;
 import Src.Entities.Plant.Shooter.*;
 import Src.MainMenu.Deck;
 import Src.Entities.Entities;
 import Src.Entities.Plant.*;
-import Src.Entities.Plant.Projectile.*;
 import Src.Entities.Plant.Passive.*;
 import java.util.ArrayList;
 
 public class StartGameMapPanel extends JPanel implements TileObserver {
-    private Image mapImage;
     private JLabel[][] tileLabels;
     private JLayeredPane[][] tilePanes;
     private GameMap gameMap;

@@ -10,7 +10,7 @@ public abstract class Zombie extends Entities implements Runnable {
     private boolean isAquatic;
     private boolean slow;
     private boolean special;
-    private UnslowThread unslowThread; // Thread to handle unslowing
+    private UnslowThread unslowThread;
     private Thread zombiThread;
     private boolean alive;
 
@@ -84,15 +84,15 @@ public abstract class Zombie extends Entities implements Runnable {
             Tile tile = getGameMap().getTile(position[0], position[1]);
             tile.removeEntity(this);
             if (zombiThread != null) {
-                zombiThread.interrupt(); // Interrupt the zombie thread
+                zombiThread.interrupt();
                 try {
-                    zombiThread.join(); // Wait for the zombie thread to stop
+                    zombiThread.join(); 
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt(); // Restore interrupt status
+                    Thread.currentThread().interrupt();
                     System.err.println("Interrupted while waiting for zombie thread to stop: " + e.getMessage());
                 }
             }
-            alive = false; // Set the alive flag to false
+            alive = false; 
         }
     }
 
@@ -118,8 +118,7 @@ public abstract class Zombie extends Entities implements Runnable {
             return;
 
         } else if (this.isSlow()) {
-            // Case terkena slow
-            int sleepDuration = 1500 / 10; // Check every 150ms
+            int sleepDuration = 1500 / 10;
             for (int i = 0; i < 10 && !Thread.currentThread().isInterrupted(); i++) {
                 if (isPlant) {
                     if (getSpecial()) {
@@ -152,7 +151,6 @@ public abstract class Zombie extends Entities implements Runnable {
                 }
             }
         } else {
-            // Case tidak terkena slow
             if (isPlant) {
                 if (getSpecial()) {
                     special(plantInTile);
@@ -195,7 +193,7 @@ public abstract class Zombie extends Entities implements Runnable {
     }
 
     public void walk(GameMap gameMap) {
-        if (!alive) { // Check if the zombie is alive before moving
+        if (!alive) { 
             return;
         }
         int[] position = getPosition();
@@ -227,7 +225,7 @@ public abstract class Zombie extends Entities implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted() && Gameplay.getIsEnd() == false && this.getHealth() > 0) {
                 if (alive) {
-                    System.out.println(this.getName() + "berjalan");
+                    // System.out.println(this.getName() + "berjalan");
                     action();
                 }
             }
@@ -239,7 +237,6 @@ public abstract class Zombie extends Entities implements Runnable {
         }
     }
 
-    // Inner class to handle unslowing logic
     private class UnslowThread extends Thread {
         private final Object lock = new Object();
         private long startTime;
@@ -269,7 +266,6 @@ public abstract class Zombie extends Entities implements Runnable {
                     }
                 }
             } catch (InterruptedException e) {
-                // Handle interruption
             }
         }
     }

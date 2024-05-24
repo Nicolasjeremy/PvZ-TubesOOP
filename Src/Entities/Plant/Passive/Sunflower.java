@@ -1,6 +1,5 @@
 package Src.Entities.Plant.Passive;
 
-import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
 
 public class Sunflower extends PassivePlant {
@@ -19,7 +18,6 @@ public class Sunflower extends PassivePlant {
         try {
             while (true) {
                 Thread.sleep(sunWaitingTime * 1000);
-                // System.out.println("\nREGAININGG SUNNNN!!!!!!!!!!!");
                 Sun.addSun(25);
             }
         } catch (InterruptedException e) {

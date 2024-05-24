@@ -2,10 +2,8 @@ package Src.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import Src.MainMenu.Deck;
 import Src.MainMenu.Inventory;
 import Src.Entities.Plant.Plant;
-import Src.GameMaps.GameMap;
 
 public class InventoryPanel extends JPanel {
     private Inventory inventory;

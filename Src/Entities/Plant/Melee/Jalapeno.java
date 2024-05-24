@@ -18,7 +18,6 @@ public class Jalapeno extends MeleePlant {
 
     @Override
     public synchronized void attack() {
-        System.out.println("Jalapeno Attack!!!!!!!!!!!!!");
         int[] position = this.getPosition();
         int row = position[0];
 
@@ -28,28 +27,23 @@ public class Jalapeno extends MeleePlant {
             for (Entities entity : tile.getAllEntities()) {
                 if (entity instanceof Zombie) {
                     Zombie zombie = (Zombie) entity;
-                    zombie.stopThread(); // Stop the zombie thread
+                    zombie.stopThread(); 
                     listZombie.add(zombie);
                 }
             }
         }
 
-        // Wait for all zombie threads to stop
         waitForZombieThreadsToStop();
 
-        // Remove zombies from the game map
         for (Zombie zombie : listZombie) {
-            System.out.println(zombie.getName() + " terbunuh");
             synchronized (zombie) {
                 zombie.setHealth(zombie.getHealth() - this.getAttackDmg());
-                zombie.die(); // This will also join the zombie threads
+                zombie.die(); 
             }
         }
 
-        this.die(); // Optionally, call die() method if needed
+        this.die();
     }
-
-    // Existing code...
 
     private void waitForZombieThreadsToStop() {
         // Wait for all zombie threads to stop
@@ -57,10 +51,10 @@ public class Jalapeno extends MeleePlant {
             Thread thread = zombie.getZombiThread();
             try {
                 if (thread != null) {
-                    thread.join(); // Wait for the zombie thread to stop
+                    thread.join(); 
                 }
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Set the interrupted flag again
+                Thread.currentThread().interrupt();
                 System.err.println("Interrupted while waiting for zombie thread to stop: " + e.getMessage());
             }
         }
@@ -73,6 +67,4 @@ public class Jalapeno extends MeleePlant {
     public static void setLastPlantedTime(int planttime) {
         Jalapeno.planttime = planttime;
     }
-
-    // Existing code...
 }

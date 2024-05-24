@@ -44,9 +44,6 @@ public abstract class MeleePlant extends Plant {
                 }
                 if (this instanceof Jalapeno) {
                     if (zombiechecker() && !kill) {
-                        // this.attack();
-                        // System.out.println("Zombie exist in this row");
-                        // System.out.println("Jalapeno ready to attack");
                         this.attack();
                         this.die();
                         kill = true;

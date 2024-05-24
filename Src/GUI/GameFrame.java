@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import Src.Entities.*;
-import Src.Entities.Plant.Plant;
 import Src.Entities.Plant.Melee.Jalapeno;
 import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;
@@ -27,9 +26,7 @@ import Src.Entities.Zombie.ZLala;
 import Src.Entities.Zombie.ZNormal;
 import Src.Entities.Zombie.ZPoleVault;
 import Src.Entities.Zombie.ZRaul;
-import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
-import Src.MainMenu.Gameplay;
 import Src.GameMaps.ZombieManager;
 
 public class GameFrame extends JFrame {

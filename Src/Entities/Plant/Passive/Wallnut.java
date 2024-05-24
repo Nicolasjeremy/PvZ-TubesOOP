@@ -1,6 +1,5 @@
 package Src.Entities.Plant.Passive;
 
-import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.*;
 
 public class Wallnut extends PassivePlant {

@@ -93,6 +93,6 @@ public class Entities {
     }
 
     public void stop() {
-        Thread.currentThread().interrupt(); // Interrupt the thread
+        Thread.currentThread().interrupt();
     }
 }

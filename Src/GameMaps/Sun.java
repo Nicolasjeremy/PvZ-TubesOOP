@@ -1,9 +1,7 @@
 package Src.GameMaps;
 
 public class Sun implements Runnable {
-    // private long sunWaitingTime;
     private static int sun;
-    // private int sunPerProduction = 25;
     private boolean Sunrunning = true;
 
     public Sun() {
@@ -14,7 +12,6 @@ public class Sun implements Runnable {
     public static void addSun(int addsun) {
         synchronized (Sun.class) {
             sun += addsun;
-            // System.out.println("Sun ditambah: " + addsun + ", Total sun: " + sun);
         }
     }
 
@@ -49,8 +46,6 @@ public class Sun implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("Sun berhenti spawn");
         }
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 
 }

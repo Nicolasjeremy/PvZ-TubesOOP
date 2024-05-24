@@ -3,7 +3,7 @@ package Src.GUI;
 import javax.swing.*;
 import java.awt.*;
 
-import Src.Entities.Plant.Shooter.Peashooter;
+// import Src.Entities.Plant.Shooter.Peashooter;
 import Src.GameMaps.*;
 
 public class GUIStart extends JFrame {

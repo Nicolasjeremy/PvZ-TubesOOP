@@ -5,7 +5,7 @@ import Src.GameMaps.GameMap;
 
 public class ZRaul extends Zombie implements ZombieFactory<ZRaul> {
     public ZRaul(int[] position, GameMap gameMap) {
-        super("Raul", 10000 , 100, 1, position, false, false, gameMap, "../Image/ZombieImage/Raul.png");
+        super("Raul", 100 , 100, 1, position, false, false, gameMap, "../Image/ZombieImage/Raul.png");
     }
 
     public Zombie createZombie(int[] position, GameMap gameMap) {

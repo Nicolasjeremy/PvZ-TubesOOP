@@ -2,7 +2,6 @@ package Src.Entities.Plant.Projectile;
 
 import Src.GameMaps.*;
 import Src.MainMenu.Gameplay;
-// import Src.GUI.*;
 
 import java.util.ArrayList;
 import Src.Entities.Entities;
@@ -10,10 +9,12 @@ import Src.Entities.Zombie.Zombie;
 
 public class Projectile extends Entities implements Runnable {
     private ArrayList<Zombie> ListZombie;
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
     // private StartGameMapPanel gamePanel;
 
     public Projectile(int damage, int[] Position, GameMap gameMap) {
-        super("O", 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");
+        super(ANSI_GREEN + "O" + ANSI_RESET, 0, damage, 0, Position, gameMap, "../Image/PlantImage/Pea.png");
         this.ListZombie = new ArrayList<>();
     }
 
@@ -24,8 +25,8 @@ public class Projectile extends Entities implements Runnable {
 
         ArrayList<Entities> entity = tile.getAllEntities();
 
-        for (Entities entities : entity) { // ? Ngecek semua isi tile
-            if (entities instanceof Zombie) { // ? Kalo ada zombie apa yang dilakuin
+        for (Entities entities : entity) {
+            if (entities instanceof Zombie) {
                 isZombie = true;
                 Zombie zombie = (Zombie) entities;
                 ListZombie.add(zombie);
@@ -52,13 +53,12 @@ public class Projectile extends Entities implements Runnable {
     }
 
     public void walk(GameMap gameMap) {
-        int[] position = getPosition(); // Get zombie's current position
+        int[] position = getPosition();
         int row = position[0];
         int col = position[1];
-        // Calculate the position of the next tile (moving left)
+
         int nextCol = col + 1;
 
-        // Check if the next tile is within the bounds of the game map
         if (nextCol <= 9) {
             Tile tile = gameMap.getTile(row, col);
             Tile nextTile = gameMap.getTile(row, nextCol);
