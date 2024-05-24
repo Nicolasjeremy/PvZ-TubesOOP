@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import Src.Entities.Plant.Plant;
 import Src.GameMaps.GameMap;
@@ -13,15 +11,19 @@ import Src.MainMenu.Singleton;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Selamat datang di game pvz");
+        System.out.println("\u001B[32m------- SELAMAT DATANG DI GAME PVZ -------\n");
         Boolean menuStatus = true;
         Boolean gameStatus = false;
+        Boolean backToMainMenu = false;
+        Command command = new Command();
+
+        System.out.println("\u001B[0mStart: Start the game");
+        System.out.println("Help: Show the list of commands");
 
         Scanner scanner = new Scanner(System.in);
         while (menuStatus) {
             System.out.println("Masukan command anda:");
             String perintah = scanner.nextLine();
-            Command command = new Command();
 
             if (perintah.equalsIgnoreCase("Start")) {
                 if (!gameStatus) {
@@ -55,21 +57,49 @@ public class Main {
                 Inventory inventory = new Inventory(deck);
 
                 boolean truinput = false;
-                while (truinput == false) {
-                    System.out.print("Want Autofill? (Yes/No): ");
+
+                try {
+                    Thread.sleep(500);
+                    System.out.println("\n-------Choose Your Plant To Play!!-------\n");
+                }   
+                catch (Exception e) {
+                }
+
+                while (!truinput) {
+                    System.out.print("Want's To Autofill Deck? (Yes/No): ");
                     String inputuser = scanner.next();
                     if (inputuser.equalsIgnoreCase("Yes")) {
                         truinput = true;
                         ArrayList<Plant> inventoryCopy = new ArrayList<>(inventory.getInventory());
+
+                        Collections.shuffle(inventoryCopy);
+
+                        int i = 0;
                         for (Plant plant : inventoryCopy) {
-                            inventory.addDeck(inventory.getInventory().indexOf(plant));
+                            try {
+                                if (i > 5) {
+                                    break;
+                                }
+                                inventory.addDeck(inventory.getInventory().indexOf(plant));
+                                i++;
+                                Thread.sleep(500);
+                            }
+                            catch (Exception e) {
+                            }
                         }
-                    } else if (inputuser.equalsIgnoreCase("No")) {
+                        backToMainMenu = DriverInventory.InventoryDeck(deck, inventory, scanner);
+                    } 
+                    else if (inputuser.equalsIgnoreCase("No")) {
                         truinput = true;
-                        DriverInventory.InventoryDeck(deck, inventory, scanner);
-                    } else {
+                        backToMainMenu = DriverInventory.InventoryDeck(deck, inventory, scanner);
+                    } 
+                    else {
                         System.out.println("Perintah tidak dikenali");
                     }
+                }
+
+                if (backToMainMenu) {
+                    break; // Kembali ke menu utama
                 }
 
                 // Playing the game

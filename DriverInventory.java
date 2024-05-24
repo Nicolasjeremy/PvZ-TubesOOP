@@ -1,20 +1,23 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 import Src.MainMenu.*;
 // import Src.Entities.Plant.*;
 // import Src.Entities.Plant.Melee.*;
 // import Src.Entities.Plant.Passive.*;
 
 public class DriverInventory {
-    public static void InventoryDeck(Deck deck, Inventory inventory, Scanner scanner) {
+    public static boolean InventoryDeck(Deck deck, Inventory inventory, Scanner scanner) {
         boolean full = false;
+        // Command command = new Command();
         
         while (!full) {
             if (deck.getDeck().size() >= 6) {
-                System.out.println("Deck is full! You can either swap or remove plants.");
+                System.out.println("\nDeck is full! You can either swap or remove plants.");
                 System.out.println("\n1. Swap Plants");
                 System.out.println("2. Remove Plants");
-                System.out.println("3. Quit");
+                System.out.println("3. Play Game");
+                System.out.println("4. Back To Main Menu");
                 System.out.print("Choose an option: ");
                 int fullChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -58,23 +61,24 @@ public class DriverInventory {
                         inventory.removeDeck(indexToRemove);
                     break;
                     case 3:
-                        System.out.println("Exiting...");
+                        System.out.println("Exiting Choosing Plant...");
                         full = true;
                         break;
+                    case 4:
+                        System.out.println("Exiting to Main Menu...");
+                        return true;
                     default:
                         System.out.println("Invalid option!");
                         break;
                 }
             } else {
                 try {
-                    
-                
                 System.out.println("\n1. Add Plant to Deck");
                 System.out.println("2. Remove Plant from Deck");
                 System.out.println("3. Swap Plants");
                 System.out.println("4. Display Deck");
                 System.out.println("5. Display Inventory");
-                System.out.println("6. Quit");
+                System.out.println("6. Quit To Main Menu");
                 System.out.print("Choose an option: ");
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -84,8 +88,16 @@ public class DriverInventory {
                         inventory.displayInventory();
                         System.out.print("Enter the index of the plant to add to the deck: ");
                         int indexToAdd = scanner.nextInt() - 1;
-                        scanner.nextLine(); // Consume newline
-                        inventory.addDeck(indexToAdd);
+                        try {
+                            if (indexToAdd < 0 || indexToAdd >= inventory.getSize()) {
+                                throw new IndexOutOfBoundsException();
+                            }
+                            scanner.nextLine(); // Consume newline
+                            inventory.addDeck(indexToAdd);
+                        }
+                        catch (IndexOutOfBoundsException e) {
+                            System.out.println("Invalid Index");
+                        }
                         break;
                     case 2:
                         deck.displayDeck();
@@ -131,15 +143,8 @@ public class DriverInventory {
                         inventory.displayInventory();
                         break;
                     case 6:
-                        if (full){
-                            System.out.println("Exiting...");
-                            full = true;
-                            break;
-                        }
-                        else {
-                            System.out.println("Isi deck hingga 6 Plant");
-                            break;
-                        }
+                        System.out.println("Exiting to Main Menu...");
+                        return true;
                     default:
                         System.out.println("Invalid option!");
                         break;
@@ -147,8 +152,9 @@ public class DriverInventory {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Please enter a number.");
                 scanner.nextLine(); 
-            }
+                }
             }
         }
+        return false;
     }
 }
