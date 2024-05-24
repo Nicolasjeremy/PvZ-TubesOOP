@@ -140,7 +140,7 @@ public class Command {
             },
             {
                 {"Tallnut", "Cost", "50"},
-                {"", "Health", "20000"},
+                {"", "Health", "5000"},
                 {"", "Attack Damage", "0"},
                 {"", "Attack Speed", "0"},
                 {"", "Range","1"},

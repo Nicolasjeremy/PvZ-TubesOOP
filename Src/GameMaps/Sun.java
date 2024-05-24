@@ -6,7 +6,7 @@ public class Sun implements Runnable {
 
     public Sun() {
         this.Sunrunning = true;
-        Sun.sun = 1000;
+        Sun.sun = 50;
     }
 
     public static void addSun(int addsun) {
