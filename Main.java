@@ -209,8 +209,8 @@ public class Main {
                         }
                     }
                     gameplayThread.interrupt();
-                    gameplay.resetAttributes();
                     Gameplay.setIsEnd(true);
+                    gameplay.resetAttributes();
                     gameStatus = false;
                 }
                 // if (Gameplay.getWinningState()) {

@@ -150,7 +150,6 @@ public class Gameplay implements Runnable {
         this.entities = new ArrayList<Entities>();
         Gameplay.current_time = 200;
         this.isDay = true;
-        Gameplay.isEnd = false;
         Gameplay.sun = new Sun();
         this.gameMap = new GameMap();
         this.deck = new Deck(gameMap);
@@ -158,6 +157,7 @@ public class Gameplay implements Runnable {
         this.gameMap.clearEntities();
         Gameplay.winningstate = false;
         Thread.currentThread().interrupt();
+        Gameplay.setIsEnd(false);
 
     }
 
