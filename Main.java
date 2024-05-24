@@ -99,6 +99,7 @@ public class Main {
                 }
 
                 if (backToMainMenu) {
+                    gameStatus = false;
                     break; // Kembali ke menu utama
                 }
 
