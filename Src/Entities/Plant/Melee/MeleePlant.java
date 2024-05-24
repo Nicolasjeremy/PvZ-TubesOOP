@@ -5,7 +5,7 @@ import Src.Entities.Entities;
 import Src.Entities.Plant.Plant;
 import Src.Entities.Zombie.*;
 
-public class MeleePlant extends Plant {
+public abstract class MeleePlant extends Plant {
     public static final int attackDmg = 5000;
     public static final int attackSpd = 0;
     public static final int range = 1;

@@ -7,7 +7,7 @@ import Src.Entities.Plant.*;
 // import Src.Entities.Plant.Projectile.*;
 import Src.Entities.Zombie.Zombie;
 
-public class ShooterPlant extends Plant {
+public abstract class ShooterPlant extends Plant {
     public static final int range = -1;
 
     public ShooterPlant(String name, int health, int attackDmg, int attackSpd, int[] position, int cost, int range,
@@ -41,9 +41,9 @@ public class ShooterPlant extends Plant {
                     attack();
                     Thread.sleep(attackSpd * 1000);
                 }
-                if (this.getCooldown()!=0){
+                if (this.getCooldown() != 0) {
                     Thread.sleep(1000);
-                    this.setCooldown(this.getCooldown()-1);
+                    this.setCooldown(this.getCooldown() - 1);
                 }
             }
         } catch (InterruptedException e) {

@@ -2,10 +2,12 @@ package Src.Entities.Plant.Melee;
 
 import java.util.ArrayList;
 import Src.Entities.Entities;
+// import Src.Entities.Plant.Shooter.Snowpea;
 import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
 
 public class TangleKelp extends MeleePlant{
+    private static int planttime = 999;
     public TangleKelp(int[] position, GameMap gameMap) {
         super("TangleKelp", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/TangleKelp.png", 0);
     }   
@@ -22,5 +24,13 @@ public class TangleKelp extends MeleePlant{
                 this.die();
             }
         }
+    }
+
+    public static int getLastPlantedTime(){
+        return planttime;
+    }
+
+    public static void setLastPlantedTime(int planttime){
+        TangleKelp.planttime = planttime;
     }
 }

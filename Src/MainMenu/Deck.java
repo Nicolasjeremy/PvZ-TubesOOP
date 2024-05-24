@@ -102,14 +102,8 @@ public class Deck {
         } else {
             System.out.println("Deck contents:");
             for (int i = 0; i < deck.size(); i++) {
-                if (deck.get(i).getCooldown() <= Math
-                        .abs(Gameplay.getCurrentTime() - deck.get(i).getLastPlantedTime())) {
-                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
-                } else if (deck.get(i).getCooldown() == 0) {
-                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready");
-                } else {
-                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName() + "\t Cooldown : Ready at "
-                            + Math.abs(deck.get(i).getLastPlantedTime() - deck.get(i).getcooldowntanaman()));
+                if (true) {
+                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName());
                 }
             }
         }
@@ -152,14 +146,99 @@ public class Deck {
         }
     }
 
-    public void plantManager(Plant plant, int[] position, Tile tile) {
-        int temp = plant.getCooldown(); // ! ini variable nya ngaruh ke plant yang baru, harusnya ganti statik
-        plant.setcooldowntanaman(plant.getCooldown());
-        plant.setCooldown(Math.abs(Gameplay.getCurrentTime() - plant.getLastPlantedTime()));
+    public boolean IsPlantInCooldown(Plant plant) {
+        int currentTime = Gameplay.getCurrentTime();
 
-        if (plant.getCooldown() >= temp) {
-            setCooldownOver(true);
+        if (plant instanceof Peashooter) {
+            return currentTime + plant.getCooldown() <= Peashooter.getLastPlantedTime();
+        } else if (plant instanceof Repeater) {
+            return currentTime + plant.getCooldown() <= Repeater.getLastPlantedTime();
+        } else if (plant instanceof Snowpea) {
+            return currentTime + plant.getCooldown() <= Snowpea.getLastPlantedTime();
+        } else if (plant instanceof Sunflower) {
+            return currentTime + plant.getCooldown() <= Sunflower.getLastPlantedTime();
+        } else if (plant instanceof Jalapeno) {
+            return currentTime + plant.getCooldown() <= Jalapeno.getLastPlantedTime();
+        } else if (plant instanceof Squash) {
+            return currentTime + plant.getCooldown() <= Squash.getLastPlantedTime();
+        } else if (plant instanceof TangleKelp) {
+            return currentTime + plant.getCooldown() <= TangleKelp.getLastPlantedTime();
+        } else if (plant instanceof Lilypad) {
+            return currentTime + plant.getCooldown() <= Lilypad.getLastPlantedTime();
+        } else if (plant instanceof Tallnut) {
+            return currentTime + plant.getCooldown() <= Tallnut.getLastPlantedTime();
+        } else if (plant instanceof Wallnut) {
+            return currentTime + plant.getCooldown() <= Wallnut.getLastPlantedTime();
         }
+
+        return false; // If plant type is not recognized, assume it's not in cooldown
+    }
+
+    public int cooldownTimer(Plant plant) {
+        int currentTime = Gameplay.getCurrentTime();
+
+        if (plant instanceof Peashooter) {
+            return currentTime - Peashooter.getLastPlantedTime();
+        } else if (plant instanceof Repeater) {
+            return currentTime - Repeater.getLastPlantedTime();
+        } else if (plant instanceof Snowpea) {
+            return currentTime - Snowpea.getLastPlantedTime();
+        } else if (plant instanceof Sunflower) {
+            return currentTime - Sunflower.getLastPlantedTime();
+        } else if (plant instanceof Jalapeno) {
+            return currentTime - Jalapeno.getLastPlantedTime();
+        } else if (plant instanceof Squash) {
+            return currentTime - Squash.getLastPlantedTime();
+        } else if (plant instanceof TangleKelp) {
+            return currentTime - TangleKelp.getLastPlantedTime();
+        } else if (plant instanceof Lilypad) {
+            return currentTime - Lilypad.getLastPlantedTime();
+        } else if (plant instanceof Tallnut) {
+            return currentTime - Tallnut.getLastPlantedTime();
+        } else if (plant instanceof Wallnut) {
+            return currentTime - Wallnut.getLastPlantedTime();
+        }
+
+        else {
+            return -1;
+        }
+    }
+
+    public void setCD(Plant plant) {
+        int currentTime = Gameplay.getCurrentTime();
+
+        if (plant instanceof Peashooter) {
+            Peashooter.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Repeater) {
+            Repeater.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Snowpea) {
+            Snowpea.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Sunflower) {
+            Sunflower.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Jalapeno) {
+            Jalapeno.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Squash) {
+            Squash.setLastPlantedTime(currentTime);
+        } else if (plant instanceof TangleKelp) {
+            TangleKelp.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Lilypad) {
+            Lilypad.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Tallnut) {
+            Tallnut.setLastPlantedTime(currentTime);
+        } else if (plant instanceof Wallnut) {
+            Wallnut.setLastPlantedTime(currentTime);
+        }
+    }
+
+    public void plantManager(Plant plant, int[] position, Tile tile) {
+        // ! ini variable nya ngaruh ke plant yang baru, harusnya ganti statik
+        // plant.setCooldown(Math.abs(Gameplay.getCurrentTime() -
+        // plant.getLastPlantedTime())); //todo logikanya kalo lastplanted - current >
+        // cooldown, bisa plant
+
+        // if (plant.getCooldown() >= temp) {
+        // setCooldownOver(true);
+        // }
 
         // // masih suka inkosisten cooldownnya
 
@@ -174,15 +253,15 @@ public class Deck {
         // else {
         // setCooldownOver(false);
         // }
-
+        System.out.println("cooldown: " + cooldownTimer(plant));
         if (Sun.getSun() < plant.getCost()) {
             Sun.spendSun(plant.getCost());
         } else {
-            if (!isCooldownOver()) {
+            if (IsPlantInCooldown(plant) == false) {
                 System.out.println("This Plant is On Cooldown!");
                 System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                System.out.println("Plant time : " + plant.getLastPlantedTime());
-                System.out.println("Cooldown plant : " + plant.getCooldown());
+                // System.out.println("Cooldown plant : " +
+                // plant.getClass().getLastPlantedTime() - Gameplay.getCurrentTime());
             } else if (tile.hasPlanted()) {
                 if (tile.getAllPlant().get(0) instanceof Lilypad && tile.getAllPlant().size() < 2) {
                     plant.setgameMap(gameMap);
@@ -192,18 +271,19 @@ public class Deck {
                     Sun.spendSun(plant.getCost());
 
                     System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                    System.out.println("Plant time : " + plant.getLastPlantedTime());
-                    System.out.println("Cooldown plant : " + plant.getCooldown());
+                    // System.out.println("Plant time : " + plant.getClass().getLastPlantedTime());
+                    // System.out.println("Cooldown plant : " +
+                    // plant.getClass().getLastPlantedTime() - Gameplay.getCurrentTime());
 
-                    plant.setLastPlantedTime(Gameplay.getCurrentTime());
-                    System.out.println("Plant time : " + plant.getLastPlantedTime());
+                    // plant.setLastPlantedTime(Gameplay.getCurrentTime());
+                    // System.out.println("Plant time : " + plant.getLastPlantedTime());
                     setCooldownOver(false);
 
                     System.out.println("Plant Planted Successfully!");
-
+                    setCD(plant);
                     Thread plantThread = new Thread(plant);
                     plantThread.start();
-                } else if (tile.getEntities(0) instanceof Plant) { 
+                } else if (tile.getEntities(0) instanceof Plant) {
                     System.out.println("This Tile Has Been Planted!");
                 }
             } else {
@@ -214,15 +294,15 @@ public class Deck {
                 Sun.spendSun(plant.getCost());
 
                 System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                System.out.println("Plant time : " + plant.getLastPlantedTime());
+                // System.out.println("Plant time : " + plant.getLastPlantedTime());
                 System.out.println("Cooldown plant : " + plant.getCooldown());
 
-                plant.setLastPlantedTime(Gameplay.getCurrentTime());
-                System.out.println("Plant time : " + plant.getLastPlantedTime());
+                // plant.setLastPlantedTime(Gameplay.getCurrentTime());
+                // System.out.println("Plant time : " + plant.getLastPlantedTime());
                 setCooldownOver(false);
 
                 System.out.println("Plant Planted Successfully!");
-
+                setCD(plant);
                 Thread plantThread = new Thread(plant);
                 plantThread.start();
             }

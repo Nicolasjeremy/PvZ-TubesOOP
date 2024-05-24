@@ -2,14 +2,17 @@ package Src.Entities.Plant.Melee;
 
 import java.util.ArrayList;
 import Src.Entities.Entities;
+// import Src.Entities.Plant.Shooter.Snowpea;
 import Src.Entities.Zombie.Zombie;
 import Src.GameMaps.*;
 
 public class Jalapeno extends MeleePlant {
     private ArrayList<Zombie> listZombie;
+    private static int planttime = 999;
 
     public Jalapeno(int[] position, GameMap gameMap) {
-        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap, "../Image/PlantImage/Jalapeno.png", 0);
+        super("Jalapeno", 100, attackDmg, attackSpd, position, 50, range, 20, gameMap,
+                "../Image/PlantImage/Jalapeno.png", 0);
         listZombie = new ArrayList<>();
     }
 
@@ -19,10 +22,10 @@ public class Jalapeno extends MeleePlant {
         int[] position = this.getPosition();
         int row = position[0];
 
-        Tile tile;  
+        Tile tile;
         for (int col = 0; col < 11; col++) {
             tile = getGameMap().getTile(row, col);
-            for (Entities entity : tile.getAllEntities()) { 
+            for (Entities entity : tile.getAllEntities()) {
                 if (entity instanceof Zombie) {
                     Zombie zombie = (Zombie) entity;
                     zombie.stopThread(); // Stop the zombie thread
@@ -61,6 +64,14 @@ public class Jalapeno extends MeleePlant {
                 System.err.println("Interrupted while waiting for zombie thread to stop: " + e.getMessage());
             }
         }
+    }
+
+    public static int getLastPlantedTime() {
+        return planttime;
+    }
+
+    public static void setLastPlantedTime(int planttime) {
+        Jalapeno.planttime = planttime;
     }
 
     // Existing code...
