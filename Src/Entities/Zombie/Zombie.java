@@ -228,7 +228,6 @@ public abstract class Zombie extends Entities implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted() && !Gameplay.getIsEnd() && this.getHealth() > 0) {
                 if (alive) {
-                    System.out.println(this.getName() + " Location is : " + this.getPosition()[0] + " " + this.getPosition()[1]);
                     action();
                 }
             }

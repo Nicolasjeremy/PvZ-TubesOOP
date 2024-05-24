@@ -102,8 +102,13 @@ public class Deck {
         } else {
             System.out.println("Deck contents:");
             for (int i = 0; i < deck.size(); i++) {
-                if (true) {
-                    System.out.println("\t" + (i + 1) + ". " + deck.get(i).getName());
+                Plant plant = deck.get(i);
+                int cooldownRemaining = (plant.getCooldown()) - Math.abs(cooldownTimer(plant));
+                if (IsPlantInCooldown(plant) == true) {
+                    System.out.println("\t" + (i + 1) + ". " + plant.getName() + "\t Cooldown : Ready");
+                } else {
+                    System.out.println("\t" + (i + 1) + ". " + plant.getName() + "\t Cooldown : " + cooldownRemaining
+                            + " seconds remaining");
                 }
             }
         }
@@ -231,28 +236,6 @@ public class Deck {
     }
 
     public void plantManager(Plant plant, int[] position, Tile tile) {
-        // ! ini variable nya ngaruh ke plant yang baru, harusnya ganti statik
-        // plant.setCooldown(Math.abs(Gameplay.getCurrentTime() -
-        // plant.getLastPlantedTime())); //todo logikanya kalo lastplanted - current >
-        // cooldown, bisa plant
-
-        // if (plant.getCooldown() >= temp) {
-        // setCooldownOver(true);
-        // }
-
-        // // masih suka inkosisten cooldownnya
-
-        // if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() >
-        // plant.getCooldown()){
-        // setCooldownOver(true);
-        // }
-        // else if (Gameplay.getCurrentTime() - plant.getLastPlantedTime() < 0 -
-        // plant.getCooldown()){
-        // setCooldownOver(true);
-        // }
-        // else {
-        // setCooldownOver(false);
-        // }
         System.out.println("cooldown: " + cooldownTimer(plant));
         if (Sun.getSun() < plant.getCost()) {
             Sun.spendSun(plant.getCost());
@@ -260,8 +243,6 @@ public class Deck {
             if (IsPlantInCooldown(plant) == false) {
                 System.out.println("This Plant is On Cooldown!");
                 System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                // System.out.println("Cooldown plant : " +
-                // plant.getClass().getLastPlantedTime() - Gameplay.getCurrentTime());
             } else if (tile.hasPlanted()) {
                 if (tile.getAllPlant().get(0) instanceof Lilypad && tile.getAllPlant().size() < 2) {
                     plant.setgameMap(gameMap);
@@ -269,16 +250,8 @@ public class Deck {
                     tile.addEntity(plant);
                     tile.setPlanted(true);
                     Sun.spendSun(plant.getCost());
-
                     System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                    // System.out.println("Plant time : " + plant.getClass().getLastPlantedTime());
-                    // System.out.println("Cooldown plant : " +
-                    // plant.getClass().getLastPlantedTime() - Gameplay.getCurrentTime());
-
-                    // plant.setLastPlantedTime(Gameplay.getCurrentTime());
-                    // System.out.println("Plant time : " + plant.getLastPlantedTime());
                     setCooldownOver(false);
-
                     System.out.println("Plant Planted Successfully!");
                     setCD(plant);
                     Thread plantThread = new Thread(plant);
@@ -292,15 +265,9 @@ public class Deck {
                 tile.addEntity(plant);
                 tile.setPlanted(true);
                 Sun.spendSun(plant.getCost());
-
                 System.out.println("Gameplay time : " + Gameplay.getCurrentTime());
-                // System.out.println("Plant time : " + plant.getLastPlantedTime());
                 System.out.println("Cooldown plant : " + plant.getCooldown());
-
-                // plant.setLastPlantedTime(Gameplay.getCurrentTime());
-                // System.out.println("Plant time : " + plant.getLastPlantedTime());
                 setCooldownOver(false);
-
                 System.out.println("Plant Planted Successfully!");
                 setCD(plant);
                 Thread plantThread = new Thread(plant);
