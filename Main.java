@@ -76,14 +76,13 @@ public class Main {
                 System.out.println("Prepare For Playing The Game In 3 Sec");
                 int count = 3;
                 for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(1000);
-                        System.out.println(count);
-                        count--;
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        System.out.println("Countdown gagal berjalan");
-                    }
+                        try {
+                            Thread.sleep(1000);
+                            System.out.println(count);
+                            count--;
+                        } catch (InterruptedException e) {
+                            System.out.println("Countdown gagal berjalan");
+                        }
                 }
 
                 try {
