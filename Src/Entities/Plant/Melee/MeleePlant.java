@@ -35,12 +35,12 @@ public abstract class MeleePlant extends Plant {
     }
 
     public void run() {
-        while (true) {
+        while (this.getHealth() > 0) {
             boolean kill = false;
             try {
-                if (this.getCooldown()!=0){
+                if (this.getCooldown() != 0) {
                     Thread.sleep(1000);
-                    this.setCooldown(this.getCooldown()-1);
+                    this.setCooldown(this.getCooldown() - 1);
                 }
                 if (this instanceof Jalapeno) {
                     if (zombiechecker() && !kill) {

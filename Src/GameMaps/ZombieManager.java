@@ -8,8 +8,8 @@ import Src.Entities.Zombie.*;
 import Src.MainMenu.*;
 
 public class ZombieManager extends ZombieSpawn implements Runnable {
-    private List<ZombieFactory> zombieFactories;
-    private List<ZombieFactory> zombieFactoriesWater;
+    private List<ZombieFactory<? extends Zombie>> zombieFactories;
+    private List<ZombieFactory<? extends Zombie>> zombieFactoriesWater;
     private Random random;
     private GameMap gameMap;
     private static final Object lock = new Object();
@@ -44,7 +44,8 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                                 int randomspwn = random.nextInt(10);
                                 if (randomspwn < 3) { // 30% chance to spawn
                                     int randomIndex = random.nextInt(zombieFactoriesWater.size());
-                                    ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
+                                    ZombieFactory<? extends Zombie> selectedFactory = zombieFactoriesWater
+                                            .get(randomIndex);
                                     Zombie newZombie = selectedFactory.createZombie(position, gameMap);
                                     gameMap.getTile(position[0], position[1]).addEntity(newZombie);
                                     Thread zombieThread = new Thread(newZombie);
@@ -54,7 +55,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
                                 int randomspwn = random.nextInt(10);
                                 if (randomspwn < 3) { // 30% chance to spawn
                                     int randomIndex = random.nextInt(zombieFactories.size());
-                                    ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
+                                    ZombieFactory<? extends Zombie> selectedFactory = zombieFactories.get(randomIndex);
                                     Zombie newZombie = selectedFactory.createZombie(position, gameMap);
                                     gameMap.getTile(position[0], position[1]).addEntity(newZombie);
                                     Thread zombieThread = new Thread(newZombie);

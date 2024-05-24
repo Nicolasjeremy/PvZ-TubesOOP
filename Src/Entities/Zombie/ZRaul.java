@@ -3,7 +3,7 @@ package Src.Entities.Zombie;
 import Src.Entities.Plant.Plant;
 import Src.GameMaps.GameMap;
 
-public class ZRaul extends Zombie implements ZombieFactory {
+public class ZRaul extends Zombie implements ZombieFactory<ZRaul> {
     public ZRaul(int[] position, GameMap gameMap) {
         super("Raul", 10000 , 100, 1, position, false, false, gameMap, "../Image/ZombieImage/Raul.png");
     }
