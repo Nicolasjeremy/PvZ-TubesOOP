@@ -2,7 +2,6 @@ package Src.MainMenu;
 
 import java.util.ArrayList;
 import Src.Entities.Plant.*;
-// import Src.Entities.Plant.Melee.Chomper;
 import Src.Entities.Plant.Melee.Jalapeno;
 import Src.Entities.Plant.Melee.Squash;
 import Src.Entities.Plant.Melee.TangleKelp;

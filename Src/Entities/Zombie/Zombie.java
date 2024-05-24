@@ -260,7 +260,6 @@ public abstract class Zombie extends Entities implements Runnable {
                     synchronized (lock) {
                         lock.wait(3000);
                         long elapsed = System.currentTimeMillis() - startTime;
-                        System.out.println("------------SLOWING IS ONGOING : " + elapsed + "----------------");
                         if (elapsed >= 3000) {
                             setSlow(false);
                             return;

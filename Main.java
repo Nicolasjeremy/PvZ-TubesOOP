@@ -152,14 +152,14 @@ public class Main {
                 gameplay.setGameMap(gameMap);
                 gameplay.setDeck(deck);
                 gameplay.setInventory(inventory);
-                System.out.println("Data Game Map, Deck, dan Inventory Tersimpan");
+                System.out.println("\nData Game Map, Deck, dan Inventory Tersimpan");
                 Thread gameplayThread = new Thread(gameplay);
                 gameplayThread.start();
 
                 // GamePlay
                 while (gameStatus) {
                     if (Gameplay.getIsEnd()) {
-                        System.out.println("Game Ended!");
+                        System.out.println("\nGame Ended!");
                         for (int i = 0; i < 3; i++) {
                             try {
                                 Thread.sleep(1000);
@@ -179,22 +179,11 @@ public class Main {
                         gameStatus = false;
                     }
                     else {
-
                         System.out.println("\n");
                         System.out.println("|||STATUS GAME|||");
                         System.out.println("Current Time: " + Gameplay.getCurrentTime());
                         System.out.println("Current Sun: " + Sun.getSun());
                         deck.displayDeck();
-                        System.out.println("\n|||COMMAND GAME|||");
-                    System.out.println("1. Plant");
-                    System.out.println("2. Unplant");
-                    System.out.println("3. Display Map");
-                    System.out.println("4. Quit");
-                    System.out.println("5. ShowTime");
-                    System.out.print("Choose an option: ");
-
-                    while (!scanner.hasNextInt()) {
-                        System.out.println("Please enter a valid number.");
                         System.out.println("\n|||COMMAND GAME|||");
                         System.out.println("1. Plant");
                         System.out.println("2. Unplant");
@@ -202,8 +191,18 @@ public class Main {
                         System.out.println("4. Quit");
                         System.out.println("5. ShowTime");
                         System.out.print("Choose an option: ");
-                        scanner.next(); // Clear invalid input
-                    }
+
+                        while (!scanner.hasNextInt()) {
+                            System.out.println("Please enter a valid number.");
+                            System.out.println("\n|||COMMAND GAME|||");
+                            System.out.println("1. Plant");
+                            System.out.println("2. Unplant");
+                            System.out.println("3. Display Map");
+                            System.out.println("4. Quit");
+                            System.out.println("5. ShowTime");
+                            System.out.print("Choose an option: ");
+                            scanner.next(); // Clear invalid input
+                        }
 
                     int choice = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
@@ -240,7 +239,7 @@ public class Main {
                             break;
                         case 2:
                             try {
-                                scanner.nextLine();
+                                // scanner.nextLine();
                                 System.out.println("Column enter range(1-9)");
                                 System.out.println("Row enter range(0-5)");
                                 System.out.print("Enter the column and row to unplant (e.g., 2 3): ");

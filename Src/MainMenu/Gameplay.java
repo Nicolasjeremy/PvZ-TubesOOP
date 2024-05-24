@@ -94,7 +94,7 @@ public class Gameplay implements Runnable {
     }
 
     public static boolean getIsEnd() {
-        return Gameplay.isEnd;
+        return isEnd;
     }
 
     public Sun getSun() {
