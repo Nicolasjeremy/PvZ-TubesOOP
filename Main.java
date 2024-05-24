@@ -41,6 +41,7 @@ public class Main {
                 command.exit();
                 menuStatus = false;
                 gameStatus = false;
+                System.exit(1);
             } else {
                 System.out.println("Perintah tidak dikenali");
             }
@@ -132,7 +133,7 @@ public class Main {
                 gameplayThread.start();
 
                 // GamePlay
-                while (gameStatus && !Gameplay.getIsEnd() ) {
+                while (gameStatus) {
                     
                     System.out.println("\n");
                     System.out.println("|||STATUS GAME|||");
@@ -239,7 +240,7 @@ public class Main {
                         }
                     }
                     gameplayThread.interrupt();
-                    Gameplay.setIsEnd(true);
+                    // Gameplay.setIsEnd(true);
                     gameplay.resetAttributes();
                     gameStatus = false;
                 }

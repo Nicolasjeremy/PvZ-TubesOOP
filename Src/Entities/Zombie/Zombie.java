@@ -231,6 +231,7 @@ public abstract class Zombie extends Entities implements Runnable {
                     action();
                 }
             }
+            this.die();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             alive = false;
