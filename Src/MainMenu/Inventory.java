@@ -43,6 +43,10 @@ public class Inventory {
         inventory.add(plant);
     }
 
+    public int getSize() {
+        return inventory.size();
+    }
+
     public void addDeck(int index) {
         Plant plant = inventory.get(index);
 
