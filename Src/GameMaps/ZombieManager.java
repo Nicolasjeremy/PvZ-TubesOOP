@@ -38,53 +38,57 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
             for (int i = 0; i <= 5; i++) {
                 int[] position = { i, 10 };
                 try {
-                    if (checkZombiecount(gameMap) < 10 && Gameplay.getCurrentTime() > 100) {
-                        if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
-                            int randomspwn = random.nextInt(10);
-                            if (randomspwn < 3) { // 30% chance to spawn
-                                int randomIndex = random.nextInt(zombieFactoriesWater.size());
-                                ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
-                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
-                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
-                                Thread zombieThread = new Thread(newZombie);
-                                zombieThread.start();
+                    if (Gameplay.getCurrentTime() >= 100) {
+                        if (checkZombiecount(gameMap) < 10) {
+                            if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
+                                int randomspwn = random.nextInt(10);
+                                if (randomspwn < 3) { // 30% chance to spawn
+                                    int randomIndex = random.nextInt(zombieFactoriesWater.size());
+                                    ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
+                                    Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                    gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                    Thread zombieThread = new Thread(newZombie);
+                                    zombieThread.start();
+                                }
+                            } else {
+                                int randomspwn = random.nextInt(10);
+                                if (randomspwn < 3) { // 30% chance to spawn
+                                    int randomIndex = random.nextInt(zombieFactories.size());
+                                    ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
+                                    Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                    gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                    Thread zombieThread = new Thread(newZombie);
+                                    zombieThread.start();
+                                }
                             }
-                        } else {
-                            int randomspwn = random.nextInt(10);
-                            if (randomspwn < 3) { // 30% chance to spawn
-                                int randomIndex = random.nextInt(zombieFactories.size());
-                                ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
-                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
-                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
-                                Thread zombieThread = new Thread(newZombie);
-                                zombieThread.start();
+                        }
+
+                    } else {
+                        if (checkZombiecount(gameMap) < 25) {
+                            if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
+                                int randomspwn = random.nextInt(10);
+                                if (randomspwn < 3) { // 30% chance to spawn
+                                    int randomIndex = random.nextInt(zombieFactoriesWater.size());
+                                    ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
+                                    Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                    gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                    Thread zombieThread = new Thread(newZombie);
+                                    zombieThread.start();
+                                }
+                            } else {
+                                int randomspwn = random.nextInt(10);
+                                if (randomspwn < 3) { // 30% chance to spawn
+                                    int randomIndex = random.nextInt(zombieFactories.size());
+                                    ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
+                                    Zombie newZombie = selectedFactory.createZombie(position, gameMap);
+                                    gameMap.getTile(position[0], position[1]).addEntity(newZombie);
+                                    Thread zombieThread = new Thread(newZombie);
+                                    zombieThread.start();
+                                }
                             }
                         }
                     }
 
-                    else if (Gameplay.getCurrentTime()<100){
-                        if (i == 2 || i == 3) { // If tile 2 and 3, spawn water zombies
-                            int randomspwn = random.nextInt(10);
-                            if (randomspwn < 3) { // 30% chance to spawn
-                                int randomIndex = random.nextInt(zombieFactoriesWater.size());
-                                ZombieFactory selectedFactory = zombieFactoriesWater.get(randomIndex);
-                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
-                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
-                                Thread zombieThread = new Thread(newZombie);
-                                zombieThread.start();
-                            }
-                        } else {
-                            int randomspwn = random.nextInt(10);
-                            if (randomspwn < 3) { // 30% chance to spawn
-                                int randomIndex = random.nextInt(zombieFactories.size());
-                                ZombieFactory selectedFactory = zombieFactories.get(randomIndex);
-                                Zombie newZombie = selectedFactory.createZombie(position, gameMap);
-                                gameMap.getTile(position[0], position[1]).addEntity(newZombie);
-                                Thread zombieThread = new Thread(newZombie);
-                                zombieThread.start();
-                            }
-                        }
-                    }
                 } catch (Exception e) {
                     System.out.println("Error spawning zombie");
                 }
@@ -113,9 +117,16 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         while (true) {
             try {
                 Thread.sleep(3000);
-                if (checkZombiecount(gameMap) < 10) {
-                    spawnZombie();
+                if (Gameplay.getCurrentTime() > 100) {
+                    if (checkZombiecount(gameMap) < 10) {
+                        spawnZombie();
+                    }
+                } else {
+                    if (checkZombiecount(gameMap) < 25) {
+                        spawnZombie();
+                    }
                 }
+
             } catch (InterruptedException e) {
                 // e.printStackTrace();
                 System.out.println("Zombie Manager stop");
