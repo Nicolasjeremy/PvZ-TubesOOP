@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 import Src.Entities.Plant.Plant;
@@ -11,7 +14,28 @@ import Src.MainMenu.Singleton;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("\u001B[32m------- SELAMAT DATANG DI GAME PVZ -------\n");
+        // 
+        String filePath = "welcome_AsciiArt.txt";  // Adjust the path if necessary
+        BufferedReader reader = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("\u001B[32m" + line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading file: " + filePath);
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Boolean menuStatus = true;
         Boolean gameStatus = false;
         Boolean backToMainMenu = false;
@@ -217,7 +241,6 @@ public class Main {
                             System.out.println("Exiting...");
                             gameStatus = false;
                             Gameplay.setIsEnd(true);
-
                             gameplayThread.interrupt();
                             break;
                         case 5:
@@ -245,8 +268,8 @@ public class Main {
                     catch (Exception e) {
                     }
                     gameplayThread.interrupt();
-                    // Gameplay.setIsEnd(true);
                     gameplay.resetAttributes();
+                    Gameplay.setIsEnd(true);
                     gameStatus = false;
                 }
                 // if (Gameplay.getWinningState()) {
