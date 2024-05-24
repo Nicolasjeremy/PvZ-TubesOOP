@@ -20,15 +20,15 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
         this.zombieFactoriesWater = new ArrayList<>();
         this.random = new Random();
 
-        // zombieFactories.add(new ZRaul(null, gameMap));
-        // zombieFactories.add(new ZConeHead(null, gameMap));
-        // zombieFactories.add(new ZBucketHead(null, gameMap));
-        // zombieFactories.add(new ZDipsy(null, gameMap));
-        // zombieFactoriesWater.add(new ZDolphonRider(null, gameMap));
-        // zombieFactoriesWater.add(new ZDuckyTube(null, gameMap));
-        // zombieFactories.add(new ZLala(null, gameMap));
+        zombieFactories.add(new ZRaul(null, gameMap));
+        zombieFactories.add(new ZConeHead(null, gameMap));
+        zombieFactories.add(new ZBucketHead(null, gameMap));
+        zombieFactories.add(new ZDipsy(null, gameMap));
+        zombieFactoriesWater.add(new ZDolphonRider(null, gameMap));
+        zombieFactoriesWater.add(new ZDuckyTube(null, gameMap));
+        zombieFactories.add(new ZLala(null, gameMap));
         zombieFactories.add(new ZNormal(null, gameMap));
-        // zombieFactories.add(new ZPoleVault(null, gameMap));
+        zombieFactories.add(new ZPoleVault(null, gameMap));
         zombieFactories.add(new ZAsep(null, gameMap));
     }
 
@@ -118,7 +118,7 @@ public class ZombieManager extends ZombieSpawn implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 Thread.sleep(3000);
                 if (Gameplay.getCurrentTime() > 100) {
-                    if (checkZombiecount(gameMap) < 2) {
+                    if (checkZombiecount(gameMap) < 10) {
                         spawnZombie();
                     }
                 } else {
