@@ -239,6 +239,11 @@ public class Main {
                             System.out.println("Countdown gagal berjalan");
                         }
                     }
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (Exception e) {
+                    }
                     gameplayThread.interrupt();
                     // Gameplay.setIsEnd(true);
                     gameplay.resetAttributes();

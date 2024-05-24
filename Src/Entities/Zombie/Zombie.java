@@ -83,7 +83,6 @@ public abstract class Zombie extends Entities implements Runnable {
             int[] position = this.getPosition();
             Tile tile = getGameMap().getTile(position[0], position[1]);
             tile.removeEntity(this);
-            System.out.println(this.getName() + " Position is : " + position[0] + " " + position[1]);
             if (zombiThread != null) {
                 zombiThread.interrupt(); // Interrupt the zombie thread
                 try {
