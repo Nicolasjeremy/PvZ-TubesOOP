@@ -39,38 +39,41 @@ public class Gameplay implements Runnable {
             Thread zombieManagerThread = new Thread(zombieManager);
             Sun sun = new Sun();
             Thread sunThread = new Thread(sun);
+            boolean game_end_run = false;
 
             if (isDay) {
                 sunThread.start();
             }
 
-            while (this.getGameMap().getAllZombieinGame().size() == 0) {
+            while (!game_end_run && !Gameplay.getIsEnd()) {
                 
                 if (current_time == 180) {
                     zombieManagerThread.start();
-                } else if (current_time == 40) {
-                    zombieManagerThread.interrupt();
-                }
-                if (current_time == 100) {
+                } else if (current_time == 100) {
                     this.isDay = false;
                     sunThread.interrupt();
                     System.out.println("\nNight has come");
+                } else if (current_time <= 40) {
+                    zombieManagerThread.interrupt();
+                   if ( this.getGameMap().getAllZombieinGame().size() == 0) {
+                       Gameplay.setWinningState(true);
+                       Gameplay.setIsEnd(true);
+                       game_end_run = true;
+                   } 
                 }
                 if (current_time == 0) {
                     System.out.println("Day has come");
-                    current_time = 200;
+                    this.isDay = true;
                 }
                 Thread.sleep(1000);
                 Gameplay.current_time--;
                 // System.out.print(current_time);
             }
-            if (Gameplay.winningstate ==  false) {
+            if (Gameplay.winningstate ==  true) {
                 System.out.println("\nYou win!");
-                Gameplay.setWinningState(true);
             } else {
                 System.out.println("You lose!");
             }
-            Gameplay.setIsEnd(true);
 
         } catch (InterruptedException e) {
             System.out.println("Gameplay stop");

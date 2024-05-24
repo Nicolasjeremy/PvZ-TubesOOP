@@ -212,9 +212,9 @@ public abstract class Zombie extends Entities implements Runnable {
                 nextTile.addEntity(this);
             }
         } else {
-            this.die();
             Gameplay.setIsEnd(true);
             Gameplay.setWinningState(false);
+            this.die();
         }
     }
 

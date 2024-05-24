@@ -158,13 +158,34 @@ public class Main {
 
                 // GamePlay
                 while (gameStatus) {
-                    
-                    System.out.println("\n");
-                    System.out.println("|||STATUS GAME|||");
-                    System.out.println("Current Time: " + Gameplay.getCurrentTime());
-                    System.out.println("Current Sun: " + Sun.getSun());
-                    deck.displayDeck();
-                    System.out.println("\n|||COMMAND GAME|||");
+                    if (Gameplay.getIsEnd()) {
+                        System.out.println("Game Ended!");
+                        for (int i = 0; i < 3; i++) {
+                            try {
+                                Thread.sleep(1000);
+                                System.out.println("Kembali ke Main Menu dalam " + (3 - i) + " detik");
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                System.out.println("Countdown gagal berjalan");
+                            }
+                        }
+                        try {
+                            Thread.sleep(1000);
+                        }
+                        catch (Exception e) {
+                        }
+                        gameplay.resetAttributes();
+                        gameplayThread.interrupt();
+                        gameStatus = false;
+                    }
+                    else {
+
+                        System.out.println("\n");
+                        System.out.println("|||STATUS GAME|||");
+                        System.out.println("Current Time: " + Gameplay.getCurrentTime());
+                        System.out.println("Current Sun: " + Sun.getSun());
+                        deck.displayDeck();
+                        System.out.println("\n|||COMMAND GAME|||");
                     System.out.println("1. Plant");
                     System.out.println("2. Unplant");
                     System.out.println("3. Display Map");
@@ -228,49 +249,29 @@ public class Main {
                                 scanner.nextLine(); // Consume newline
                                 int[] positionToUnplant = { rowToUnplant, colToUnplant };
                                 deck.unPlanting(positionToUnplant);
-
+                                
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid input! Please enter a number.");
                                 scanner.nextLine(); // Consume the invalid input
                             }
                             break;
-                        case 3:
+                            case 3:
                             gameMap.displayMap();
                             break;
-                        case 4:
+                            case 4:
                             System.out.println("Exiting...");
                             gameStatus = false;
                             Gameplay.setIsEnd(true);
                             gameplayThread.interrupt();
                             break;
                         case 5:
-                            System.out.println("Current time: " + Gameplay.getCurrentTime());
+                        System.out.println("Current time: " + Gameplay.getCurrentTime());
                             break;
                         default:
                             System.out.println("Invalid option!");
                             break;
-                    }
-                }
-                if (Gameplay.getIsEnd()) {
-                    System.out.println("Game Ended!");
-                    for (int i = 0; i < 3; i++) {
-                        try {
-                            Thread.sleep(1000);
-                            System.out.println("Kembali ke Main Menu dalam " + (3 - i) + " detik");
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                            System.out.println("Countdown gagal berjalan");
                         }
                     }
-                    try {
-                        Thread.sleep(1000);
-                    }
-                    catch (Exception e) {
-                    }
-                    gameplayThread.interrupt();
-                    gameplay.resetAttributes();
-                    Gameplay.setIsEnd(true);
-                    gameStatus = false;
                 }
                 // if (Gameplay.getWinningState()) {
                 //     System.out.println("You Win!");
