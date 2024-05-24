@@ -176,7 +176,8 @@ public class Gameplay implements Runnable {
         Repeater.setLastPlantedTime(999);
         Snowpea.setLastPlantedTime(999);
         this.entities = new ArrayList<Entities>();
-        this.getGameMap().clearEntities();
+        // this.getGameMap().clearEntities();
+        this.setGameMap(new GameMap());
         Gameplay.current_time = 200;
         this.isDay = true;
         Gameplay.sun = new Sun();
