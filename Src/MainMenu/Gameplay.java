@@ -3,6 +3,16 @@ package Src.MainMenu;
 import java.util.ArrayList;
 
 import Src.Entities.Entities;
+import Src.Entities.Plant.Melee.Jalapeno;
+import Src.Entities.Plant.Melee.Squash;
+import Src.Entities.Plant.Melee.TangleKelp;
+import Src.Entities.Plant.Passive.Lilypad;
+import Src.Entities.Plant.Passive.Sunflower;
+import Src.Entities.Plant.Passive.Tallnut;
+import Src.Entities.Plant.Passive.Wallnut;
+import Src.Entities.Plant.Shooter.Peashooter;
+import Src.Entities.Plant.Shooter.Repeater;
+import Src.Entities.Plant.Shooter.Snowpea;
 import Src.GameMaps.GameMap;
 import Src.GameMaps.Sun;
 import Src.GameMaps.ZombieManager;
@@ -46,7 +56,7 @@ public class Gameplay implements Runnable {
             }
 
             while (!game_end_run && !Gameplay.getIsEnd()) {
-                
+
                 if (current_time == 180) {
                     zombieManagerThread.start();
                 } else if (current_time == 100) {
@@ -55,11 +65,11 @@ public class Gameplay implements Runnable {
                     System.out.println("\nNight has come");
                 } else if (current_time <= 40) {
                     zombieManagerThread.interrupt();
-                   if ( this.getGameMap().getAllZombieinGame().size() == 0) {
-                       Gameplay.setWinningState(true);
-                       Gameplay.setIsEnd(true);
-                       game_end_run = true;
-                   } 
+                    if (this.getGameMap().getAllZombieinGame().size() == 0) {
+                        Gameplay.setWinningState(true);
+                        Gameplay.setIsEnd(true);
+                        game_end_run = true;
+                    }
                 }
                 if (current_time == 0) {
                     System.out.println("Day has come");
@@ -69,7 +79,7 @@ public class Gameplay implements Runnable {
                 Gameplay.current_time--;
                 // System.out.print(current_time);
             }
-            if (Gameplay.winningstate ==  true) {
+            if (Gameplay.winningstate == true) {
                 System.out.println("\nYou win!");
             } else {
                 System.out.println("You lose!");
@@ -155,6 +165,16 @@ public class Gameplay implements Runnable {
 
     // Karena ini game singleton maka harus di reset setiap kali game dimulai
     public void resetAttributes() {
+        Jalapeno.setLastPlantedTime(999);
+        Squash.setLastPlantedTime(999);
+        TangleKelp.setLastPlantedTime(999);
+        Lilypad.setLastPlantedTime(999);
+        Sunflower.setLastPlantedTime(999);
+        Tallnut.setLastPlantedTime(999);
+        Wallnut.setLastPlantedTime(999);
+        Peashooter.setLastPlantedTime(999);
+        Repeater.setLastPlantedTime(999);
+        Snowpea.setLastPlantedTime(999);
         this.entities = new ArrayList<Entities>();
         this.getGameMap().clearEntities();
         Gameplay.current_time = 200;
